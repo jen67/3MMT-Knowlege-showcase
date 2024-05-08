@@ -4,17 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wefind - Connect & Launch Your Career </title>
+    <meta name="description" content="This is a website that connects businesses and Talents together">
+    <meta name="author" content="Gift Amachree, Justine Ugwu, Kahleed, West">
     <link rel="apple-touch-icon" sizes="180x180" href="./Frontend/assets/images/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./Frontend/assets/images/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./Frontend/assets/images/favicon/favicon-16x16.png">
-    <link rel="manifest" href="./Frontend/assets/images/favicon/site.webmanifest">
-
     <link rel="stylesheet" href="./Frontend/css/styles.css">
-    <!-- Add your CSS stylesheets here -->
-    <style>
-        /* Add your CSS styles here */
-    </style>
+    <title>Wefind - Connect & Launch Your Career </title>
+
 </head>
 
 <body>
@@ -53,7 +50,7 @@
         <h2>Benefits for Companies</h2>
         <div class="company-flex">
             <div>
-                <img src="./Frontend/assets/images/business.jpg" alt="">
+                <img src="./Frontend/assets/images/business.jpg" alt="image of business">
             </div>
             <div class="side-content">
                 <p>Joining TConnect offers a multitude of benefits for companies:</p>
@@ -71,7 +68,10 @@
         <!-- Benefits for Talents Section -->
         <div class="benefits-talents">
             <div>
-                <img src="./Frontend/assets/images/Talents.jpg" alt="">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="./Frontend/assets/images/Talents.jpg">
+                    <img src="./Frontend/assets/images/mobile/Talents-m.png" alt="image of Talents">
+                </picture>
             </div>
             <div class="side-content">
                 <h2>Benefits for Talents</h2>
@@ -98,7 +98,7 @@
             <h3>What Our Clients Say</h3>
             <p>Discover how TConnect has transformed the careers of both talents and companies:</p>
         </div>
-        
+
         <ol>
             <li>
                 <p>'Thanks to TConnect, we found the perfect candidate for our team in no time!'</p>
