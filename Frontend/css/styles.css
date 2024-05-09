@@ -6,7 +6,7 @@
 
   /* primary colors
   ============================= */
-
+  --footer-blue: #002880;
   --btn-blue: #0940af;
   --bright: #0c63e7;
   --dbheading: #031633;
@@ -46,7 +46,6 @@
   --fw7: 800;
   --fw8: 900;
 }
-
 
 /** RESET **/
 
@@ -105,22 +104,70 @@ body {
 
 /* general classes 
 ============================= */
+.container-full {
+  width: 100%;
+  margin: 0 auto;
+}
 
 .container {
-  max-width: 80%;
+  max-width: 90%;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-.flex{
+.flex {
   display: flex;
-  justify-content: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-center {
   align-items: center;
 }
 
 
+
+/* colors
+============================= */
+.bg-btn {
+  background-color: var(--btn-blue);
+}
+
+.bg-footer{
+  background-color: var(--footer-blue);
+}
+
+.text-white{
+  color: var(--white);
+}
+
+.header-text-color{
+  color: var(--dbheading);
+}
+
+.paragraph-color{
+  color: var(--paragrah);
+}
+
 .special {
   font-family: var(--ff-salsa);
+  color: var(--bright);
 }
 
 img {
