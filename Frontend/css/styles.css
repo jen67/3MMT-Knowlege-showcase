@@ -60,7 +60,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* reset margins
+/* reset styles
 ============================= */
 body,
 h1,
@@ -89,6 +89,15 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 body {
@@ -174,3 +183,43 @@ img {
   display: block;
   max-width: 100%;
 }
+
+
+/** HEADER STYLES **/
+
+header nav div.logo{
+  width: 80px;
+}
+
+header nav {
+  padding: 1rem;
+}
+
+/* mobile toggle
+============================= */
+
+.open-icon, .close-icon{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.close-icon{
+  display: none;
+}
+
+header nav .toggles img{
+  width: 30px;
+}
+
+
+
+/* mobile nav
+============================= */
+
+ul {
+  display: none;
+}
+
+
+/** HERO STYLES **/
