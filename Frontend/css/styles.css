@@ -1,36 +1,129 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Salsa&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Salsa&display=swap");
 
 :root {
-    /* Primary colors */
-    --btn-blue: #0940AF;
-    --bright: #0C63E7;
-    --dbheading: #031633;
-    --paragrah: #010B1A;
+  /*** COLORS ***/
 
-  /* neutrals */
+  /* primary colors
+  ============================= */
+
+  --btn-blue: #0940af;
+  --bright: #0c63e7;
+  --dbheading: #031633;
+  --paragrah: #010b1a;
+
+  /* secondary colors
+  ============================= */
   --white: #ffffff;
   --light-blue: #f8f9fb;
+
+  /* font-families
+  ============================= */
+  --ff-salsa: "Salsa", cursive;
+  --ff-poppins: "Poppins", sans-serif;
+
+  /* font-sizes
+  ============================= */
+  --fs1: 0.8rem;
+  --fs2: 1rem;
+  --fs3: 1.5rem;
+  --fs4: 2rem;
+  --fs5: 2.5rem;
+  --fs6: 3rem;
+  --fs7: 3.5rem;
+  --fs8: 4rem;
+  --fs9: 4.5rem;
+  --fs10: 5rem;
+
+  /* font-weights
+  ============================= */
+  --fw1: 200;
+  --fw2: 300;
+  --fw3: 400;
+  --fw4: 500;
+  --fw5: 600;
+  --fw6: 700;
+  --fw7: 800;
+  --fw8: 900;
 }
 
-*, *::before, *::after {
+
+/** RESET **/
+
+/* general reset 
+============================= */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
 }
 
-.special{
-  font-family: 'Salsa', cursive;
+/* reset margins
+============================= */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+picture {
+  margin: 0;
 }
 
-img{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: var(--fw3);
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+body {
+  font-family: var(--ff-poppins);
+  font-size: var(--fs2);
+  line-height: 1.5;
+  color: var(--paragrah);
+  min-height: 100vh;
+}
+
+
+/** ULTILITY CLASSES **/
+
+/* general classes 
+============================= */
+
+.container {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.special {
+  font-family: var(--ff-salsa);
+}
+
+img {
   display: block;
   max-width: 100%;
 }
-
-
-
-
-
