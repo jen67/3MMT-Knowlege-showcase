@@ -223,6 +223,7 @@ header nav .toggles img {
 ============================= */
 
 ul {
+  display: none;
   background-color: var(--white);
   z-index: 1000;
   position: fixed;
