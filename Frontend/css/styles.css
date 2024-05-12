@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Salsa&display=swap");
 
 :root {
-
   /*** COLORS ***/
 
   /* primary colors
@@ -126,12 +125,16 @@ body {
   margin: 0 auto;
 }
 
-.container {
+/* .container {
   max-width: 90%;
   margin: 0 auto;
   padding: 0 1rem;
+} */
+.container {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 .flex {
   display: flex;
 }
@@ -190,7 +193,6 @@ img {
   max-width: 100%;
 }
 
-
 /** HEADER STYLES **/
 
 header nav div.logo {
@@ -222,7 +224,7 @@ header nav .toggles img {
 /* mobile nav
 ============================= */
 
-ul {
+header ul {
   display: none;
   background-color: var(--white);
   z-index: 1000;
@@ -234,6 +236,76 @@ ul {
 }
 
 /** HERO STYLES **/
+#hero {
+  height: 110vh;
+  width: 100%;
+  background-image: url(../assets/images/header-bg.jpg);
+  background-position: right 55%;
+  background-size: cover;
+}
+
+#hero .container {
+  width: 90%;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.info .header-text-color {
+  width: 85%;
+  font-weight: bolder;
+  font-size: 55px;
+  line-height: 60px;
+  margin: auto;
+}
+
+.info p {
+  width: 50%;
+  font-weight: bold;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  margin: auto;
+}
+
+.button {
+  width: 150px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #0d0e0f;
+  font-weight: bold;
+  border: 2px solid #0940af;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: #0940af;
+  color: #ffffff;
+}
+
+/* =======Benefits for Companies Section */
+
+.company-flex {
+  display: flex;
+}
+
+/* .company-flex img {
+  width: 50%;
+} */
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.col-1-2 {
+  width: 50%;
+  float: left;
+  padding: 10px;
+}
 
 #hero {
   height: 100vh;
