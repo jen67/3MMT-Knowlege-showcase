@@ -1,0 +1,273 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Salsa&display=swap");
+
+:root {
+  /*** COLORS ***/
+  /* primary colors
+  ============================= */
+  --footer-blue: #002880; 
+  --btn-blue: #0940af;
+  --bright: #0c63e7;
+  --dbheading: #031633;
+  --paragrah: #010b1a;
+  --accent: #E7900C;
+
+  /* secondary colors
+  ============================= */
+  --white: #ffffff;
+  --light-blue: #f8f9fb;
+  --vlight-blue: #E3EDFE;
+
+  /* font-families
+  ============================= */
+  --ff-salsa: "Salsa", cursive;
+  --ff-poppins: "Poppins", sans-serif;
+
+  /* font-sizes
+  ============================= */
+  --fs1: 0.8rem;
+  --fs2: 1rem;
+  --fs3: 1.5rem;
+  --fs4: 2rem;
+  --fs5: 2.5rem;
+  --fs6: 3rem;
+  --fs7: 3.5rem;
+  --fs8: 4rem;
+  --fs9: 4.5rem;
+  --fs10: 5rem;
+
+  /* font-weights
+  ============================= */
+  --fw1: 200;
+  --fw2: 300;
+  --fw3: 400;
+  --fw4: 500;
+  --fw5: 600;
+  --fw6: 700;
+  --fw7: 800;
+  --fw8: 900;
+
+  /* padding
+  ============================= */
+  --pad1: 0.5rem;
+  --pad2: 1rem;
+  --pad3: 1.5rem;
+  --pad4: 2rem;
+  --pad5: 2.5rem;
+  --pad6: 3rem;
+  --pad7: 3.5rem;
+  --pad8: 4rem;
+  --pad9: 4.5rem;
+  --pad10: 5rem;
+
+  /* margin
+  ============================= */
+  --mar1: 0.5rem;
+  --mar2: 1rem;
+  --mar3: 1.5rem;
+  --mar4: 2rem;
+  --mar5: 2.5rem;
+  --mar6: 3rem;
+  --mar7: 3.5rem;
+  --mar8: 4rem;
+  --mar9: 4.5rem;
+  --mar10: 5rem;
+}
+
+/** RESET **/
+/* general reset 
+============================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+/* reset styles
+============================= */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+picture {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: var(--fw3);
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  font-family: var(--ff-poppins);
+  font-size: var(--fs2);
+  line-height: 1.5;
+  color: var(--paragrah);
+  min-height: 100vh;
+}
+
+/** ULTILITY CLASSES **/
+/* general classes 
+============================= */
+/* center items */
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* full width container */
+.container-full {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* container with padding 
+=================================*/
+.container {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* flex classes 
+============================= */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
+}
+
+/* Cursor event
+============================= */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* colors
+============================= */
+.bg-btn {
+  background-color: var(--btn-blue);
+}
+
+.bg-white {
+  background-color: var(--white);
+}
+.bg-footer {
+  background-color: var(--footer-blue);
+}
+
+.text-white {
+  color: var(--white);
+}
+
+.header-text-color {
+  color: var(--dbheading);
+}
+
+.paragraph-color {
+  color: var(--paragrah);
+}
+
+.special {
+  font-family: var(--ff-salsa);
+  color: var(--bright);
+}
+
+/* display classes
+============================= */
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-inline {
+  display: inline;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+/* buttons 
+===================================*/
+
+.blue-btn{
+  background-color: var(--btn-blue);
+  color: var(--white);
+  padding: var(--pad2);
+  width: 100%;
+  border-radius: 5px;
+  font-size: var(--fs2);
+  font-weight: var(--fw3);
+  cursor: pointer;
+  outline: none;
+  border: none;
+  transition: background-color 0.3s ease, font-weight 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.blue-btn:hover{
+  background-color: var(--bright);
+  font-weight: var(--fw5);
+  letter-spacing: 1px;
+}
+
+.blue-btn:active {
+  transform: scale(0.95);
+}
+

@@ -1,0 +1,96 @@
+#faqs{
+    padding: var(--pad9) var(--pad2); 
+    height: 1000px;
+   
+}
+
+#faqs h2 {
+  font-size: var(--fs4);
+  font-weight: var(--fw5);
+  margin-bottom: var(--mar2);
+}
+
+.faq-header h3 {
+  font-size: 1.1rem;
+  width: 300px;
+  font-weight: var(--fw5);
+  height: 50px;
+  transition: color 0.3s ease-in-out;
+}
+
+.faq-header h3:hover{
+    color: var(--bright);
+}
+
+.faq-header {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: var(--mar2);
+  display: flex;
+  justify-content: space-between;
+  padding: var(--pad2);
+  gap: 1rem;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.faq-header img {
+  width: 14px;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.expanded {
+  background-color: var(--light-blue);
+  padding: var(--pad2);
+  margin-top: var(--mar1);
+  font-size: 0.9rem;
+  
+}
+
+@media screen and (min-width: 768px) {
+
+    #faqs{
+        height: 1100px;
+    }
+
+  .faq-section {
+    max-width: 80vw;
+    margin: 0 auto;
+    padding: var(--pad10) var(--pad2);
+  }
+
+  #faqs h2 {
+    margin-bottom: var(--mar6);
+  }
+
+  .faq-header h3 {
+    width: 350px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .faq-section {
+    max-width: 60vw;
+    padding: 11rem var(--pad2);
+  }
+
+  #faqs h2 {
+    margin-bottom: var(--mar4);
+  }
+
+  .faq-header {
+    padding: var(--pad2) var(--pad4);
+  }
+
+  .expanded {
+    padding: var(--pad4);
+  }
+
+  .faq-header h3 {
+    width: 100%;
+  }
+
+  #faqs{
+    height: 1200px;
+  }
+}

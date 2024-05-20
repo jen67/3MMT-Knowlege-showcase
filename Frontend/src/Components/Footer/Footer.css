@@ -1,0 +1,116 @@
+/* general padding for the contact, logo-div, nav and social div and fontweights for their respective headings
+=========================================*/
+
+.logo-div,
+.contact,
+nav,
+.social {
+  padding: var(--pad1) 0;
+}
+
+.social h3,
+nav h3,
+.contact h3 {
+  font-weight: var(--fw5);
+}
+
+.logo-div img {
+  width: 100px;
+}
+
+.flex-items {
+    padding: var(--pad3);
+  background-color: var(--vlight-blue);
+}
+
+
+/* styles for the footer contact part
+=========================================*/
+
+.contact p img {
+  width: 25px;
+}
+
+.contact p {
+  margin: var(--mar1) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--pad1);
+}
+
+/* nav links styles for the footer 
+===========================================*/
+nav ul li .blue-btn {
+  width: 160px;
+  padding: var(--pad1);
+  margin: var(--mar1) 0;
+  transition: color 0.3s ease-in-out;
+}
+
+nav ul li:hover {
+  color: var(--bright);
+}
+
+/* styles for the footer social icons
+===========================================*/
+
+.social-links {
+  margin-top: 0.5rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.social div img {
+  width: 25px;
+  transition: transform 0.3s ease;
+}
+
+.social div img:hover,
+.social-links div img:focus {
+  transform: scale(1.1);
+}
+
+.copyright {
+  background-color: var(--footer-blue);
+  padding: var(--pad4)  0;
+  color: var(--white);
+  text-align: center;
+}
+
+
+/* styles for larger screens
+===========================================*/
+
+@media screen and (min-width: 768px) {
+  .flex-items {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: var(--pad4) var(--pad2);
+    font-size: var(--fs1);
+  }
+
+  nav ul li .blue-btn{
+    font-size:var(--fs1);
+  }
+
+  .flex-items > * {
+    flex: 1;
+  }
+
+  .logo-div p {
+    margin-top: var(--mar1);
+  }
+
+}
+
+@media screen and (min-width: 1024px) {
+    .flex-items{
+        padding: var(--pad9);
+        font-size: var(--fs2);
+    }
+
+      nav ul li .blue-btn{
+    font-size:var(--fs2);
+  }
+}

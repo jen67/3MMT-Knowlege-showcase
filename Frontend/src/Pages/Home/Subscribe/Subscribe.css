@@ -1,0 +1,112 @@
+form input:-webkit-autofill,
+form input:-webkit-autofill:hover,
+form input:-webkit-autofill:focus,
+form input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.subscribe {
+  color: var(--white);
+  flex-direction: column;
+  padding: var(--pad9) var(--pad2);
+}
+
+.subscribe h2 {
+  font-size: var(--fs4);
+  line-height: 1.4;
+  font-weight: var(--fw4);
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: var(--mar4);
+}
+
+form input {
+  outline: none;
+  border: none;
+  width: 100%;
+  padding: var(--pad2);
+  border-radius: 5px;
+  text-align: center;
+  border: 2px solid transparent;
+}
+
+form input:focus {
+  outline: none;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 4px var(--accent);
+}
+
+form button {
+  background-color: var(--accent);
+  padding: var(--pad2);
+  margin-top: var(--mar2);
+  border-radius: 5px;
+  font-size: var(--fs2);
+  font-weight: var(--fw5);
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  transition: background-color 0.3s ease, font-weight 0.3s ease, color 0.3s ease;
+}
+
+form button:hover {
+  background-color: var(--bright);
+  font-weight: var(--fw5);
+  color: var(--white);
+}
+
+form button:active {
+  transform: scale(0.95);
+}
+
+form input:focus {
+  outline: none;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+@media screen and (min-width: 768px) {
+  form {
+    width: 80vw;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--mar6);
+    background-color: var(--white);
+    padding: 0.2rem 1rem 0.2rem 0.2rem;
+    border-radius: 5px;
+  }
+
+  form input {
+    width: 60vw;
+    text-align: left;
+  }
+
+  .subscribe h2 {
+    font-size: var(--fs5);
+    line-height: 1.2;
+  }
+
+  form button{
+    margin-left: var(--mar4);
+    margin-top: 0;
+    padding: var(--pad1) var(--pad4);
+    width: 200px;
+  }
+
+}
+
+@media screen  and (min-width: 1024px){
+    form{
+        width: 50vw; 
+    }
+    
+}
