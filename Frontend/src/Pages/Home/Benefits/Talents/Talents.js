@@ -3,10 +3,10 @@ import "./Talents.css";
 
 const Talents = () => {
     return (
-      <section>
+      <section id="Talents">
+        <h2>Benefits for Talents</h2>
         <div className="benefits-talents">
-          <div>
-            <h2>Benefits for Talents</h2>
+          <div className="Talent-container">
             <div className="Talents">
               <img
                 src={images.talentImg}
@@ -16,7 +16,9 @@ const Talents = () => {
             <div className="company-flex">
               <div className="row">
                 <div className="col-1-2 side-content">
-                  <p className="Talent-header">Talents on Wefind enjoy a host of benefits:</p>
+                  <p className="Talent-header">
+                    Talents on Wefind enjoy a host of benefits:
+                  </p>
                   <ul>
                     <li>
                       Access to a wide range of job opportunities across various
