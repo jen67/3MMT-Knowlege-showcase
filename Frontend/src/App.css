@@ -271,3 +271,18 @@ body {
   transform: scale(0.95);
 }
 
+
+.white-button{
+  outline: none;
+  border: 1px solid var(--btn-blue);
+  padding: var(--pad1) var(--pad4);
+  background-color: var(--white);
+  border-radius: 5px;
+  color: var(--btn-blue);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.white-button:hover{
+  background-color: var(--btn-blue);
+  color: var(--white);
+}

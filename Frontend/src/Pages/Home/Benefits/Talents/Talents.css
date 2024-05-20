@@ -1,0 +1,23 @@
+h2{
+    font-size: var(--fs4);
+    padding: var(--pad4) 0;
+    font-weight: var(--fw5);
+}
+
+.white-button{
+    width: 100%;
+    margin-top: var(--mar4);
+}
+
+.benefits-talents{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.Talents img{
+    width: 100%;
+}
+
+.Talents{
+    padding-bottom: var(--pad4);
+}
