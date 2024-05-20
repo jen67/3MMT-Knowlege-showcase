@@ -5,7 +5,7 @@ const Talents = () => {
     return (
       <section>
         <div className="benefits-talents">
-          <div className="container">
+          <div>
             <h2>Benefits for Talents</h2>
             <div className="Talents">
               <img
