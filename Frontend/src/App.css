@@ -142,6 +142,10 @@ body {
 /** ULTILITY CLASSES **/
 /* general classes 
 ============================= */
+
+button{
+  cursor: pointer;
+}
 /* center items */
 .center-content {
   display: flex;

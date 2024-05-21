@@ -1,11 +1,21 @@
-import "./Hero.css";
+import React from 'react';
+import './Hero.css';
+import images from '../../../Components/images';
 
-const Hero = () => {
+function Hero() {
+  const herostyle = {
+    backgroundImage: `url(${images.hompbg})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  };
+
   return (
     <section id="hero" className="Hero-section">
+      <div className="background" style={herostyle}></div>
       <div className="container">
         <div className="info">
-          <h1 className="header-text-color">
+          <h1>
             Fuel Startup Growth. Launch Your Career. Connect on
             <span className="special">Wefind.</span>
           </h1>
@@ -21,5 +31,6 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+}
+
 export default Hero;
