@@ -9,7 +9,7 @@ def main():
 
     name = input('Enter your name: ')
     email = input('Enter your email: ').strip().lower()
-    skills = ["flask", "python", "mongo"]
+    skills = list(input('Enter your skills (space separated): ').split(' '))
 
     old_account = svc.find_user_my_email(email)
     if old_account:
