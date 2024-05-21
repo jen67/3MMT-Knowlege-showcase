@@ -1,18 +1,26 @@
-#Talents {
+#Talents-h {
   padding: var(--pad2);
+  background-color: var(--white);
 }
 
-#Talents h2 {
+#Talents-h h2 {
   text-align: center;
   font-size: var(--fs4);
-  padding: var(--pad4) 0 var(--pad5) 0;
+  padding: 0 0 var(--pad5) 0;
   font-weight: var(--fw5);
 }
 
-#Talents .white-button {
+#Talents-h .white-button {
   width: 100%;
   margin-top: var(--mar4);
   font-weight: var(--fw5);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+#Talents-h .white-button:active {
+  transform: scale(0.95);
 }
 
 .benefits-talents {
@@ -50,8 +58,12 @@
 }
 
 @media screen and (min-width: 1024px) {
-  #Talents {
-    padding: var(--pad4) var(--pad9) var(--pad9) var(--pad9);
+  #Talents-h {
+    padding: var(--pad4) var(--pad9) var(--pad10) var(--pad9);
+  }
+
+  .Talents {
+    padding-bottom: 0;
   }
 
   .Talent-container {
@@ -69,13 +81,14 @@
     padding-bottom: 0;
   }
 
-  #Talents .white-button {
+  #Talents-h .white-button {
     width: 200px;
-    margin-top: var(--mar2);
+    margin-top: 0;
+    padding: var(--pad1) var(--pad2);
   }
 
   .Talents-btext {
-    padding: var(--pad2) var(--pad10) var(--pad4) 0;
+    padding: 0 var(--pad9) var(--pad4) 0;
   }
 
   .Talent-header {

@@ -275,7 +275,7 @@ body {
 .white-button{
   outline: none;
   border: 1px solid var(--btn-blue);
-  padding: var(--pad1) var(--pad4);
+  padding: var(--pad2);
   background-color: var(--white);
   border-radius: 5px;
   color: var(--btn-blue);
