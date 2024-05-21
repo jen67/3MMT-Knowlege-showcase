@@ -7,7 +7,7 @@ class User(mongoengine.Document):
     name = mongoengine.StringField(required=True)
     email = mongoengine.StringField(required=True)
 
-    skills = mongoengine.ListField()
+    skills = mongoengine.ListField(required=True)
 
     meta = {
         'db_alias': 'core',
