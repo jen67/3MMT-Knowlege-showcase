@@ -36,7 +36,7 @@ const Talents = () => {
                       thrive in your career.
                     </li>
                   </ul>
-                  <p>
+                  <p className="Talents-btext">
                     Unlock endless possibilities and take control of your career
                     journey with Wefind!
                   </p>

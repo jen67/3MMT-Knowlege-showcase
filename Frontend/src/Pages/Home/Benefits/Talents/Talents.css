@@ -5,11 +5,11 @@
 #Talents h2 {
   text-align: center;
   font-size: var(--fs4);
-  padding: var(--pad4) 0;
+  padding: var(--pad4) 0 var(--pad5) 0;
   font-weight: var(--fw5);
 }
 
-.white-button {
+#Talents .white-button {
   width: 100%;
   margin-top: var(--mar4);
   font-weight: var(--fw5);
@@ -22,6 +22,10 @@
 
 .Talents img {
   width: 100%;
+}
+
+.company-flex {
+  padding-bottom: var(--pad9);
 }
 
 .Talents {
@@ -39,18 +43,53 @@
 .benefits-talents ul {
   padding-left: var(--pad4);
 }
+
 .benefits-talents ul li {
   list-style-type: square;
   padding-bottom: var(--pad2);
 }
 
-@media screen and (min-width: 768px) {
-  .Talent-container{
-    display: flex;
-    gap: 1rem;
+@media screen and (min-width: 1024px) {
+  #Talents {
+    padding: var(--pad4) var(--pad9) var(--pad9) var(--pad9);
   }
 
-  .Talent-container > *{
+  .Talent-container {
+    display: flex;
+    gap: 3rem;
+    align-items: stretch;
+    height: 100%;
+  }
+
+  .Talent-container > * {
     flex: 1;
+  }
+
+  .company-flex {
+    padding-bottom: 0;
+  }
+
+  #Talents .white-button {
+    width: 200px;
+    margin-top: var(--mar2);
+  }
+
+  .Talents-btext {
+    padding: var(--pad2) var(--pad10) var(--pad4) 0;
+  }
+
+  .Talent-header {
+    padding-top: 0;
+  }
+
+  .Talents img {
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .Talent-container {
+    gap: 6rem;
   }
 }
