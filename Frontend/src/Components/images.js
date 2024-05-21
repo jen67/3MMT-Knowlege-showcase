@@ -26,6 +26,15 @@ import alexandraM from "../assets/images/alexandraM.png";
 import hompbg1 from "../assets/images/hompbg2.jpg";
 import hompbg2 from "../assets/images/hompbg3.jpg";
 import hompbg3 from "../assets/images/hompbg4.jpg";
+import Collaboration from "../assets/images/Collaboration.png";
+import Customization from "../assets/images/Customization.png";
+import Empowerment from "../assets/images/Empowerment.png";
+import Innovation from "../assets/images/Innovation.png";
+import aboutusBg from "../assets/images/aboutus-bg.png";
+import mission from "../assets/images/mission.png";
+import vision from "../assets/images/vision.png";
+import whoWeAre from "../assets/images/who-we-are.png";
+
 
 
 const images = {
@@ -57,6 +66,14 @@ const images = {
   hompbg1,
   hompbg2,
   hompbg3,
+  Collaboration,
+  Customization,
+  Empowerment,
+  Innovation,
+  aboutusBg,
+  mission,
+  vision,
+  whoWeAre
 };
 
 
