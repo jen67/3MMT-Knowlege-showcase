@@ -8,6 +8,7 @@ import Talents from "./Benefits/Talents/Talents";
 import Company from "./Benefits/Company/Company";
 import Hero from "./Hero/Hero";
 
+
 const Home = () => {
   return (
     <>

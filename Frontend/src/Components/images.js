@@ -23,6 +23,9 @@ import business from "../assets/images/business.jpg";
 import sarahL from "../assets/images/Sarah-Leeh.png";
 import network from "../assets/images/network-connections.jpg";
 import alexandraM from "../assets/images/alexandraM.png";
+import hompbg1 from "../assets/images/hompbg2.jpg";
+import hompbg2 from "../assets/images/hompbg3.jpg";
+import hompbg3 from "../assets/images/hompbg4.jpg";
 
 
 const images = {
@@ -50,7 +53,10 @@ const images = {
   business,
   sarahL,
   network,
-  alexandraM
+  alexandraM,
+  hompbg1,
+  hompbg2,
+  hompbg3,
 };
 
 
