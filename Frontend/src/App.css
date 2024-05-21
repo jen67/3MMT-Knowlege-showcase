@@ -283,10 +283,37 @@ button{
   background-color: var(--white);
   border-radius: 5px;
   color: var(--btn-blue);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease, color 0.3s ease;
 }
 
 .white-button:hover{
   background-color: var(--btn-blue);
   color: var(--white);
+}
+
+.white-button:active {
+  transform: scale(0.95);
+}
+
+.business-button {
+  width: 100%;
+  margin-top: var(--mar4);
+  font-weight: var(--fw5);
+  outline: none;
+  border: none;
+  background-color: var(--footer-blue);
+  padding: var(--pad2);
+  color: var(--white);
+  border-radius: 5px;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.business-button:hover {
+  background-color: var(--bright);
+  color: var(--white);
+}
+
+ .business-button:active {
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  transform: scale(0.98);
 }

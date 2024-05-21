@@ -1,10 +1,9 @@
 .Hero-section {
-  height: 100vh;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--pad2);
+  padding: 10rem var(--pad2) var(--pad9) var(--pad2);
   background-color: var(--light-blue);
   z-index: 2;
   text-align: center;
@@ -35,4 +34,44 @@
 
 .info p{
     padding: var(--pad2) 0;
+}
+
+
+.btn .white-button {
+  width: 100%;
+  margin-top: var(--mar3);
+  font-weight: var(--fw5);
+}
+
+
+@media  screen and (min-width: 768px) {
+    .info h1 {
+        font-size: var(--fs5);
+    }
+
+    .btn{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn .business-button, .btn .white-button {
+        width: 200px;
+        margin-top: var(--mar4);
+        padding: var(--pad2);
+    }
+}
+
+
+@media screen and (min-width: 1024px){
+    .Hero-section {
+       height: 100vh;
+       padding: 0 var(--pad8) 0 var(--pad8);
+    }
+
+    .info h1 {
+        font-size: var(--fs6);
+    }
+
 }

@@ -24,8 +24,8 @@ function Hero() {
             careers. Join Wefind, your gateway to success!
           </p>
           <div className="btn">
-            <button className="button company">Companies</button>
-            <button className="button">Talents</button>
+            <button className="business-button">Companies</button>
+            <button className="white-button">Talents</button>
           </div>
         </div>
       </div>
