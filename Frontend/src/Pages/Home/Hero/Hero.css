@@ -23,19 +23,18 @@
 
 .info h1 {
   color: var(--dbheading);
-  font-size:1.85rem;
+  font-size: 1.85rem;
   line-height: 1.2;
   font-weight: var(--fw5);
 }
 
-.info span{
-    margin-left: var(--mar1)
+.info span {
+  margin-left: var(--mar1);
 }
 
-.info p{
-    padding: var(--pad2) 0;
+.info p {
+  padding: var(--pad2) 0;
 }
-
 
 .btn .white-button {
   width: 100%;
@@ -43,35 +42,49 @@
   font-weight: var(--fw5);
 }
 
+@media screen and (min-width: 768px) {
+  .info p {
+    padding: var(--pad2) 0;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .info h1 {
+    font-size: var(--fs5);
+  }
 
-@media  screen and (min-width: 768px) {
-    .info h1 {
-        font-size: var(--fs5);
-    }
+  .btn {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .btn{
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .btn .business-button, .btn .white-button {
-        width: 200px;
-        margin-top: var(--mar4);
-        padding: var(--pad2);
-    }
+  .btn .business-button,
+  .btn .white-button {
+    width: 200px;
+    margin-top: var(--mar4);
+    padding: 0.8rem;
+  }
 }
 
+@media screen and (min-width: 1024px) {
+  .Hero-section {
+    height: 100vh;
+    padding: 0 var(--pad8) 0 var(--pad8);
+  }
 
-@media screen and (min-width: 1024px){
-    .Hero-section {
-       height: 100vh;
-       padding: 0 var(--pad8) 0 var(--pad8);
+  .info h1 {
+    font-size: var(--fs6);
+    max-width: 1200px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+    .info h1{
+        font-size: var(--fs8);
     }
 
-    .info h1 {
-        font-size: var(--fs6);
-    }
-
+    .info p {
+    padding: var(--pad2) 0 var(--pad3) 0;
+  }
 }

@@ -13,7 +13,7 @@ function Hero() {
   return (
     <section id="hero" className="Hero-section">
       <div className="background" style={herostyle}></div>
-      <div className="container">
+      <div>
         <div className="info">
           <h1>
             Fuel Startup Growth. Launch Your Career. Connect on
