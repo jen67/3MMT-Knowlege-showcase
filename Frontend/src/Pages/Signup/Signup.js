@@ -1,14 +1,14 @@
-// SignupForm.js
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import "./Signup.css";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
   mobile: yup.string().required("Mobile Number is required"),
-  companyName: yup.string().required("Company Name is required"),
+  companyName: yup.string(),
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
     .string()
@@ -36,27 +36,70 @@ const jobCategories = [
   "Machine Learning Engineer",
 ];
 
+
 const Signup = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
+    reset,
+    watch,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const currentSelectionWatch = watch("currentSelection");
+  const [currentSelection, setCurrentSelection] = useState("Company");
+  const [showModal, setShowModal] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [redirecting, setRedirecting] = useState(false);
+  const navigate = useNavigate();
+
+  const handleToggle = (selection) => {
+    setCurrentSelection(selection);
   };
 
-    const [currentSelection, setCurrentSelection] = useState("Company");
+  const onSubmit = (data) => {
+    if (currentSelection === "Company" && !data.companyName) {
+      setError("companyName", {
+        type: "required",
+        message: "Company Name is required",
+      });
+      return;
+    }
+    console.log(data);
+    setShowModal(true);
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 10;
+      setLoadingProgress(progress);
+      if (progress === 100) {
+        clearInterval(interval);
+        setRedirecting(true); // Set redirecting to true
+        setTimeout(() => {
+          reset();
+          setRedirecting(false); // Set redirecting back to false after a delay
+          setShowModal(false); // Hide the modal after the redirecting text has been displayed
+          navigate("/dashboard");
+        }, 2000);
+      }
+    }, 500);
+  };
 
-    const handleToggle = (selection) => {
-      setCurrentSelection(selection);
-    };
+  useEffect(() => {
+    if (currentSelectionWatch === "Company") {
+      register("companyName", {
+        required: "Company Name is required",
+      });
+    } else {
+      setValue("companyName", "");
+    }
+  }, [currentSelectionWatch, register, setValue]);
 
   return (
-    <section class="signupform">
+    <section className="signupform">
       <div className="toggle-container">
         <button
           onClick={() => handleToggle("Company")}
@@ -74,19 +117,36 @@ const Signup = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
         <div className="form-group">
           <label htmlFor="name">Name</label>
-          <input id="name" type="text" {...register("name")} />
+          <input
+            id="name"
+            type="text"
+            {...register("name")}
+            placeholder="Enter your name"
+          />
           {errors.name && <p className="error">{errors.name.message}</p>}
         </div>
         <div className="form-group">
           <label htmlFor="mobile">Mobile Number</label>
-          <input id="mobile" type="text" {...register("mobile")} />
+          <input
+            id="mobile"
+            type="text"
+            {...register("mobile")}
+            placeholder="Enter your mobile number"
+          />
           {errors.mobile && <p className="error">{errors.mobile.message}</p>}
         </div>
-
         {currentSelection === "Company" && (
           <div className="form-group">
             <label htmlFor="companyName">Company Name</label>
-            <input id="companyName" type="text" {...register("companyName")} />
+            <input
+              id="companyName"
+              type="text"
+              {...register("companyName", {
+                required:
+                  currentSelection === "Company" && "Company Name is required",
+              })}
+              placeholder="Enter your company name"
+            />
             {errors.companyName && (
               <p className="error">{errors.companyName.message}</p>
             )}
@@ -94,12 +154,24 @@ const Signup = () => {
         )}
         <div className="form-group">
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" {...register("email")} />
+          <input
+            id="email"
+            type="email"
+            {...register("email")}
+            autoComplete="username"
+            placeholder="Enter your email"
+          />
           {errors.email && <p className="error">{errors.email.message}</p>}
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
-          <input id="password" type="password" {...register("password")} />
+          <input
+            id="password"
+            type="password"
+            {...register("password")}
+            autoComplete="new-password"
+            placeholder="Enter your password"
+          />
           {errors.password && (
             <p className="error">{errors.password.message}</p>
           )}
@@ -110,6 +182,8 @@ const Signup = () => {
             id="confirmPassword"
             type="password"
             {...register("confirmPassword")}
+            autoComplete="new-password"
+            placeholder="Confirm your password"
           />
           {errors.confirmPassword && (
             <p className="error">{errors.confirmPassword.message}</p>
@@ -118,7 +192,7 @@ const Signup = () => {
         <div className="form-group">
           <label htmlFor="category">Select Category</label>
           <select id="category" {...register("category")}>
-            <option value="">Please Select Your Category</option>
+            <option value="" ></option>
             {jobCategories.map((category, index) => (
               <option key={index} value={category}>
                 {category}
@@ -133,6 +207,21 @@ const Signup = () => {
           Sign up
         </button>
       </form>
+
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Account created successfully!</h2>
+            <div className="loading-bar">
+              <div
+                className="loading-progress"
+                style={{ width: `${loadingProgress}%` }}
+              />
+            </div>
+            {redirecting && <p>Redirecting to dashboard...</p>}
+          </div>
+        </div>
+      )}
     </section>
   );
 };

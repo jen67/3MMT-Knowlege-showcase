@@ -3,25 +3,23 @@
     min-height: 100vh;
     background-color: var(--formbg);
     margin: 0 auto;
-    padding: 12rem var(--pad4);
+    padding: 12rem var(--pad2);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
-
 }
-
 
 .form-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   background: var(--white); 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   justify-content: center;
+  width: 100%;
+  max-width: 700px;
 }
 
 .form-group {
@@ -33,28 +31,53 @@
 .form-group label {
   position: absolute;
   top: -10px; 
-  left: 20px; 
+  left: 10px; 
   background: white;
   padding: 0 5px;
   font-size: 0.875rem;
   transition: all 0.3s;
   pointer-events: none;
-  color: var(--paragraph);
+  color: #6C6A6A;
 }
+
 
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 10px;
+  padding: 1.1rem 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  text-align: left;
+  outline: none;
+  appearance: none; 
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  cursor: pointer;
+}
+
+
+  .form-group select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><polygon points='0,0 10,0 5,5' fill='%23333'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+}
+
+.form-group select option {
+  padding-bottom: 30px;
+  
+}
+
+
+
+.form-group input::placeholder{
+  font-size: 0.9rem;
+  color: #AFADAD;
 }
 
 
 .form-group .error {
   color: red;
   font-size: 0.875rem;
-  position: absolute;
  
 }
 
@@ -69,4 +92,56 @@
 
 .submit-button:hover {
   background-color: #0056b3;
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.loading-bar {
+  background-color: #f3f3f3;
+  height: 20px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.loading-progress {
+  background-color: #4caf50;
+  height: 100%;
+  transition: width 0.4s ease-in-out;
+}
+
+.select-container {
+  position: relative;
+  
+  border-radius: 4px;
+}
+
+.select-label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: white;
+  padding: 0 5px;
 }

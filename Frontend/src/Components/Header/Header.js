@@ -14,7 +14,8 @@ const Header = () => {
   };
 
   const navigateToSignup = () => {
-    navigate("/Signup"); // Navigate to Signup page
+    navigate("/Signup");
+    setIsOpen(false);// Navigate to Signup page
   };
 
   return (
@@ -94,10 +95,17 @@ const Header = () => {
           </ul>
 
           <div className="btn-container">
-            <button className="blue-btn" onClick={navigateToSignup}>Get Started</button> {/* Add onClick handler here */}
+            <button className="blue-btn" onClick={navigateToSignup}>
+              Get Started
+            </button>
           </div>
         </div>
-        {isOpen && <div className="transparent-background open"></div>}
+        {isOpen && (
+          <div
+            className="transparent-background open"
+            onClick={() => setIsOpen(false)}
+          ></div>
+        )}
       </nav>
     </header>
   );
