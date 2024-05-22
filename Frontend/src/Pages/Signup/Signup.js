@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import CustomSelect from "../../Components/CustomSelect";
 import "./Signup.css";
 
 const schema = yup.object().shape({
@@ -35,7 +36,6 @@ const jobCategories = [
   "Cloud Engineer",
   "Machine Learning Engineer",
 ];
-
 
 const Signup = () => {
   const {
@@ -190,15 +190,19 @@ const Signup = () => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="category">Select Category</label>
-          <select id="category" {...register("category")}>
-            <option value="" ></option>
-            {jobCategories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
+          <label htmlFor="category" className="select-label">
+            Select Category
+          </label>
+          <CustomSelect
+  options={jobCategories.map((category) => ({
+    value: category,
+    label: category,
+  }))}
+  onSelectChange={(option) => setValue("category", option)}
+  value={watch("category")}
+  name="category"
+  placeholder="Select Category"
+/>
           {errors.category && (
             <p className="error">{errors.category.message}</p>
           )}

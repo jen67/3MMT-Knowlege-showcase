@@ -16,14 +16,17 @@ const CustomSelect = ({
   };
 
   const handleOptionClick = (option) => {
-    onSelectChange(option);
+    onSelectChange(option.value);
     setIsOpen(false);
   };
 
   return (
     <div className={`custom-select ${isOpen ? "open" : ""}`}>
-      <div className="selected-option" onClick={toggleDropdown}>
-        {value ? value.label : placeholder}
+      <div
+        className={`selected-option ${!value ? "placeholder" : ""}`}
+        onClick={toggleDropdown}
+      >
+        {value ? options.find(option => option.value === value).label : placeholder}
       </div>
       {isOpen && (
         <ul className="options-list">
@@ -34,7 +37,7 @@ const CustomSelect = ({
           ))}
         </ul>
       )}
-      <input type="hidden" name={name} value={value ? value.value : ""} />
+      <input type="hidden" name={name} value={value ? value : ""} />
     </div>
   );
 };

@@ -38,11 +38,10 @@
   transition: all 0.3s;
   pointer-events: none;
   color: #6C6A6A;
+  z-index: 1;
 }
 
-
-.form-group input,
-.form-group select {
+.form-group input {
   width: 100%;
   padding: 1.1rem 1rem;
   border: 1px solid #ccc;
@@ -54,19 +53,6 @@
   -moz-appearance: none; 
   cursor: pointer;
 }
-
-
-  .form-group select {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><polygon points='0,0 10,0 5,5' fill='%23333'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 20px center;
-}
-
-.form-group select option {
-  padding-bottom: 30px;
-  
-}
-
 
 
 .form-group input::placeholder{
