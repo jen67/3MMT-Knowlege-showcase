@@ -7,6 +7,7 @@ import About from './Pages/About-Us/About';
 import Company from './Pages/Company/Company';
 import Talent from './Pages/Talent/Talent';
 import Contact from './Pages/Contact/Contact';
+import Signup from './Pages/Signup/Signup';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/Company" element={<Company />} />
           <Route path="/Talent" element={<Talent />} />
           <Route path="/Contact" element={<Contact />} />
+          <Route path="/Signup" element={<Signup />} />
         </Routes>
       </div>
     </Router>

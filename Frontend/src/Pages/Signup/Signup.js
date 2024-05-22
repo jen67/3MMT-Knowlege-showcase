@@ -1,0 +1,140 @@
+// SignupForm.js
+import React, {useState} from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import "./Signup.css";
+
+const schema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  mobile: yup.string().required("Mobile Number is required"),
+  companyName: yup.string().required("Company Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
+  category: yup.string().required("Category is required"),
+});
+
+const jobCategories = [
+  "Frontend Developer",
+  "Backend Developer",
+  "Full Stack Developer",
+  "Cybersecurity Specialist",
+  "Data Scientist",
+  "DevOps Engineer",
+  "UI/UX Designer",
+  "Mobile App Developer",
+  "Project Manager",
+  "QA Engineer",
+  "Cloud Engineer",
+  "Machine Learning Engineer",
+];
+
+const Signup = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+    const [currentSelection, setCurrentSelection] = useState("Company");
+
+    const handleToggle = (selection) => {
+      setCurrentSelection(selection);
+    };
+
+  return (
+    <section class="signupform">
+      <div className="toggle-container">
+        <button
+          onClick={() => handleToggle("Company")}
+          className={currentSelection === "Company" ? "active" : ""}
+        >
+          Company
+        </button>
+        <button
+          onClick={() => handleToggle("Talent")}
+          className={currentSelection === "Talent" ? "active" : ""}
+        >
+          Talent
+        </button>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="form-container">
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
+          <input id="name" type="text" {...register("name")} />
+          {errors.name && <p className="error">{errors.name.message}</p>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="mobile">Mobile Number</label>
+          <input id="mobile" type="text" {...register("mobile")} />
+          {errors.mobile && <p className="error">{errors.mobile.message}</p>}
+        </div>
+
+        {currentSelection === "Company" && (
+          <div className="form-group">
+            <label htmlFor="companyName">Company Name</label>
+            <input id="companyName" type="text" {...register("companyName")} />
+            {errors.companyName && (
+              <p className="error">{errors.companyName.message}</p>
+            )}
+          </div>
+        )}
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input id="email" type="email" {...register("email")} />
+          {errors.email && <p className="error">{errors.email.message}</p>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input id="password" type="password" {...register("password")} />
+          {errors.password && (
+            <p className="error">{errors.password.message}</p>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            type="password"
+            {...register("confirmPassword")}
+          />
+          {errors.confirmPassword && (
+            <p className="error">{errors.confirmPassword.message}</p>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="category">Select Category</label>
+          <select id="category" {...register("category")}>
+            <option value="">Please Select Your Category</option>
+            {jobCategories.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+          {errors.category && (
+            <p className="error">{errors.category.message}</p>
+          )}
+        </div>
+        <button type="submit" className="submit-button">
+          Sign up
+        </button>
+      </form>
+    </section>
+  );
+};
+
+export default Signup;
