@@ -104,7 +104,7 @@ This section includes general reset styles for various HTML elements.
 
 ```css
 /* Using color variables 
-===================================*/
+=*/
 body {
   background-color: var(--light-blue);
 }
@@ -119,7 +119,7 @@ button {
 }
 
 /* Using font family variables 
-======================================*/
+====*/
 h1, h2, h3 {
   font-family: var(--ff-salsa);
 }
@@ -129,7 +129,7 @@ p, span {
 }
 
 /* Using font size variables 
-=======================================*/
+=====*/
 h1 {
   font-size: var(--fs10);
 }
@@ -139,7 +139,7 @@ p {
 }
 
 /* Using font weight variables 
-======================================*/
+====*/
 h1 {
   font-weight: var(--fw8);
 }
@@ -149,7 +149,7 @@ p {
 }
 
 /* Using padding and margin variable
-=========================================*/
+=======*/
 .container {
   padding: var(--pad5);
   margin: var(--mar2);

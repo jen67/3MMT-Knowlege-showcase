@@ -16,9 +16,9 @@ header {
 }
 
 /* Logo styles 
-===============================*/
+*/
 
-header nav div{
+header nav div {
   width: 100%;
 }
 
@@ -27,15 +27,14 @@ header div.logo {
   max-width: 100%;
 }
 
-
 /* Button container styles 
-===============================*/
+*/
 .btn-container {
   padding-top: var(--pad9);
 }
 
 /* Mobile toggle styles 
-===============================*/
+*/
 .menu-icon,
 .close-icon {
   position: absolute;
@@ -45,7 +44,7 @@ header div.logo {
 }
 
 /* Mobile navigation menu (side bar) styles 
-=====================================*/
+===*/
 .nav-menu {
   visibility: hidden;
   opacity: 0;
@@ -61,7 +60,7 @@ header div.logo {
 }
 
 /* Styles for open mobile navigation menu 
-==================================================*/
+*/
 .nav-menu.open {
   visibility: visible;
   opacity: 1;
@@ -69,14 +68,14 @@ header div.logo {
 }
 
 /* Styles for list items in mobile navigation menu 
-========================================================*/
+*/
 .nav-menu ul li {
   padding-top: var(--pad2);
   transition: color 0.3s ease-in-out;
 }
 
 /* Styles for list items (nav links) hover effect
-========================================================*/
+*/
 
 .nav-menu ul li:hover {
   color: var(--bright);
@@ -95,7 +94,7 @@ header div.logo {
 }
 
 /* Styles for transparent background 
-===========================================*/
+=========*/
 .transparent-background {
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(50px);
@@ -115,9 +114,8 @@ header div.logo {
 }
 
 /* Styles for screens wider than 768px 
-=================================================*/
+*/
 @media screen and (min-width: 768px) {
-
   /* Styles for navigation menu */
   .nav-menu {
     visibility: visible;
@@ -137,7 +135,7 @@ header div.logo {
   }
 
   /* Styles for unordered list in navigation menu 
-    =======================================================*/
+    */
   .nav-menu ul {
     display: flex;
     flex-direction: row;
@@ -145,33 +143,33 @@ header div.logo {
   }
 
   /* Styles for list (links) items in navigation menu 
-    ==============================================================*/
+    */
   .nav-menu ul li {
     padding: 0 var(--pad1);
     font-size: var(--fs1);
   }
 
   /* Styles for the nav button container 
-    ==============================================*/
+    */
   .btn-container {
     padding-top: 0;
   }
 
   /* Styles for transparent background 
-    =============================================*/
+  */
   .transparent-background {
     display: none;
   }
 
   /* Styles for mobile toggle icons 
-    ==============================================*/
+    */
   .menu-icon,
   .close-icon {
     display: none;
   }
 
   /* Styles nav link button
-    ==============================================*/
+    */
   .blue-btn {
     padding: 0.6rem;
     width: 160px;
@@ -183,12 +181,11 @@ header div.logo {
 }
 
 @media screen and (min-width: 1024px) {
-
   .nav-menu ul li {
     font-size: var(--fs2);
   }
 
-  header{
+  header {
     padding: var(--pad1) var(--pad9);
   }
 }

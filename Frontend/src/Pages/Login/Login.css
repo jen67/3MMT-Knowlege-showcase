@@ -1,0 +1,15 @@
+.loginform .form-container {
+  border-radius: 10px;
+}
+
+.loginform .custom-select .selected-option.placeholder {
+  padding: 1.8rem 1rem;
+}
+
+.loginform .options-list {
+  top: 65px;
+}
+
+.loginform .login-header h1 {
+  margin-bottom: var(--mar4);
+}

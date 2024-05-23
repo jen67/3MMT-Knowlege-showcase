@@ -3,32 +3,28 @@
 
 :root {
   /*** COLORS ***/
-  /* primary colors
-  ============================= */
-  --footer-blue: #002880; 
+  /* primary colors */
+  --footer-blue: #002880;
   --btn-blue: #0940af;
-  --bright: #0c63e7; 
+  --bright: #0c63e7;
   --dbheading: #031633;
   --paragrah: #010b1a;
-  --accent: #E7900C;
+  --accent: #e7900c;
 
-  /* secondary colors
-  ============================= */
+  /* secondary colors */
   --white: #ffffff;
   --light-blue: #f8f9fb;
-  --vlight-blue: #E3EDFE;
-  --vxblue: #F4F8FE;
-  --bnfcolors:#D9E5FD;
-  --formbg: #F9FBFF;
-  --signupbg: #EEEDED;
+  --vlight-blue: #e3edfe;
+  --vxblue: #f4f8fe;
+  --bnfcolors: #d9e5fd;
+  --formbg: #f9fbff;
+  --signupbg: #eeeded;
 
-  /* font-families
-  ============================= */
+  /* font-families */
   --ff-salsa: "Salsa", cursive;
   --ff-poppins: "Poppins", sans-serif;
 
-  /* font-sizes
-  ============================= */
+  /* font-sizes */
   --fs1: 0.8rem;
   --fs2: 1rem;
   --fs3: 1.5rem;
@@ -40,8 +36,7 @@
   --fs9: 4.5rem;
   --fs10: 5rem;
 
-  /* font-weights
-  ============================= */
+  /* font-weights */
   --fw1: 200;
   --fw2: 300;
   --fw3: 400;
@@ -51,8 +46,7 @@
   --fw7: 800;
   --fw8: 900;
 
-  /* padding
-  ============================= */
+  /* padding */
   --pad1: 0.5rem;
   --pad2: 1rem;
   --pad3: 1.5rem;
@@ -64,8 +58,7 @@
   --pad9: 4.5rem;
   --pad10: 5rem;
 
-  /* margin
-  ============================= */
+  /* margin*/
   --mar1: 0.5rem;
   --mar2: 1rem;
   --mar3: 1.5rem;
@@ -79,8 +72,7 @@
 }
 
 /** RESET **/
-/* general reset 
-============================= */
+/* general reset */
 *,
 *::before,
 *::after {
@@ -90,8 +82,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* reset styles
-============================= */
+/* reset styles */
 body,
 h1,
 h2,
@@ -144,10 +135,9 @@ body {
 }
 
 /** ULTILITY CLASSES **/
-/* general classes 
-============================= */
+/* general classes */
 
-button{
+button {
   cursor: pointer;
 }
 /* center items */
@@ -163,15 +153,13 @@ button{
   margin: 0 auto;
 }
 
-/* container with padding 
-=================================*/
+/* container with padding */
 .container {
   max-width: 90%;
   margin: 0 auto;
 }
 
-/* flex classes 
-============================= */
+/* flex classes */
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -194,14 +182,12 @@ button{
   align-items: center;
 }
 
-/* Cursor event
-============================= */
+/* Cursor event */
 .cursor-pointer {
   cursor: pointer;
 }
 
-/* colors
-============================= */
+/* colors */
 .bg-btn {
   background-color: var(--btn-blue);
 }
@@ -230,8 +216,7 @@ button{
   color: var(--bright);
 }
 
-/* display classes
-============================= */
+/* display classes */
 .d-none {
   display: none;
 }
@@ -252,10 +237,9 @@ button{
   display: flex;
 }
 
-/* buttons 
-===================================*/
+/* buttons */
 
-.blue-btn{
+.blue-btn {
   background-color: var(--btn-blue);
   color: var(--white);
   padding: var(--pad2);
@@ -266,10 +250,11 @@ button{
   cursor: pointer;
   outline: none;
   border: none;
-  transition: background-color 0.3s ease, font-weight 0.3s ease, letter-spacing 0.3s ease;
+  transition: background-color 0.3s ease, font-weight 0.3s ease,
+    letter-spacing 0.3s ease;
 }
 
-.blue-btn:hover{
+.blue-btn:hover {
   background-color: var(--bright);
   font-weight: var(--fw5);
   letter-spacing: 1px;
@@ -279,18 +264,18 @@ button{
   transform: scale(0.95);
 }
 
-
-.white-button{
+.white-button {
   outline: none;
   border: 1px solid var(--btn-blue);
   padding: var(--pad2);
   background-color: var(--white);
   border-radius: 5px;
   color: var(--btn-blue);
-  transition: transform 0.3s ease-in-out, background-color 0.3s ease, color 0.3s ease;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease,
+    color 0.3s ease;
 }
 
-.white-button:hover{
+.white-button:hover {
   background-color: var(--btn-blue);
   color: var(--white);
 }
@@ -317,7 +302,7 @@ button{
   color: var(--white);
 }
 
- .business-button:active {
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+.business-button:active {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   transform: scale(0.98);
 }

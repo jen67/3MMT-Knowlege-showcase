@@ -22,9 +22,9 @@ const CustomSelect = ({
 
   return (
     <div className={`custom-select ${isOpen ? "open" : ""}`}>
-      <div
+      <div tabindex='0'
         className={`selected-option ${!value ? "placeholder" : ""}`}
-        onClick={toggleDropdown}
+        onClick={toggleDropdown} 
       >
         {value ? options.find(option => option.value === value).label : placeholder}
       </div>

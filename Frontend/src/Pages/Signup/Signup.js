@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import CustomSelect from "../../Components/CustomSelect";
+import CustomSelect from "../../Components/Custom/CustomSelect";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 
@@ -83,7 +83,11 @@ const Signup = () => {
           reset();
           setRedirecting(false); // Set redirecting back to false after a delay
           setShowModal(false); // Hide the modal after the redirecting text has been displayed
-          navigate("/dashboard");
+          if (currentSelection === "Company") {
+            navigate("/CompanyDashboard");
+          } else {
+            navigate("/TalentDashboard");
+          }
         }, 2000);
       }
     }, 500);
@@ -101,11 +105,6 @@ const Signup = () => {
 
   return (
     <section className="signupform">
-      <div className="">
-        <div className="signup-header">
-          <h1>Sign up </h1>
-        </div>
-      </div>
       <div className="toggle-container">
         <button
           onClick={() => handleToggle("Company")}
@@ -125,6 +124,9 @@ const Signup = () => {
         </button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
+        <div className="signup-header">
+          <h1>Sign up </h1>
+        </div>
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input
@@ -221,9 +223,9 @@ const Signup = () => {
           Sign up
         </button>
 
-        <div className="account-exists d-flex justify-between align-center">
+        <div className="account-exists d-flex  align-center">
           <p>Already have an account?</p>
-          <Link to="/login">Login</Link>
+          <Link to="/login" className="loginlink">Login</Link>
         </div>
       </form>
 

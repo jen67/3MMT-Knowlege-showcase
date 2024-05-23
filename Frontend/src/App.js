@@ -8,7 +8,9 @@ import Company from './Pages/Company/Company';
 import Talent from './Pages/Talent/Talent';
 import Contact from './Pages/Contact/Contact';
 import Signup from './Pages/Signup/Signup';
-import Dashboard from './Pages/Dashboard/Dashboard';
+import Login from './Pages/Login/Login';
+import TalentDashboard from './Pages/Dashboard/TalentDashboard';
+import CompanyDashboard from './Pages/Dashboard/CompanyDashboard';
 import Privacypolicy from "./Components/Privacypolicy/Privacypolicy";
 import TermsOfService from "./Components/TermsOfService/TermsOfService";
 
@@ -25,7 +27,9 @@ function App() {
           <Route path="/Talent" element={<Talent />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Signup" element={<Signup />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/TalentDashboard" element={<TalentDashboard />} />
+          <Route path="/CompanyDashboard" element={<CompanyDashboard />} />
+          <Route path="/Login" element={<Login />} />
           <Route path="/Privacypolicy" element={<Privacypolicy />} />
           <Route path="/TermsOfService" element={<TermsOfService />} />
         </Routes>
