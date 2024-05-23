@@ -1,25 +1,107 @@
-.signupform{
-    width: 100%;
-    min-height: 100vh;
-    background-color: var(--formbg);
-    margin: 0 auto;
-    padding: 12rem var(--pad2);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.signupform {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--signupbg);
+  margin: 0 auto;
+  padding: var(--pad10) var(--pad2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-header {
+  text-align: left;
+  align-self: flex-start;
+}
+
+.account-exists {
+  margin-top: var(--mar2);
+}
+
+.account-exists p {
+  color: #6c6a6a;
+}
+
+.signupform h1 {
+  padding: var(--pad5) 0;
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
-  background: var(--white); 
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  padding: var(--pad6) 1.2rem;
+  border-radius: 0 0 10px 10px;
   justify-content: center;
   width: 100%;
   max-width: 700px;
+}
+
+.toggle-container {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+}
+
+.toggle-container button {
+  width: 50%;
+  outline: none;
+  border: none;
+  color: #9b9b9b;
+  background-color: var(--white);
+  padding: var(--pad3) 0;
+  border-bottom: 2px solid var(--light-blue);
+  transition: border-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.toggle-container button:hover {
+  color: var(--bright);
+}
+
+.toggle-container button.active {
+  background-color: var(--vlight-blue);
+  font-weight: var(--fw5);
+  color: var(--dbheading);
+}
+
+.toggle-container .company-button,
+.toggle-container .talent-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.toggle-container .company-button::before,
+.toggle-container .talent-button::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background: var(--bright);
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.toggle-container .company-button::before {
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+}
+
+.toggle-container .company-button.active::before {
+  transform: scaleX(1);
+}
+
+.toggle-container .talent-button::before {
+  bottom: 0;
+  right: 0;
+  transform-origin: left;
+}
+
+.toggle-container .talent-button.active::before {
+  transform: scaleX(1);
 }
 
 .form-group {
@@ -30,14 +112,14 @@
 
 .form-group label {
   position: absolute;
-  top: -10px; 
-  left: 10px; 
+  top: -10px;
+  left: 10px;
   background: white;
   padding: 0 5px;
   font-size: 0.875rem;
   transition: all 0.3s;
   pointer-events: none;
-  color: #6C6A6A;
+  color: #6c6a6a;
   z-index: 1;
 }
 
@@ -48,38 +130,40 @@
   border-radius: 5px;
   text-align: left;
   outline: none;
-  appearance: none; 
-  -webkit-appearance: none; 
-  -moz-appearance: none; 
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   cursor: pointer;
 }
 
-
-.form-group input::placeholder{
+.form-group input::placeholder {
   font-size: 0.9rem;
-  color: #AFADAD;
+  color: #afadad;
 }
-
 
 .form-group .error {
   color: red;
   font-size: 0.875rem;
- 
 }
 
 .submit-button {
-  padding: 10px 20px;
-  background-color: #007bff;
+  padding: var(--pad2);
+  font-weight: var(--fw5);
+  background-color: var(--btn-blue);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: var(--bright);
 }
 
+.submit-button:active {
+  transform: scale(0.9);
+}
 
 .modal {
   position: fixed;
@@ -120,7 +204,7 @@
 
 .select-container {
   position: relative;
-  
+
   border-radius: 4px;
 }
 

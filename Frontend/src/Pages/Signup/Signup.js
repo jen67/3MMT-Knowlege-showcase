@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomSelect from "../../Components/CustomSelect";
+import { Link } from "react-router-dom";
 import "./Signup.css";
 
 const schema = yup.object().shape({
@@ -100,16 +101,25 @@ const Signup = () => {
 
   return (
     <section className="signupform">
+      <div className="">
+        <div className="signup-header">
+          <h1>Sign up </h1>
+        </div>
+      </div>
       <div className="toggle-container">
         <button
           onClick={() => handleToggle("Company")}
-          className={currentSelection === "Company" ? "active" : ""}
+          className={`company-button ${
+            currentSelection === "Company" ? "active" : ""
+          }`}
         >
           Company
         </button>
         <button
           onClick={() => handleToggle("Talent")}
-          className={currentSelection === "Talent" ? "active" : ""}
+          className={`talent-button ${
+            currentSelection === "Talent" ? "active" : ""
+          }`}
         >
           Talent
         </button>
@@ -194,15 +204,15 @@ const Signup = () => {
             Select Category
           </label>
           <CustomSelect
-  options={jobCategories.map((category) => ({
-    value: category,
-    label: category,
-  }))}
-  onSelectChange={(option) => setValue("category", option)}
-  value={watch("category")}
-  name="category"
-  placeholder="Select Category"
-/>
+            options={jobCategories.map((category) => ({
+              value: category,
+              label: category,
+            }))}
+            onSelectChange={(option) => setValue("category", option)}
+            value={watch("category")}
+            name="category"
+            placeholder="Select Category"
+          />
           {errors.category && (
             <p className="error">{errors.category.message}</p>
           )}
@@ -210,6 +220,11 @@ const Signup = () => {
         <button type="submit" className="submit-button">
           Sign up
         </button>
+
+        <div className="account-exists d-flex justify-between align-center">
+          <p>Already have an account?</p>
+          <Link to="/login">Login</Link>
+        </div>
       </form>
 
       {showModal && (
