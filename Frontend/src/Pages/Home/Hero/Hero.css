@@ -1,4 +1,4 @@
-.Hero-section {
+.Hero-section, .Abouthero {
   position: relative;
   display: flex;
   justify-content: center;
@@ -33,7 +33,7 @@
   z-index: -1;
 }
 
-.info h1 {
+.info h1, .Abouthero-content h1 {
   color: var(--dbheading);
   font-size: 1.85rem;
   line-height: 1.2;
@@ -61,7 +61,7 @@
     max-width: 500px;
     margin: 0 auto;
   }
-  .info h1 {
+  .info h1, .Abouthero-content h1 {
     font-size: var(--fs5);
   }
 
@@ -93,7 +93,7 @@
 }
 
 @media screen and (min-width: 1440px) {
-    .info h1{
+    .info h1, .Abouthero-content h1{
         font-size: var(--fs8);
     }
 
