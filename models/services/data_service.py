@@ -4,12 +4,14 @@ from data.users import User
 from data.recruiter import Company
 from data.resumes import Resume
 
-def create_account(name: str, email: str, skills: List[int]) -> User:
+def create_account(name: str, email: str, mobile: str, password: str, category: str) -> User:
     user = User()
 
     user.name = name
     user.email = email
-    user.skills = skills
+    user.mobile = mobile
+    user.password = password
+    user.category = category
 
     user.save()
     return user
