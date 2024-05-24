@@ -1,0 +1,38 @@
+.Abouthero {
+  color: var(--white);
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Abouthero-content {
+  padding: 2rem 1rem;
+  max-width: 500px;
+}
+
+.Abouthero-content h1 {
+  font-size: 1.85rem;
+  width: 100%;
+  line-height: 1.2;
+  font-weight: var(--fw7);
+  margin: 1rem auto;
+}
+
+@media screen and (min-width: 768px) {
+  .Abouthero-content {
+    max-width: 650px;
+  }
+  .Abouthero-content h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .Abouthero-content {
+    max-width: 850px;
+    font-size: var(--fs8);
+  }
+}

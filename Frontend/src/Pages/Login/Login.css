@@ -1,4 +1,4 @@
-.loginform .form-container {
+.loginform .form-container, .contact-us .form-container {
   border-radius: 10px;
 }
 
@@ -10,6 +10,6 @@
   top: 65px;
 }
 
-.loginform .login-header h1 {
+.loginform .login-header h1, .contact-us h1 {
   margin-bottom: var(--mar4);
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 import "./About.css";
+import Hero from "./HeroSection/Hero";
+import "./HeroSection/Hero.css"; 
 
 const About = () => {
     return (
-        <div>
-            <div>
-                <h1>About Page</h1>
-            </div>
-        </div>
+        <>
+            <Hero />
+        </>
     );
 }
 

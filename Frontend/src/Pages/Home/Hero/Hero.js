@@ -10,7 +10,7 @@ const imageArray = [
     images.hompbg3,
 ];
   
-function Hero() {
+const Hero = () => {
    
    const [imageIndex, setImageIndex] = useState(0);
 
