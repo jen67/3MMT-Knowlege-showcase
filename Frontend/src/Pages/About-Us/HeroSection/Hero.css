@@ -27,10 +27,19 @@
   .Abouthero-content h1 {
     font-size: var(--fs7);
   }
-}
 
-@media screen and (min-width: 1440px) {
   .Abouthero-content {
     max-width: 1200px;
   }
+}
+
+@media screen and (min-width: 1440px) {
+  .Abouthero-content h1 {
+    font-size: var(--fs8);
+  }
+
+   .Abouthero-content {
+    max-width: 1300px;
+  }
+  
 }
