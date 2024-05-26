@@ -3,7 +3,6 @@
 }
 
 .sidebar {
-    width: 90%;
     overflow-Y: auto;
 }
 
@@ -12,8 +11,8 @@
     background-color: red;
     padding: var(--pad10) var(--pad4);
     height: 100vh; 
+    overflow-y: auto;
 }
-
 
 
 @media screen and (min-width: 768px) {

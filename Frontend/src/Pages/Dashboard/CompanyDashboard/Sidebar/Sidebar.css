@@ -1,11 +1,19 @@
 .sidebar {
-  min-height: 100vh;
   position: fixed;
   background-color: var(--footer-blue);
   color: #fff;
   padding: 11rem var(--pad3) var(--pad3) var(--pad3);
   transition: left 0.3s ease;
-  display: none;
+  left: -100%; 
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar.visible {
+  left: 0; 
 }
 
 .sidebar button {
@@ -22,7 +30,6 @@
   color: #fff;
   font-size: 30px;
 }
-
 
 .sidebar h2 {
   font-size: var(--fs3);
@@ -45,19 +52,23 @@
   margin-right: 10px;
 }
 
-
-.sidebar.visible{
-  display: block!important;
+.sidebar.collapsed {
+  width: 80px;
+  left: 0;
 }
 
 @media screen and (min-width: 768px) {
   .sidebar {
+    position: static;
+    min-height: 100vh;
+    width: auto;
+    height: auto;
+    left: 0;
     display: flex;
     flex-direction: column;
-    left: 0;
   }
 
   .sidebar.collapsed {
-    width: 80px;
+    width: 400px;
   }
 }
