@@ -1,14 +1,15 @@
-import React from "react";
+import React from 'react';
+import "./CompanyDashboard.css"
 
-import Sidebar from "./Sidebar";
-
-export const CompanyDashboard = () => {
+const Dashboard = () => {
   return (
-    <>
-      <h1> Company Dashboard </h1>;
-      <Sidebar />
-    </>
+    <div className="CompanyDash">
+      <div>
+        <h1>Dashboard</h1>
+        <p>Welcome to the dashboard!</p>
+      </div>
+    </div>
   );
 };
 
-export default CompanyDashboard;
+export default Dashboard;

@@ -1,5 +1,12 @@
+import React from 'react';
+
 const TalentDashboard = () => {
-  return <h1> Company Dashboard </h1>;
+  return (
+    <div>
+      <h1> Talent Dashboard </h1>
+      
+    </div>
+  );
 };
 
 export default TalentDashboard;

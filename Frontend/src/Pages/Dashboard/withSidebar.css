@@ -1,0 +1,23 @@
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 20%;
+}
+
+.main-content {
+    flex-grow: 1;
+    background-color: red;
+    padding: var(--pad10) var(--pad4);
+    height: 100vh; 
+}
+
+
+
+@media screen and (min-width: 768px) {
+   .main-content button{
+    display: none;
+   }
+}
