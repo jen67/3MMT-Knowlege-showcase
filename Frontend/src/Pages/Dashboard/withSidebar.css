@@ -1,10 +1,10 @@
 .dashboard {
     display: flex;
-    min-height: 100vh;
 }
 
 .sidebar {
-    width: 20%;
+    width: 90%;
+    overflow-Y: auto;
 }
 
 .main-content {
@@ -19,5 +19,9 @@
 @media screen and (min-width: 768px) {
    .main-content button{
     display: none;
+   }
+
+   .sidebar{
+    width: 20%;
    }
 }

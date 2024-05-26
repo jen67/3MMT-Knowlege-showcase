@@ -8,7 +8,7 @@ const withCompanySidebar = (Component) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     return (
       <div className="dashboard">
-        {isSidebarVisible && <CompanySidebar />}
+        {isSidebarVisible && <CompanySidebar className={isSidebarVisible ? 'visible' : ''} />}
         <div className="main-content">
           <button onClick={() => setSidebarVisible(!isSidebarVisible)}>
             {isSidebarVisible ? 'Hide Sidebar' : 'Show Sidebar'}
@@ -25,7 +25,7 @@ const withTalentSidebar = (Component) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     return (
       <div className="dashboard">
-        {isSidebarVisible && <TalentSidebar />}
+        {isSidebarVisible && <TalentSidebar className={isSidebarVisible ? 'visible' : ''} />}
         <div className="main-content">
           <button onClick={() => setSidebarVisible(!isSidebarVisible)}>
             {isSidebarVisible ? 'Hide Sidebar' : 'Show Sidebar'}
