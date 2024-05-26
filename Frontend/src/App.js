@@ -1,22 +1,21 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css';
-import Header from './Components/Header/Header';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Header from "./Components/Header/Header";
 import Home from "./Pages/Home/Home";
-import About from './Pages/About-Us/About';
-import Company from './Pages/Company/Company';
-import Talent from './Pages/Talent/Talent';
-import Contact from './Pages/Contact/Contact';
-import Signup from './Pages/Signup/Signup';
-import Login from './Pages/Login/Login';
-import TalentDashboard from './Pages/Dashboard/TalentDashboard';
-import CompanyDashboard from './Pages/Dashboard/CompanyDashboard';
+import About from "./Pages/About-Us/About";
+import Company from "./Pages/Company/Company";
+import Talent from "./Pages/Talent/Talent";
+import Contact from "./Pages/Contact/Contact";
+import Signup from "./Pages/Signup/Signup";
+import Login from "./Pages/Login/Login";
+import TalentDashboard from "./Pages/Dashboard/TalentDashboard/TalentDashboard";
+import CompanyDashboard from "./Pages/Dashboard/CompanyDashboard/CompanyDashboard";
 import Privacypolicy from "./Components/Privacypolicy/Privacypolicy";
 import TermsOfService from "./Components/TermsOfService/TermsOfService";
 
 function App() {
   return (
-    
     <Router>
       <div className="App">
         <Header />
