@@ -2,7 +2,7 @@
 import React from "react";
 import "./VisionMission.css";
 import images from "../../../Components/images";
-import Footer from "../../../Components/Footer/Footer";
+
 
 const VisionMission = () => {
   return (
@@ -29,7 +29,7 @@ const VisionMission = () => {
         </p>
       </div>
     </section>
-    <Footer />
+    
     </>
   );
 };

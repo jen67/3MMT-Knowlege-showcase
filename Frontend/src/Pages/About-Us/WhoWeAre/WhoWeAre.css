@@ -1,0 +1,61 @@
+.who-we-are {
+  background-color: var(--footer-blue);
+  color: var(--white);
+  padding: var(--pad9) var(--pad3);
+  display: flex;
+  flex-direction: column;
+}
+
+.who-we-are .content h2 {
+  font-size: var(--fs5);
+  font-weight: var(--fw6);
+  margin-bottom: var(--mar1);
+}
+
+.who-we-are .content button {
+  margin-top: var(--mar4);
+}
+
+.who-we-are .image-content {
+  height: 420px;
+}
+
+@media screen and (min-width: 768px) {
+  .who-we-are {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .who-we-are .image-content {
+    flex: 1;
+     height: 380px;
+  }
+
+  .who-we-are .content {
+    flex: 1;
+  }
+}
+
+
+@media screen and (min-width: 1024px){
+  .who-we-are {
+     padding: var(--pad9) var(--pad9);
+  }
+}
+
+@media screen and (min-width: 1280px){
+
+  .who-we-are {
+  padding: var(--pad9) 12rem;
+}
+  .who-we-are .image-content {
+     height: 400px;
+  }
+
+  .who-we-are .content p{
+   width: 450px;
+  }
+
+}

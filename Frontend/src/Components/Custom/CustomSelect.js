@@ -22,7 +22,7 @@ const CustomSelect = ({
 
   return (
     <div className={`custom-select ${isOpen ? "open" : ""}`}>
-      <div tabindex='0'
+      <div tabIndex='0'
         className={`selected-option ${!value ? "placeholder" : ""}`}
         onClick={toggleDropdown} 
       >
