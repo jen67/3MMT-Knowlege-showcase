@@ -45,29 +45,29 @@ const TalentSidebar = () => {
                 <FaUser /> {!collapsed && "Profile"}
               </Link>
             </li>
-            
+
             <li>
-              <Link to="/Applications">
-                <FaEnvelopeOpenText /> {!collapsed && "Applications Received"}
+              <Link to="/TApplications">
+                <FaEnvelopeOpenText /> {!collapsed && "Applications"}
               </Link>
             </li>
             <li>
-              <Link to="/Shortlisted">
-                <FaRegListAlt /> {!collapsed && "Shortlisted Volunteers"}
+              <Link to="/TShortlisted">
+                <FaRegListAlt /> {!collapsed && "Shortlisted Companies"}
               </Link>
             </li>
             <li>
-              <Link to="/Resumes">
-                <FaRegFileAlt /> {!collapsed && "Resumes"}
+              <Link to="/TOpportunities">
+                <FaRegFileAlt /> {!collapsed && "Opportunities"}
               </Link>
             </li>
             <li>
-              <Link to="/Mymessages">
+              <Link to="/TMessages">
                 <FaRegEnvelope /> {!collapsed && "My Messages"}
               </Link>
             </li>
             <li>
-              <Link to="/Settings">
+              <Link to="/Talentsettings">
                 <FaCog /> {!collapsed && "Settings"}
               </Link>
             </li>

@@ -1,8 +1,8 @@
 // Resumes.js
 import React from "react";
 
-const Oportunities = () => {
+const TOportunities = () => {
   return <h1>Resumes Page</h1>;
 };
 
-export default Oportunities;
+export default TOportunities;

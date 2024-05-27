@@ -26,13 +26,12 @@ import MyMessages from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarCompon
 import Settings from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Settings/Settings";
 import Logout from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Logout/Logout";
 import Talentprofile from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/Talentprofile/Talentprofile";
-import Applications from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/Applications/Applications";
-import Shortlistedcompanies from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/Shortlisted/Shortlisted";
-import Oportunities from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/Opportunities/Opportunities";
-import Messages from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/Messages/Messages";
+import TApplications from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TApplications/TApplications";
+import TShortlisted from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TShortlisted/TShortlisted";
+import TOpportunities from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TOpportunities/TOpportunities";
+import TMessages from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TMessages/TMessages";
 import Talentsettings from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/Talentsettings/Talentsettings";
 import TLogout from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TLogout/TLogout";
-
 
 const CompanyDashboardWithSidebar = withCompanySidebar(CompanyDashboard);
 const ProfileWithSidebar = withCompanySidebar(Profile);
@@ -45,14 +44,12 @@ const SettingsWithSidebar = withCompanySidebar(Settings);
 
 const TalentDashboardWithSidebar = withTalentSidebar(TalentDashboard);
 const TalentProfileWithSidebar = withTalentSidebar(Talentprofile);
-const ApplicationsWithSidebar = withTalentSidebar(Applications);
-const ShortlistedCompaniesWithSidebar = withTalentSidebar(Shortlistedcompanies);
-const OpportunitiesWithSidebar = withTalentSidebar(Oportunities);
-const MessagesWithSidebar = withTalentSidebar(Messages);
+const ApplicationsWithSidebar = withTalentSidebar(TApplications);
+const ShortlistedCompaniesWithSidebar = withTalentSidebar(TShortlisted);
+const OpportunitiesWithSidebar = withTalentSidebar(TOpportunities);
+const MessagesWithSidebar = withTalentSidebar(TMessages);
 const TalentSettingsWithSidebar = withTalentSidebar(Talentsettings);
 const TLogoutWithSidebar = withTalentSidebar(TLogout);
-
-
 
 function App() {
   return (
@@ -66,60 +63,28 @@ function App() {
           <Route path="/Talent" element={<Talent />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Signup" element={<Signup />} />
-          <Route
-            path="/TalentDashboard"
-            element={<TalentDashboardWithSidebar />}
-          />
-          <Route
-            path="/CompanyDashboard"
-            element={<CompanyDashboardWithSidebar />}
-          />
-          <Route path="/Profile" element={<ProfileWithSidebar />} />
-          <Route
-            path="/Applications"
-            element={<ApplicationsReceivedWithSidebar />}
-          />
-          <Route
-            path="/Shortlisted"
-            element={<ShortlistedVolunteersWithSidebar />}
-          />
-          <Route path="/Post-jobs" element={<PostJobsWithSidebar />} />
-          <Route path="/Resumes" element={<ResumesWithSidebar />} />
-          <Route path="/MyMessages" element={<MyMessagesWithSidebar />} />
-          <Route path="/Settings" element={<SettingsWithSidebar />} />
-          <Route path="/Logout" element={<Logout />} />
           <Route path="/Login" element={<Login />} />
-          <Route
-            path="/TalentDashboard"
-            element={<TalentDashboardWithSidebar />}
-          />
-          <Route path="/Talentprofile" element={<TalentProfileWithSidebar />} />
-          <Route
-            path="/TalentDashboard/Applications"
-            element={<ApplicationsWithSidebar />}
-          />
-          <Route
-            path="/TalentDashboard/Shortlisted"
-            element={<ShortlistedCompaniesWithSidebar />}
-          />
-          <Route
-            path="/TalentDashboard/Opportunities"
-            element={<OpportunitiesWithSidebar />}
-          />
-          <Route
-            path="/TalentDashboard/Messages"
-            element={<MessagesWithSidebar />}
-          />
-          <Route
-            path="/TalentDashboard/Settings"
-            element={<TalentSettingsWithSidebar />}
-          />
-          <Route
-            path="/TalentDashboard/Logout"
-            element={<TLogoutWithSidebar />}
-          />
           <Route path="/Privacypolicy" element={<Privacypolicy />} />
           <Route path="/TermsOfService" element={<TermsOfService />} />
+
+          <Route path="/CompanyDashboard" element={<CompanyDashboardWithSidebar />} />
+          <Route path="/Profile" element={<ProfileWithSidebar />} />
+          <Route path="/Applications" element={<ApplicationsReceivedWithSidebar />} />
+          <Route path="/Shortlisted" element={<ShortlistedVolunteersWithSidebar />} />
+          <Route path="/Post-jobs" element={<PostJobsWithSidebar />} />
+          <Route path="/Resumes" element={<ResumesWithSidebar />} />
+          <Route path="/Mymessages" element={<MyMessagesWithSidebar />} />
+          <Route path="/Settings" element={<SettingsWithSidebar />} />
+          <Route path="/Logout" element={<Logout />} />
+
+          <Route path="/TalentDashboard" element={<TalentDashboardWithSidebar />} />
+          <Route path="/Talentprofile" element={<TalentProfileWithSidebar />} />
+          <Route path="/TApplications" element={<ApplicationsWithSidebar />} />
+          <Route path="/TShortlisted" element={<ShortlistedCompaniesWithSidebar />} />
+          <Route path="/TOpportunities" element={<OpportunitiesWithSidebar />} />
+          <Route path="/TMessages" element={<MessagesWithSidebar />} />
+          <Route path="/Talentsettings" element={<TalentSettingsWithSidebar />} />
+          <Route path="/Logout" element={<TLogoutWithSidebar />} />
         </Routes>
       </div>
     </Router>

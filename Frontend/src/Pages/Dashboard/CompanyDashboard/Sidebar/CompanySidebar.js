@@ -59,7 +59,7 @@ const CompanySidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/Settings">
+              <Link to="/Settings"> 
                 <FaCog /> {!collapsed && "Settings"}
               </Link>
             </li>
