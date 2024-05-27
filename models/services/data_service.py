@@ -33,15 +33,14 @@ def create_company(name: str, email: str, location: str, industry: str, descript
     return company
 
 
-def create_resume(user, company, resume_file) -> Resume:
+def create_resume(user, company, resume_content) -> Resume:
     resume = Resume(
         user=user,
-        company=company
+        company=company,
+        resume_content=resume_content
     )
 
-    # resume.resume_file.put(resume_file)
     resume.save()
-
     return resume
 
 
