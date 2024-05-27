@@ -1,6 +1,18 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FaHome, FaUser, FaBriefcase, FaEnvelopeOpenText, FaRegListAlt, FaRegFileAlt, FaRegEnvelope, FaCog, FaSignOutAlt, FaBuilding, FaArrowCircleRight, FaArrowCircleLeft } from 'react-icons/fa';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  FaHome,
+  FaUser,
+  FaEnvelopeOpenText,
+  FaRegListAlt,
+  FaRegFileAlt,
+  FaRegEnvelope,
+  FaCog,
+  FaSignOutAlt,
+  FaBuilding,
+  FaArrowCircleRight,
+  FaArrowCircleLeft,
+} from "react-icons/fa";
 import "./Sidebar.css";
 
 const TalentSidebar = () => {
@@ -12,7 +24,6 @@ const TalentSidebar = () => {
 
   return (
     <>
-      <button onClick={toggleCollapse}>Show Sidebar</button>
       <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
         <button onClick={toggleCollapse}>
           <span className="toggle-icon">
@@ -25,20 +36,16 @@ const TalentSidebar = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/CompanyDashboard">
+              <Link to="/TalentDashboard">
                 <FaHome /> {!collapsed && "Dashboard"}
               </Link>
             </li>
             <li>
-              <Link to="/Profile">
+              <Link to="/Talentprofile">
                 <FaUser /> {!collapsed && "Profile"}
               </Link>
             </li>
-            <li>
-              <Link to="/Post-jobs">
-                <FaBriefcase /> {!collapsed && "Post Jobs"}
-              </Link>
-            </li>
+            
             <li>
               <Link to="/Applications">
                 <FaEnvelopeOpenText /> {!collapsed && "Applications Received"}
@@ -65,7 +72,7 @@ const TalentSidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/Logout">
+              <Link to="/">
                 <FaSignOutAlt /> {!collapsed && "Logout"}
               </Link>
             </li>

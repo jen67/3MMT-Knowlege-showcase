@@ -1,8 +1,8 @@
 // ApplicationsReceived.js
 import React from "react";
 
-const ApplicationsReceived = () => {
+const Applications = () => {
   return <h1>Applications Received Page</h1>;
 };
 
-export default ApplicationsReceived;
+export default Applications;

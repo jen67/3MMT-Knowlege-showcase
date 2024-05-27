@@ -1,8 +1,8 @@
 // ShortlistedVolunteers.js
 import React from "react";
 
-const ShortlistedVolunteers = () => {
+const Shortlistedcompanies = () => {
   return <h1>Shortlisted Volunteers Page</h1>;
 };
 
-export default ShortlistedVolunteers;
+export default Shortlistedcompanies;

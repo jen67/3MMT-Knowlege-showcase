@@ -64,7 +64,7 @@ const CompanySidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/Logout">
+              <Link to="/">
                 <FaSignOutAlt /> {!collapsed && "Logout"}
               </Link>
             </li>
