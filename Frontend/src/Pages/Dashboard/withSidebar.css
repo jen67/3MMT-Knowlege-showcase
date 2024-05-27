@@ -8,7 +8,7 @@
 
 .main-content {
     flex-grow: 1;
-    background-color: red;
+    background-color: var(--light-blue);
     padding: var(--pad10) var(--pad4);
     height: 100vh; 
     overflow-y: auto;

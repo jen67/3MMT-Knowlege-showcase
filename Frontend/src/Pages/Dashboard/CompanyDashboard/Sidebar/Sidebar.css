@@ -4,16 +4,19 @@
   color: #fff;
   padding: 11rem var(--pad3) var(--pad3) var(--pad3);
   transition: left 0.3s ease;
-  left: -100%; 
+  left: -100%;
   top: 0;
   bottom: 0;
   right: 0;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sidebar.visible {
-  left: 0; 
+  left: 0;
 }
 
 .sidebar button {
@@ -64,8 +67,6 @@
     width: auto;
     height: auto;
     left: 0;
-    display: flex;
-    flex-direction: column;
   }
 
   .sidebar.collapsed {
