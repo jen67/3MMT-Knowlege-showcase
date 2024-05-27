@@ -3,7 +3,7 @@ import mongoengine
 
 
 class Company(mongoengine.Document):
-    company_id = mongoengine.SequenceField(primary_key=True)
+    # company_id = mongoengine.SequenceField(primary_key=True)
     registered_date = mongoengine.DateTimeField(default=datetime.datetime.now)
     name = mongoengine.StringField(required=True)
     email = mongoengine.StringField(required=True)
