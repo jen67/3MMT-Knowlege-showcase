@@ -4,7 +4,8 @@ from data.users import User
 from data.recruiter import Company
 from data.resumes import Resume
 
-def create_account(name: str, email: str, mobile: str, password: str, category: str) -> User:
+
+def create_account(name: str, email: str, mobile: str, password: str, category: str, skills: list) -> User:
     user = User()
 
     user.name = name
@@ -12,6 +13,8 @@ def create_account(name: str, email: str, mobile: str, password: str, category: 
     user.mobile = mobile
     user.password = password
     user.category = category
+    if skills:
+        user.skills = skills
 
     user.save()
     return user
@@ -30,18 +33,30 @@ def create_company(name: str, email: str, location: str, industry: str, descript
     return company
 
 
-def submit_resume(user_id: int, company_id: int, resume_file) -> Resume:
+def create_resume(user, company, resume_file) -> Resume:
+    resume = Resume(
+        user=user,
+        company=company
+    )
+
+    # resume.resume_file.put(resume_file)
+    resume.save()
+
+    return resume
+
+
+def submit_resume(user_id, company_id, resume_file) -> Resume:
     user = User.objects.get(id=user_id)
     company = Company.objects.get(id=company_id)
-    
+
     resume = Resume(
         user=user,
         company=company,
     )
-    
+
     resume.resume_file.put(resume_file)
     resume.save()
-    
+
     return resume
 
 
@@ -56,4 +71,4 @@ def find_company_by_email(email: str) -> Company:
 
 
 def get_resume_by_company(company_id):
-        return Resume.objects(company=company_id)
+    return Resume.objects(company=company_id)
