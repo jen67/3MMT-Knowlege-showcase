@@ -8,7 +8,7 @@ class Resume(mongoengine.Document):
     registered_date = mongoengine.DateTimeField(default=datetime.datetime.now)
     user = mongoengine.ReferenceField(User, required=True)
     company = mongoengine.ReferenceField(Company, required=True)
-    resume_file = mongoengine.FileField(required=False)
+    resume_content = mongoengine.StringField(required=True)
     status = mongoengine.StringField(default='submitted')
 
     meta = {
