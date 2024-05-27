@@ -1574,3 +1574,5 @@ myenv/Scripts/pythonw.exe
 models/data/__pycache__/mongo_setup.cpython-312.pyc
 models/data/__pycache__/users.cpython-312.pyc
 models/services/__pycache__/data_service.cpython-312.pyc
+models/data/__pycache__/recruiter.cpython-312.pyc
+models/data/__pycache__/resumes.cpython-312.pyc

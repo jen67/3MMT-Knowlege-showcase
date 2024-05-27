@@ -13,24 +13,23 @@ mongo_setup.global_init()
 
 
 def test_registration_and_resume_submission():
-
     # Drop existing collections
-    User.drop_collection()
-    Company.drop_collection()
-    Resume.drop_collection()
 
     print(' ****************** REGISTER **************** ')
 
     name = "Alice Johnson"
     email = "alice@example.com"
+    mobile = "+2489722"
+    password = "12345"
+    category = "backend"
     skills = ["Python", "Data Analysis"]
 
-    old_account = svc.find_user_my_email(email)
-    if old_account:
-        print(f"Error: Account with email {email} already exists.")
-        return
+    # old_account = svc.find_user_my_email(email)
+    # if old_account:
+    #     print(f"Error: Account with email {email} already exists.")
+    #     return
 
-    account = svc.create_account(name, email, skills)
+    account = svc.create_account(name, email, mobile, password, category, skills)
     print(f"Created new account with id {account.id}.")
 
     print(' ************ COMPANY REGISTRATION ************ ')
@@ -54,7 +53,7 @@ def test_registration_and_resume_submission():
     resume_content = b"This is a sample resume."
     resume_file = io.BytesIO(resume_content)
 
-    submitted_resume = svc.submit_resume(str(account.id), str(companies[0].id), resume_file)
+    submitted_resume = svc.create_resume(account, companies[0], resume_file)
 
     all_companies = Company.objects()
     print("List of Companies:")
