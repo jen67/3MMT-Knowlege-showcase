@@ -50,10 +50,9 @@ def test_registration_and_resume_submission():
 
     print(' ************ RESUME SUBMISSION ************ ')
 
-    resume_content = b"This is a sample resume."
-    resume_file = io.BytesIO(resume_content)
+    resume_content = "This is a sample resume."
 
-    submitted_resume = svc.create_resume(account, companies[0], resume_file)
+    submitted_resume = svc.create_resume(account, companies[0], resume_content)
 
     all_companies = Company.objects()
     print("List of Companies:")
@@ -65,10 +64,10 @@ def test_registration_and_resume_submission():
     for user in all_users:
         print(f"ID: {user.id}, Name: {user.name}, Email: {user.email}")
 
-    resumes_for_company = Resume.get_resumes_for_company(companies[0])
+    resumes = Resume.objects()
     print("\nList of Resumes for Company ID", companies[0].id)
-    for resume in resumes_for_company:
-        print(f"Resume ID: {resume.id}, User: {resume.user.name}, Submitted Date: {resume.submitted_date}")
+    for resume in resumes:
+        print(f"Resume ID: {resume.id}, User: {resume.user.name}, Submitted Date: {resume.registered_date}")
 
 if __name__ == "__main__":
     test_registration_and_resume_submission()

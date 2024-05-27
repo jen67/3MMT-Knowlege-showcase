@@ -41,9 +41,8 @@ def main():
 
     print(' ****************** Resume **************** ')
 
-    resume_content = b"This is a sample resume."
-    resume_file = io.BytesIO(resume_content)
-    resume = svc.create_resume(user, company, resume_file)
+    resume_content = "This is a sample resume."
+    resume = svc.create_resume(user, company, resume_content)
     print(f"Created new resume with id {resume.id}.")
 
 
