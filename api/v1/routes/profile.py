@@ -7,15 +7,15 @@ profile_bp = Blueprint('profile', __name__)
 @profile_bp.route('/profile/<string:email>', methods=['GET'])
 @jwt_required()
 def get_profile(email):
-    user = User.objects(email=email).first().to_json()
+    user = User.objects(email=email).first()
 
     if user:
-        return jsonify(user), 200
+        return jsonify(user.to_json()), 200
     
-    company = Company.objects(email=email).first().to_json()
+    company = Company.objects(email=email).first()
 
     if company:
-        return jsonify(company), 200
+        return jsonify(company.to_json()), 200
     
     return jsonify({"msg": "Profile not found"}), 404
 
