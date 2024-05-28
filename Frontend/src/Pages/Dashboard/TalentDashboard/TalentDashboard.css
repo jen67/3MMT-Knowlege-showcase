@@ -25,22 +25,25 @@
   width: 100%;
   background-color: var(--white);
   border: 1px solid #ddd;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; 
 }
 
-.icon {
-  font-size: 24px;
+.stat:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+  transform: translateY(-5px); 
 }
+
 
 .stat-info h2 {
   margin: 0;
   font-size: 1.2rem;
-  font-weight: var(--fw3);
+  font-weight: var(--fw4);
 }
 
 .stat-info p {
   color: var(--paragraph);
   font-size: var(--fs4);
-  font-weight: var(--fs4);
+  font-weight: var(--fs5);
 }
 
 .stat-info {
@@ -92,21 +95,7 @@
   margin-top: var(--mar2);
 }
 
-.opportunities-card .icon-container svg {
-  fill: #f17b54;
-}
 
-.shortlisted .icon-container svg {
-  fill: #62f2c2;
-}
-
-.review .icon-container svg {
-  fill: #7079e5;
-}
-
-.views .icon-container svg {
-  fill: #e7b214;
-}
 
 @media screen and (min-width: 768px) {
   .stats {
@@ -115,6 +104,10 @@
 
   .Tdashboard {
     padding: var(--pad4);
+  }
+
+  .Tdashboard h1{
+    font-size: var(--fs4);
   }
 }
 
