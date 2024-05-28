@@ -27,13 +27,13 @@ def post_job():
 
 @jobs_bp.route('/jobs', methods=['GET'])
 def get_jobs():
-    jobs = Job.objects()
+    jobs = Job.objects().to_json()
 
     return jsonify(jobs), 200
 
 @jobs_bp.route('/jobs/<string:id>', methods=['GET'])
 def get_job(id):
-    job = Job.objects(id=id).first()
+    job = Job.objects(id=id).first().to_json()
 
     if not job:
         return jsonify({"msg": "Job not found"}), 404

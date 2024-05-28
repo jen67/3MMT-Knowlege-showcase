@@ -34,7 +34,7 @@ def register():
             name=data['name'],
             email=data['email'],
             mobile=data['mobile'],
-            category=data['category']
+            category=data['category'],
         )
 
         user.set_password(data['password'])
@@ -58,6 +58,7 @@ def login():
         return jsonify(access_token=access_token), 200
     
     return jsonify({"msg": "Invalid credentials"}), 401
+
 
 @auth_bp.route('/logout', methods=['POST'])
 @jwt_required()
