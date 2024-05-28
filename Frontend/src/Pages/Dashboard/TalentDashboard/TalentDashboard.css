@@ -1,11 +1,11 @@
 .Tdashboard {
-  padding: var(--pad4) var(--pad2);
-  background-color: var(--vlight-blue);
-  min-height: 100%;
+  padding: var(--pad4) var(--pad3);
+  background-color: var(--vxblue);
+  height: 100%;
   width: 100%;
 }
 
-.Tdashboard h1{
+.Tdashboard h1 {
   font-size: 1.5rem;
   font-weight: var(--fw5);
   margin-bottom: var(--mar4);
@@ -20,33 +20,46 @@
 .stat {
   display: flex;
   align-items: center;
-  background-color: #f4f4f4;
-  padding: 10px 20px;
-  border-radius: 10px;
+  padding: var(--pad2) 20px;
+  border-radius: 6px;
   width: 100%;
+  background-color: var(--white);
+  border: 1px solid #ddd;
 }
 
 .icon {
   font-size: 24px;
-  margin-right: 10px;
 }
 
 .stat-info h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: 1.2rem;
+  font-weight: var(--fw3);
 }
 
 .stat-info p {
-  margin: 0;
-  color: #666;
+  color: var(--paragraph);
+  font-size: var(--fs4);
+  font-weight: var(--fs4);
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: var(--pad2);
 }
 
 .opportunities h3 {
   margin-bottom: 10px;
 }
 
+.opportunities {
+  padding-top: var(--pad8);
+}
+
 .opportunity {
-  background-color: #f4f4f4;
+  background-color: var(--white);
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -71,17 +84,42 @@
   color: #666;
 }
 
-@media screen and (min-width: 768px) {
- .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.icon-and-count {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin-top: var(--mar2);
 }
 
+.opportunities-card .icon-container svg {
+  fill: #f17b54;
+}
+
+.shortlisted .icon-container svg {
+  fill: #62f2c2;
+}
+
+.review .icon-container svg {
+  fill: #7079e5;
+}
+
+.views .icon-container svg {
+  fill: #e7b214;
+}
+
+@media screen and (min-width: 768px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .Tdashboard {
+    padding: var(--pad4);
+  }
+}
 
 @media (min-width: 1280px) {
   .stats {
     grid-template-columns: repeat(4, 1fr);
   }
 }
-
-

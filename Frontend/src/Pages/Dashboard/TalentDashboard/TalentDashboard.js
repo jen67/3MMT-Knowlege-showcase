@@ -7,32 +7,48 @@ const TalentDashboard = () => {
     <div className="Tdashboard">
       <h1>Dashboard</h1>
       <div className="stats">
-        <div className="stat">
-          <FaBriefcase className="icon" />
+        <div className="stat opportunities-card">
           <div className="stat-info">
-            <h2>2</h2>
-            <p>Applied Opportunities</p>
+            <h2>Opportunities</h2>
+            <div className="icon-and-count">
+              <div className="icon-container">
+                <FaBriefcase className="icon" />
+              </div>
+              <p>2</p>
+            </div>
           </div>
         </div>
-        <div className="stat">
-          <FaHeart className="icon" />
+        <div className="stat shortlisted">
           <div className="stat-info">
-            <h2>3</h2>
-            <p>Shortlisted</p>
+            <h2>Shortlisted</h2>
+            <div className="icon-and-count">
+              <div className="icon-container">
+                <FaHeart className="icon" />
+              </div>
+              <p>3</p>
+            </div>
           </div>
         </div>
-        <div className="stat">
-          <FaCommentDots className="icon" />
+        <div className="stat review">
           <div className="stat-info">
-            <h2>0</h2>
-            <p>Review</p>
+            <h2>Review</h2>
+            <div className="icon-and-count">
+              <div className="icon-container">
+                <FaCommentDots className="icon" />
+              </div>
+              <p>0</p>
+            </div>
           </div>
         </div>
-        <div className="stat">
-          <FaEye className="icon" />
+        <div className="stat views">
           <div className="stat-info">
-            <h2>57</h2>
-            <p>Views</p>
+            <h2>Views</h2>
+            <div className="icon-and-count">
+              <div className="icon-container">
+                <FaEye className="icon" />
+              </div>
+              <p>57</p>
+            </div>
           </div>
         </div>
       </div>
@@ -44,6 +60,13 @@ const TalentDashboard = () => {
           <p>Category: Back End Development</p>
           <span className="status pending">Pending</span>
         </div>
+        <div className="opportunity">
+          <h4>Front-end Developer Volunteer</h4>
+          <p>Dropify Technologies - Posted 3 weeks ago</p>
+          <p>Category: Product Development</p>
+          <span className="status pending">Pending</span>
+        </div>
+
         <div className="opportunity">
           <h4>Front-end Developer Volunteer</h4>
           <p>Dropify Technologies - Posted 3 weeks ago</p>

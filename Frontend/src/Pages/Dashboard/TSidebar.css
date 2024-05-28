@@ -1,7 +1,8 @@
 .sidebar {
   width: 100%;
   height: 100vh;
-  position: relative;
+  position: sticky;
+  top: 0;
   background-color: var(--footer-blue);
   color: #fff;
   padding: 11rem var(--pad3) var(--pad3) var(--pad3);

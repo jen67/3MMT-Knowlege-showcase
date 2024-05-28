@@ -1,5 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 .dashboard {
     display: flex;
+    min-height: 100vh; 
 }
 
 .sidebar {
@@ -9,8 +14,7 @@
 .main-content {
     flex-grow: 1;
     background-color: var(--light-blue);
-    padding: var(--pad10) 0;
-    height: 100vh; 
+    padding: var(--pad10) 0 0 0;
     overflow-y: auto;
 }
 
