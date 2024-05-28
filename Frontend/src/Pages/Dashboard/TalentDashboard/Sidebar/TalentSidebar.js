@@ -14,7 +14,7 @@ import {
   FaArrowCircleRight,
   FaArrowCircleLeft,
 } from "react-icons/fa";
-import "./Sidebar.css";
+import "../../TSidebar.css";
 const TalentSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(
@@ -70,7 +70,7 @@ const TalentSidebar = () => {
             </li>
             <li>
               <Link to="/TShortlisted" className="sidebar-link">
-                <FaRegListAlt /> {!collapsed && "Shortlisted Companies"}
+                <FaRegListAlt /> {!collapsed && "Shortlisted "}
               </Link>
             </li>
             <li>
@@ -80,7 +80,7 @@ const TalentSidebar = () => {
             </li>
             <li>
               <Link to="/TMessages" className="sidebar-link">
-                <FaRegEnvelope /> {!collapsed && "My Messages"}
+                <FaRegEnvelope /> {!collapsed && "Messages"}
               </Link>
             </li>
             <li>

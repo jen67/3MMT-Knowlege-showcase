@@ -6,11 +6,11 @@ import { FiMenu, FiX } from 'react-icons/fi';
 
 const withCompanySidebar = (Component) => {
   return (props) => {
-    const [isSidebarVisible, setSidebarVisible] = useState(window.innerWidth > 768);
+    const [isSidebarVisible, setSidebarVisible] = useState(window.innerWidth >- 768);
 
     useEffect(() => {
       const handleResize = () => {
-        setSidebarVisible(window.innerWidth > 768);
+        setSidebarVisible(window.innerWidth >= 768);
       };
 
       window.addEventListener('resize', handleResize);
@@ -35,11 +35,11 @@ const withCompanySidebar = (Component) => {
 
 const withTalentSidebar = (Component) => {
   return (props) => {
-    const [isSidebarVisible, setSidebarVisible] = useState(window.innerWidth > 768);
+    const [isSidebarVisible, setSidebarVisible] = useState(window.innerWidth >= 768);
 
     useEffect(() => {
       const handleResize = () => {
-        setSidebarVisible(window.innerWidth > 768);
+        setSidebarVisible(window.innerWidth >= 768);
       };
 
       window.addEventListener('resize', handleResize);

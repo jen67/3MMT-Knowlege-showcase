@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaUser, FaBriefcase, FaEnvelopeOpenText, FaRegListAlt, FaRegFileAlt, FaRegEnvelope, FaCog, FaSignOutAlt, FaArrowCircleRight, FaArrowCircleLeft } from 'react-icons/fa';
 import images from "../../../../Components/images";
-import "./Sidebar.css";
+import "../../TSidebar.css";
 
 
 const CompanySidebar = () => {
