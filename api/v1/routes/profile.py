@@ -4,36 +4,37 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 profile_bp = Blueprint('profile', __name__)
 
-@profile_bp.route('/profile/<string:id>', methods=['GET'])
+@profile_bp.route('/profile/<string:email>', methods=['GET'])
 @jwt_required()
-def get_profile(id):
-    user = User.objects(id=id).first()
+def get_profile(email):
+    user = User.objects(email=email).first().to_json()
 
     if user:
         return jsonify(user), 200
     
-    company = Company.objects(id=id).first()
+    company = Company.objects(email=email).first().to_json()
 
     if company:
         return jsonify(company), 200
     
     return jsonify({"msg": "Profile not found"}), 404
 
-@profile_bp.route('/profile/<string:id>', methods=['PUT'])
+@profile_bp.route('/profile/<string:email>', methods=['PUT'])
 @jwt_required()
-def update_profile(id):
+def update_profile(email):
     data = request.get_json()
-    user = User.objects(id=id).first()
+    user = User.objects(email=email).first()
 
     if user:
         user.update(**data)
         return jsonify({"msg": "User profile updated"}), 200
     
-    company = Company.objects(id=id).first()
+    company = Company.objects(email=email).first()
 
     if company:
         company.update(**data)
         return jsonify({"msg": "Company profile updated"}), 200
     
     return jsonify({"msg": "Profile not found"}), 404
+
 

@@ -27,7 +27,7 @@ def send_message():
 @messages_bp.route('/messages/<string:conversation_id>', methods=['GET'])
 @jwt_required()
 def get_messages(conversation_id):
-    messages = Message.objects(conversation_id=conversation_id)
+    messages = Message.objects(conversation_id=conversation_id).to_json()
     
     return jsonify(messages), 200
 
