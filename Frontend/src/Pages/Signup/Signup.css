@@ -1,0 +1,248 @@
+.signupform,
+.loginform, .contact-us{
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F2F6FE;
+  margin: 0 auto;
+  padding: 11rem var(--pad2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group input:hover, .textarea:hover{
+  border-color: var(--bright);
+}
+
+.form-group input:focus, .textarea:focus {
+  border-color: var(--bright);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--vlight-blue);
+}
+
+.form-group input:active, .textarea:active {
+  border-color: var(--bright);
+  background-color: var(--vlight-blue);
+}
+.form-group input:focus ~ label {
+  background-color: var(--vlight-blue);
+}
+
+
+.signup-header {
+  text-align: left;
+  align-self: flex-start;
+}
+
+.account-exists {
+  margin: var(--mar2) auto 0 auto;
+  gap: 1rem;
+  align-self: center;
+}
+
+.loginlink, .signuplink{
+  transition: color 0.3s ease-in-out, text-decoration 0.2s ease-in-out;
+}
+
+.loginlink:hover, .signuplink:hover{
+color: var(--bright);
+text-decoration: underline;
+}
+
+.account-exists p {
+  color: #6c6a6a;
+}
+
+.signupform h1 {
+  padding: 0 0 var(--pad5) 0;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  padding: var(--pad4) 1.2rem var(--pad6) 1.2rem;
+  border-radius: 0 0 10px 10px;
+  justify-content: center;
+  width: 100%;
+  max-width: 700px;
+}
+
+.toggle-container {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+}
+
+.toggle-container button {
+  width: 50%;
+  outline: none;
+  border: none;
+  color: #373737;
+  background-color: var(--white);
+  padding: var(--pad3) 0;
+  border-bottom: 2px solid var(--light-blue);
+  transition: border-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.toggle-container button:hover {
+  color: var(--bright);
+}
+
+.toggle-container button.active {
+  background-color: var(--vlight-blue);
+  font-weight: var(--fw5);
+  color: var(--dbheading);
+}
+
+.toggle-container .company-button,
+.toggle-container .talent-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.toggle-container .company-button::before,
+.toggle-container .talent-button::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background: var(--bright);
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.toggle-container .company-button::before {
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+}
+
+.toggle-container .company-button.active::before {
+  transform: scaleX(1);
+}
+
+.toggle-container .talent-button::before {
+  bottom: 0;
+  right: 0;
+  transform-origin: left;
+}
+
+.toggle-container .talent-button.active::before {
+  transform: scaleX(1);
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: white;
+  padding: 0 5px;
+  font-size: 0.875rem;
+  transition: all 0.3s;
+  pointer-events: none;
+  color: #6c6a6a;
+  z-index: 1;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1.1rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: left;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  font-size: var(--fs2);
+}
+
+.form-group input::placeholder {
+  font-size: 0.9rem;
+  color: #afadad;
+}
+
+.form-group .error {
+  color: red;
+  font-size: 0.875rem;
+}
+
+.submit-button {
+  padding: var(--pad2);
+  font-weight: var(--fw5);
+  background-color: var(--btn-blue);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.submit-button:hover {
+  background-color: var(--bright);
+}
+
+.submit-button:active {
+  transform: scale(0.9);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.loading-bar {
+  background-color: #f3f3f3;
+  height: 20px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.loading-progress {
+  background-color: #4caf50;
+  height: 100%;
+  transition: width 0.4s ease-in-out;
+}
+
+.select-container {
+  position: relative;
+  border-radius: 4px;
+}
+
+.select-label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: white;
+  padding: 0 5px;
+}

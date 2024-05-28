@@ -1,0 +1,45 @@
+.Abouthero {
+  padding: 17rem var(--pad2) 10rem var(--pad2);
+}
+
+.Abouthero-content h1 {
+  color: var(--white);
+}
+
+@media screen and (min-width: 768px) {
+  .Abouthero-content {
+    padding: var(--pad7) var(--pad2);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .Abouthero {
+    min-height: 100vh;
+    padding: var(--pad9) var(--pad8) 0 var(--pad8);
+  }
+
+  .Abouthero-content h1 {
+    font-size: 2.8rem;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .Abouthero-content h1 {
+    font-size: var(--fs7);
+  }
+
+  .Abouthero-content {
+    max-width: 1200px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .Abouthero-content h1 {
+    font-size: var(--fs8);
+  }
+
+   .Abouthero-content {
+    max-width: 1300px;
+  }
+  
+}

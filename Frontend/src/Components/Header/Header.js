@@ -3,12 +3,19 @@ import NavLink from "./NavLink";
 import { useState } from "react";
 import images from "../images";
 import "./Header.css";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const navigateToSignup = () => {
+    navigate("/Signup");
+    setIsOpen(false);// Navigate to Signup page
   };
 
   return (
@@ -88,10 +95,17 @@ const Header = () => {
           </ul>
 
           <div className="btn-container">
-            <button className="blue-btn">Get Started</button>
+            <button className="blue-btn" onClick={navigateToSignup}>
+              Get Started
+            </button>
           </div>
         </div>
-        {isOpen && <div className="transparent-background open"></div>}
+        {isOpen && (
+          <div
+            className="transparent-background open"
+            onClick={() => setIsOpen(false)}
+          ></div>
+        )}
       </nav>
     </header>
   );

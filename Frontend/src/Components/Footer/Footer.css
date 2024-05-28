@@ -1,5 +1,5 @@
 /* general padding for the contact, logo-div, nav and social div and fontweights for their respective headings
-=========================================*/
+=======*/
 
 .logo-div,
 .contact,
@@ -19,13 +19,12 @@ nav h3,
 }
 
 .flex-items {
-    padding: var(--pad3);
+  padding: var(--pad3);
   background-color: var(--vlight-blue);
 }
 
-
 /* styles for the footer contact part
-=========================================*/
+=======*/
 
 .contact p img {
   width: 25px;
@@ -39,7 +38,7 @@ nav h3,
 }
 
 /* nav links styles for the footer 
-===========================================*/
+=========*/
 nav ul li .blue-btn {
   width: 160px;
   padding: var(--pad1);
@@ -52,7 +51,7 @@ nav ul li:hover {
 }
 
 /* styles for the footer social icons
-===========================================*/
+=========*/
 
 .social-links {
   margin-top: 0.5rem;
@@ -71,14 +70,13 @@ nav ul li:hover {
 
 .copyright {
   background-color: var(--footer-blue);
-  padding: var(--pad4)  0;
+  padding: var(--pad4) 0;
   color: var(--white);
   text-align: center;
 }
 
-
 /* styles for larger screens
-===========================================*/
+=========*/
 
 @media screen and (min-width: 768px) {
   .flex-items {
@@ -90,8 +88,8 @@ nav ul li:hover {
     font-size: var(--fs1);
   }
 
-  nav ul li .blue-btn{
-    font-size:var(--fs1);
+  nav ul li .blue-btn {
+    font-size: var(--fs1);
   }
 
   .flex-items > * {
@@ -101,16 +99,15 @@ nav ul li:hover {
   .logo-div p {
     margin-top: var(--mar1);
   }
-
 }
 
 @media screen and (min-width: 1024px) {
-    .flex-items{
-        padding: var(--pad9);
-        font-size: var(--fs2);
-    }
+  .flex-items {
+    padding: var(--pad9);
+    font-size: var(--fs2);
+  }
 
-      nav ul li .blue-btn{
-    font-size:var(--fs2);
+  nav ul li .blue-btn {
+    font-size: var(--fs2);
   }
 }

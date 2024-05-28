@@ -16,7 +16,7 @@ const Subscribe = () => {
         <h2>Subscribe to our newsletter</h2>
             <form>
               <input type="email" placeholder="Enter your email address" required />
-              <button>Subscribe</button>
+              <button className="subscribe-btn">Subscribe</button>
             </form>
        
       </section>

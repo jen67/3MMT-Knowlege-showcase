@@ -89,7 +89,7 @@ const Testimonial = () => {
         </div>
 
         <div className="card">
-          <div class="card-header">
+          <div className="card-header">
             <img src={images.sarahL} alt="Sarah-Leeh" />
             <div className="name-positon">
               <p>Sarah Lee</p>

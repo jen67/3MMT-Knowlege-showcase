@@ -1,0 +1,108 @@
+#Talents-h {
+  padding: var(--pad2);
+  background-color: var(--vxblue);
+}
+
+#Talents-h h2 {
+  text-align: center;
+  font-size: var(--fs4);
+  padding: 0 0 var(--pad5) 0;
+  font-weight: var(--fw5);
+}
+
+#Talents-h .white-button {
+  width: 100%;
+  margin-top: var(--mar4);
+  font-weight: var(--fw5);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+#Talents-h .white-button:active {
+  transform: scale(0.95);
+}
+
+.benefits-talents {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.Talents img {
+  width: 100%;
+}
+
+.company-flex {
+  padding-bottom: var(--pad9);
+}
+
+.Talents {
+  padding-bottom: var(--pad4);
+}
+
+.Talent-header {
+  font-size: 1.3rem;
+  font-weight: var(--fw5);
+  line-height: 1.3;
+  color: var(--paragraph);
+  padding: var(--pad2) 0;
+}
+
+.benefits-talents ul {
+  padding-left: var(--pad4);
+}
+
+.benefits-talents ul li {
+  list-style-type: square;
+  padding-bottom: var(--pad2);
+}
+
+@media screen and (min-width: 1024px) {
+  #Talents-h {
+    padding: var(--pad4) var(--pad9) var(--pad10) var(--pad9);
+  }
+
+  .Talents {
+    padding-bottom: 0;
+  }
+
+  .Talent-container {
+    display: flex;
+    gap: 3rem;
+    align-items: stretch;
+    height: 100%;
+  }
+
+  .Talent-container > * {
+    flex: 1;
+  }
+
+  .company-flex {
+    padding-bottom: 0;
+  }
+
+  #Talents-h .white-button {
+    width: 200px;
+    margin-top: 0;
+    padding: var(--pad1) var(--pad2);
+  }
+
+  .Talents-btext {
+    padding: 0 var(--pad9) var(--pad4) 0;
+  }
+
+  .Talent-header {
+    padding-top: 0;
+  }
+
+  .Talents img {
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .Talent-container {
+    gap: 6rem;
+  }
+}
