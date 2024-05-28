@@ -34,6 +34,8 @@ import aboutusBg from "../assets/images/aboutus-bg.png";
 import mission from "../assets/images/mission.png";
 import vision from "../assets/images/vision.png";
 import whoWeAre from "../assets/images/who-we-are.png";
+import Talent1 from "../assets/images/User1.jpg";
+import clogo from "../assets/images/clogo.jpg";
 
 
 
@@ -73,7 +75,9 @@ const images = {
   aboutusBg,
   mission,
   vision,
-  whoWeAre
+  whoWeAre,
+  Talent1,
+  clogo,
 };
 
 

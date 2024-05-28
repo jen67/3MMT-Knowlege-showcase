@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import images from "../../../../Components/images";
+import "./TalentSidebar.css"
 import {
   FaHome,
   FaUser,
@@ -9,7 +11,6 @@ import {
   FaRegEnvelope,
   FaCog,
   FaSignOutAlt,
-  FaBuilding,
   FaArrowCircleRight,
   FaArrowCircleLeft,
 } from "react-icons/fa";
@@ -30,49 +31,50 @@ const TalentSidebar = () => {
             {collapsed ? <FaArrowCircleRight /> : <FaArrowCircleLeft />}
           </span>
         </button>
-        <h2>
-          <FaBuilding /> {!collapsed && "Company Logo"}
-        </h2>
+        <div className="avatar-container">
+          <img src={images.Talent1} alt="Avatar" className="avatar" />{" "}
+          {!collapsed && ""}
+        </div>
         <nav>
           <ul>
             <li>
-              <Link to="/TalentDashboard">
+              <Link to="/TalentDashboard" className="sidebar-link">
                 <FaHome /> {!collapsed && "Dashboard"}
               </Link>
             </li>
             <li>
-              <Link to="/Talentprofile">
+              <Link to="/Talentprofile" className="sidebar-link">
                 <FaUser /> {!collapsed && "Profile"}
               </Link>
             </li>
 
             <li>
-              <Link to="/TApplications">
+              <Link to="/TApplications" className="sidebar-link">
                 <FaEnvelopeOpenText /> {!collapsed && "Applications"}
               </Link>
             </li>
             <li>
-              <Link to="/TShortlisted">
+              <Link to="/TShortlisted" className="sidebar-link">
                 <FaRegListAlt /> {!collapsed && "Shortlisted Companies"}
               </Link>
             </li>
             <li>
-              <Link to="/TOpportunities">
+              <Link to="/TOpportunities" className="sidebar-link">
                 <FaRegFileAlt /> {!collapsed && "Opportunities"}
               </Link>
             </li>
             <li>
-              <Link to="/TMessages">
+              <Link to="/TMessages" className="sidebar-link">
                 <FaRegEnvelope /> {!collapsed && "My Messages"}
               </Link>
             </li>
             <li>
-              <Link to="/Talentsettings">
+              <Link to="/Talentsettings" className="sidebar-link">
                 <FaCog /> {!collapsed && "Settings"}
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/" className="sidebar-link">
                 <FaSignOutAlt /> {!collapsed && "Logout"}
               </Link>
             </li>

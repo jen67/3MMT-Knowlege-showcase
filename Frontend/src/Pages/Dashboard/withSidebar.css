@@ -14,6 +14,26 @@
     overflow-y: auto;
 }
 
+.sidebar-control {
+ border: none;
+ background-color: var(--bnfcolors);
+ color: var(--paragraph);
+ font-size:1.2rem;
+ display: flex;
+ flex-direction: row;
+ align-items:center;
+ justify-content: space-between;
+ gap: 1rem;
+padding: var(--pad1) var(--pad2);
+border-radius: 3px;
+transition: all 0.3s ease-in-out;
+margin-bottom: 1rem;
+}
+
+.sidebar-control:hover {
+  background-color: var(--whychoblue);
+  color: var(--white);
+}
 
 @media screen and (min-width: 768px) {
    .main-content button{

@@ -1,0 +1,15 @@
+.avatar-container, .clog-container{
+   padding-bottom: var(--pad2);
+ 
+}
+
+.avatar, .clogo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.sidebar.collapsed .avatar, .sidebar.collapsed .clogo {
+    width: 35px;
+    height: 35px;
+}

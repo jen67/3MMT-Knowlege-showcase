@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CompanySidebar from "./CompanyDashboard/Sidebar/CompanySidebar.js"; 
 import TalentSidebar from './TalentDashboard/Sidebar/TalentSidebar';
 import "./withSidebar.css"
+import { FiMenu, FiX } from 'react-icons/fi';
 
 const withCompanySidebar = (Component) => {
   return (props) => {
@@ -22,8 +23,8 @@ const withCompanySidebar = (Component) => {
       <div className="dashboard">
         {isSidebarVisible && <CompanySidebar className={isSidebarVisible ? 'visible' : ''} />}
         <div className="main-content">
-          <button onClick={() => setSidebarVisible(!isSidebarVisible)}>
-            {isSidebarVisible ? 'Hide Sidebar' : 'Show Sidebar'}
+          <button onClick={() => setSidebarVisible(!isSidebarVisible)} className="sidebar-control">
+            {isSidebarVisible ? <><FiX /> Hide Sidebar</> : <><FiMenu /> Show Sidebar</>}
           </button>
           <Component {...props} />
         </div>
@@ -49,10 +50,23 @@ const withTalentSidebar = (Component) => {
 
     return (
       <div className="dashboard">
-        {isSidebarVisible && <TalentSidebar className={isSidebarVisible ? 'visible' : ''} />}
+        {isSidebarVisible && (
+          <TalentSidebar className={isSidebarVisible ? "visible" : ""} />
+        )}
         <div className="main-content">
-          <button onClick={() => setSidebarVisible(!isSidebarVisible)}>
-            {isSidebarVisible ? 'Hide Sidebar' : 'Show Sidebar'}
+          <button
+            onClick={() => setSidebarVisible(!isSidebarVisible)}
+            className="sidebar-control"
+          >
+            {isSidebarVisible ? (
+              <>
+                <FiX /> Hide Sidebar
+              </>
+            ) : (
+              <>
+                <FiMenu /> Show Sidebar
+              </>
+            )}
           </button>
           <Component {...props} />
         </div>
