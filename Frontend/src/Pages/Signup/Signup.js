@@ -66,39 +66,59 @@ const Signup = () => {
     "Your account is being created..."
   );
   const onSubmit = (data) => {
-    
-    if (currentSelection === "Company" && !data.companyName) {
-      setError("companyName", {
-        type: "required",
-        message: "Company Name is required",
-      });
-      return;
+  if (currentSelection === "Company" && !data.companyName) {
+    setError("companyName", {
+      type: "required",
+      message: "Company Name is required",
+    });
+    return;
+  }
+
+  // Send a POST request to the backend API
+  fetch('https://your-backend-server.com/api/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Show the modal and start the loading progress
+      setShowModal(true);
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 10;
+        setLoadingProgress(progress);
+        if (progress === 90) {
+          setLoadingText("Your account has been created!");
+        }
+        if (progress === 100) {
+          clearInterval(interval);
+          setRedirecting(true); // Set redirecting to true
+          setTimeout(() => {
+            reset();
+            setRedirecting(false); // Set redirecting back to false after a delay
+            setShowModal(false); // Hide the modal after the redirecting text has been displayed
+            if (currentSelection === "Company") {
+              navigate("/CompanyDashboard");
+            } else {
+              navigate("/TalentDashboard");
+            }
+          }, 2000);
+        }
+      }, 500);
+    } else {
+      // Show an alert with the error message
+      alert('Signup failed: ' + data.message);
     }
-    console.log(data);
-    setShowModal(true);
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 10;
-      setLoadingProgress(progress);
-      if (progress === 90) {
-        setLoadingText("Your account has been created!");
-      }
-      if (progress === 100) {
-        clearInterval(interval);
-        setRedirecting(true); // Set redirecting to true
-        setTimeout(() => {
-          reset();
-          setRedirecting(false); // Set redirecting back to false after a delay
-          setShowModal(false); // Hide the modal after the redirecting text has been displayed
-          if (currentSelection === "Company") {
-            navigate("/CompanyDashboard");
-          } else {
-            navigate("/TalentDashboard");
-          }
-        }, 2000);
-      }
-    }, 500);
-  };
+  })
+  .catch((error) => {
+    // Show an alert with the error message
+    alert('Error: ' + error);
+  });
+};
   useEffect(() => {
     if (currentSelectionWatch === "Company") {
       register("companyName", {

@@ -30,13 +30,34 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
-    if (data.accountType === "Company") {
-      navigate("/CompanyDashboard");
+  console.log(data);
+
+  // Send a POST request to the backend API
+  fetch('https://your-backend-server.com/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      if (data.accountType === "Company") {
+        navigate("/CompanyDashboard");
+      } else {
+        navigate("/TalentDashboard");
+      }
     } else {
-      navigate("/TalentDashboard");
+      // Show an alert with the error message
+      alert('Login failed: ' + data.message);
     }
-  };
+  })
+  .catch((error) => {
+    // Show an alert with the error message
+    alert('Error: ' + error);
+  });
+};
 
   const accountTypes = [
     { value: "Company", label: "Company" },
