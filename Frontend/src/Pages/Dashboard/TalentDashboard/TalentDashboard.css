@@ -1,13 +1,20 @@
 .Tdashboard {
-  padding: 20px;
+  padding: var(--pad4) var(--pad2);
   background-color: var(--vlight-blue);
   min-height: 100%;
+  width: 100%;
+}
+
+.Tdashboard h1{
+  font-size: 1.5rem;
+  font-weight: var(--fw5);
+  margin-bottom: var(--mar4);
 }
 
 .stats {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }
 
 .stat {
@@ -16,7 +23,7 @@
   background-color: #f4f4f4;
   padding: 10px 20px;
   border-radius: 10px;
-  width: 23%;
+  width: 100%;
 }
 
 .icon {
@@ -63,3 +70,18 @@
   background-color: #ddd;
   color: #666;
 }
+
+@media screen and (min-width: 768px) {
+ .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (min-width: 1280px) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+

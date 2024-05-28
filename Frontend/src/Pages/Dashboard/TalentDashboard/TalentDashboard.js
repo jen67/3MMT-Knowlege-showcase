@@ -5,6 +5,7 @@ import "./TalentDashboard.css";
 const TalentDashboard = () => {
   return (
     <div className="Tdashboard">
+      <h1>Dashboard</h1>
       <div className="stats">
         <div className="stat">
           <FaBriefcase className="icon" />

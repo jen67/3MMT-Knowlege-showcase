@@ -62,7 +62,11 @@ const Signup = () => {
     setCurrentSelection(selection);
   };
 
+  const [loadingText, setLoadingText] = useState(
+    "Your account is being created..."
+  );
   const onSubmit = (data) => {
+    
     if (currentSelection === "Company" && !data.companyName) {
       setError("companyName", {
         type: "required",
@@ -76,6 +80,9 @@ const Signup = () => {
     const interval = setInterval(() => {
       progress += 10;
       setLoadingProgress(progress);
+      if (progress === 90) {
+        setLoadingText("Your account has been created!");
+      }
       if (progress === 100) {
         clearInterval(interval);
         setRedirecting(true); // Set redirecting to true
@@ -92,7 +99,6 @@ const Signup = () => {
       }
     }, 500);
   };
-
   useEffect(() => {
     if (currentSelectionWatch === "Company") {
       register("companyName", {
@@ -225,14 +231,16 @@ const Signup = () => {
 
         <div className="account-exists d-flex  align-center">
           <p>Already have an account?</p>
-          <Link to="/login" className="loginlink">Login</Link>
+          <Link to="/login" className="loginlink">
+            Login
+          </Link>
         </div>
       </form>
 
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h2>Account created successfully!</h2>
+            <h2> {loadingText}</h2>
             <div className="loading-bar">
               <div
                 className="loading-progress"
