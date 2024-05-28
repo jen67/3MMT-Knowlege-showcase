@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify
-from models import Notification, User
+from flask import Blueprint, jsonify, request
+from models import Company, Notification, User
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from utils import role_required
 
 notifications_bp = Blueprint('notifications', __name__)
 
@@ -13,3 +14,22 @@ def get_notifications():
     
     return jsonify(notifications), 200
 
+
+@notifications_bp.route('/notifications', methods=['POST'])
+@jwt_required()
+@role_required('company')
+def send_notification():
+    current_user = get_jwt_identity()
+
+    if current_user['role'] != 'company':
+        return jsonify({'msg': 'Only companies can send notifications'}), 403
+
+    user = User.objects(id=request.json['user_id']).first()
+    
+    if not user:
+        return jsonify({'msg': 'User not found'}), 404
+
+    notification = Notification(user=user, content=request.json['content'])
+    notification.save()
+
+    return jsonify({'msg': 'Notification sent'}), 200
