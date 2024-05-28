@@ -8,4 +8,5 @@ class Config:
         'host': 'localhost',
         'port': 27017
     }
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=24)
 
