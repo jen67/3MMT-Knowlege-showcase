@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 import "./Talentprofile.css";
 
 const Talentprofile = () => {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(localStorage.getItem('avatarUrl') || '');
   const [skills, setSkills] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleImageChange = (event) => {
-    setImage(URL.createObjectURL(event.target.files[0]));
-  };
+ const handleImageChange = (event) => {
+  if (event.target.files && event.target.files[0]) {
+    let reader = new FileReader();
+    
+    reader.onloadend = () => {
+      setImage(reader.result);
+      localStorage.setItem('avatarUrl', reader.result);
+    }
+
+    reader.readAsDataURL(event.target.files[0]);
+  }
+};
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import images from "../../../../Components/images";
 import "./TalentSidebar.css"
@@ -15,13 +15,28 @@ import {
   FaArrowCircleLeft,
 } from "react-icons/fa";
 import "./Sidebar.css";
-
 const TalentSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState(
+    localStorage.getItem("avatarUrl") || images.Talent1
+  );
+
+  useEffect(() => {
+    const updateAvatar = () => {
+      setAvatarUrl(localStorage.getItem("avatarUrl") || images.Talent1);
+    };
+
+    window.addEventListener("storage", updateAvatar);
+
+    return () => {
+      window.removeEventListener("storage", updateAvatar);
+    };
+  }, []);
 
   const toggleCollapse = () => {
     setCollapsed(!collapsed);
   };
+
 
   return (
     <>
@@ -32,7 +47,7 @@ const TalentSidebar = () => {
           </span>
         </button>
         <div className="avatar-container">
-          <img src={images.Talent1} alt="Avatar" className="avatar" />{" "}
+          <img src={avatarUrl} alt="Avatar" className="avatar" />{" "}
           {!collapsed && ""}
         </div>
         <nav>

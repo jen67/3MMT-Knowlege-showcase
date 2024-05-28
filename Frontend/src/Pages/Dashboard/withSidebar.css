@@ -9,7 +9,7 @@
 .main-content {
     flex-grow: 1;
     background-color: var(--light-blue);
-    padding: var(--pad10) var(--pad4);
+    padding: var(--pad10) 0;
     height: 100vh; 
     overflow-y: auto;
 }
@@ -36,11 +36,9 @@ margin-bottom: 1rem;
 }
 
 @media screen and (min-width: 768px) {
-   .main-content button{
+   .main-content .sidebar-control{
     display: none;
    }
 
-   .sidebar{
-    width: 20%;
-   }
+  
 }
