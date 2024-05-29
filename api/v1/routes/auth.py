@@ -1,19 +1,20 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, make_response
 from models import User, Company
 from utils import generate_uuid
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 auth_bp = Blueprint('auth', __name__)
 
+
 @auth_bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
     is_company = data.get('is_company', False)
-    
+
     if is_company:
         if Company.objects(email=data['email']).first():
             return jsonify({"msg": "Company already registered"}), 400
-        
+
         company = Company(
             name=data['name'],
             email=data['email'],
@@ -29,7 +30,7 @@ def register():
     else:
         if User.objects(email=data['email']).first():
             return jsonify({"msg": "User already registered"}), 400
-        
+
         user = User(
             name=data['name'],
             email=data['email'],
@@ -42,7 +43,6 @@ def register():
 
         return jsonify({"msg": "User registered successfully"}), 201
 
-        
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
@@ -50,29 +50,40 @@ def login():
     user = User.objects(email=data['email']).first()
 
     if user and user.check_password(data['password']):
-        access_token = create_access_token(identity={"id": str(user.id), "role": "user"})
-        return jsonify(access_token=access_token), 200
-    
+        access_token = create_access_token(
+            identity={"id": str(user.id), "role": "user"})
+        response = make_response(jsonify(access_token=access_token), 200)
+
+        response.set_cookie('auth_token', access_token, max_age=86400)
+
+        return response
+
     company = Company.objects(email=data['email']).first()
 
     if company and company.check_password(data['password']):
-        access_token = create_access_token(identity={"id": str(company.id), "role": "company"})
-        return jsonify(access_token=access_token), 200
-    
+        access_token = create_access_token(
+            identity={"id": str(company.id), "role": "company"})
+        response = make_response(jsonify(access_token=access_token), 200)
+
+        response.set_cookie('auth_token', access_token, max_age=86400)
+
+        return response
+
     return jsonify({"msg": "Invalid credentials"}), 401
 
 
 @auth_bp.route('/logout', methods=['POST'])
-@jwt_required()
 def logout():
-    jti = get_jwt_identity()
-    return jsonify({"msg": "Logout successful"}), 200
+    response = make_response(jsonify({"msg": "Logout successful"}), 200)
+    response.set_cookie('auth_token', '', expires=0)
+
+    return response
+
 
 @auth_bp.route('/reset-password', methods=['POST'])
 def get_reset():
     data = request.get_json()
     email = data.get('email')
-
 
     user = User.objects(email=email).first()
     if not user:
@@ -80,9 +91,7 @@ def get_reset():
         if not company:
             return jsonify({"msg": "User with this email does not exist"}), 404
 
-
     reset_token = generate_uuid()
-
 
     if user:
         user.reset_token = reset_token
@@ -91,8 +100,8 @@ def get_reset():
         company.reset_token = reset_token
         company.save()
 
-
     return jsonify({"reset_token": reset_token}), 200
+
 
 @auth_bp.route('/update-password', methods=['POST'])
 def update_password():
@@ -101,13 +110,11 @@ def update_password():
     reset_token = data.get('reset_token')
     new_password = data.get('new_password')
 
-
     user = User.objects(email=email, reset_token=reset_token).first()
     if not user:
         company = Company.objects(email=email, reset_token=reset_token).first()
         if not company:
             return jsonify({"msg": "Invalid email or reset token"}), 400
-
 
     if user:
         user.set_password(new_password)
