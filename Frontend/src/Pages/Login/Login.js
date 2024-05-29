@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate, Link } from "react-router-dom";
 import * as yup from "yup";
+import Cookies from "js-cookie";
 import "../Signup/Signup.css";
 import CustomSelect from "../../Components/Custom/CustomSelect";
 import "../../Components/Custom/CustomSelect.css";
@@ -31,6 +32,7 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+
   const onSubmit = (data) => {
     console.log(data);
 
@@ -52,6 +54,7 @@ const Login = () => {
         return response.json();
       })
       .then((responseData) => {
+        Cookies.set("auth_token", responseData.access_token);
         console.log(responseData); // Log the server response
 
         if (responseData.access_token) {
@@ -72,6 +75,7 @@ const Login = () => {
         setShowModal(true);
       });
   };
+
   const accountTypes = [
     { value: "Company", label: "Company" },
     { value: "Talent", label: "Talent" },
