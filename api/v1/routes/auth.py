@@ -43,7 +43,6 @@ def register():
 
         return jsonify({"msg": "User registered successfully"}), 201
 
-
 @auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -71,16 +70,15 @@ def login():
 
     return jsonify({"msg": "Invalid credentials"}), 401
 
-
 @auth_bp.route('/logout', methods=['POST'])
 def logout():
     response = make_response(jsonify({"msg": "Logout successful"}), 200)
     response.set_cookie('auth_token', '', expires=0)
-
     return response
 
 
 @auth_bp.route('/reset-password', methods=['POST'])
+@jwt_required()
 def get_reset():
     data = request.get_json()
     email = data.get('email')
@@ -104,6 +102,7 @@ def get_reset():
 
 
 @auth_bp.route('/update-password', methods=['POST'])
+@jwt_required()
 def update_password():
     data = request.get_json()
     email = data.get('email')
@@ -126,3 +125,9 @@ def update_password():
         company.save()
 
     return jsonify({"msg": "Password updated successfully"}), 200
+
+
+@auth_bp.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    return jsonify({"msg": "This is a protected route."}), 200
