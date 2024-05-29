@@ -28,37 +28,41 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
-
-  const onSubmit = (data) => {
+const onSubmit = (data) => {
   console.log(data);
 
   // Send a POST request to the backend API
-  fetch('https://your-backend-server.com/api/login', {
-    method: 'POST',
+  fetch("http://localhost:5000/auth/login", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify({
+      email: data.email,
+      password: data.password,
+    }),
   })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      if (data.accountType === "Company") {
-        navigate("/CompanyDashboard");
-      } else {
-        navigate("/TalentDashboard");
-      }
-    } else {
-      // Show an alert with the error message
-      alert('Login failed: ' + data.message);
-    }
-  })
-  .catch((error) => {
-    // Show an alert with the error message
-    alert('Error: ' + error);
-  });
-};
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData); // Log the server response
 
+      if (responseData.success) {
+        if (data.accountType === "Company") {
+          navigate("/CompanyDashboard");
+        } else {
+          navigate("/TalentDashboard");
+        }
+      } else {
+        // Show an alert with the error message
+        alert("Login failed: " + responseData.message);
+      }
+    })
+    .catch((error) => {
+      // Show an alert with the error message
+      alert("Error: " + error);
+    });
+};
+  
   const accountTypes = [
     { value: "Company", label: "Company" },
     { value: "Talent", label: "Talent" },

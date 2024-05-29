@@ -7,22 +7,9 @@ import CustomSelect from "../../Components/Custom/CustomSelect";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 
-const schema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-  mobile: yup.string().required("Mobile Number is required"),
-  companyName: yup.string(),
-  email: yup.string().email("Invalid email").required("Email is required"),
-  password: yup
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required("Confirm Password is required"),
-  category: yup.string().required("Category is required"),
-});
 
+
+// Job categories
 const jobCategories = [
   "Frontend Developer",
   "Backend Developer",
@@ -38,7 +25,68 @@ const jobCategories = [
   "Machine Learning Engineer",
 ];
 
+// API utility function
+const registerUser = async (payload) => {
+  try {
+    console.log("Payload:", payload);
+    const response = await fetch("http://localhost:5000/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.msg || "Registration failed");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error:", error.message);
+    throw error;
+  }
+};
+
+
 const Signup = () => {
+
+  const [currentSelection, setCurrentSelection] = useState("Company");
+  // Validation schema
+const [schema, setSchema] = useState(
+  yup.object().shape({
+    // initial schema...
+  })
+);
+
+
+ useEffect(() => {
+   setSchema(
+     yup.object().shape({
+       name: yup.string().required("Name is required"),
+       mobile: yup.string().required("Mobile Number is required"),
+       companyName: yup.string(),
+       email: yup.string().email("Invalid email").required("Email is required"),
+       password: yup
+         .string()
+         .min(6, "Password must be at least 6 characters")
+         .required("Password is required"),
+       confirmPassword: yup
+         .string()
+         .oneOf([yup.ref("password"), null], "Passwords must match")
+         .required("Confirm Password is required"),
+       category: yup.string().required("Category is required"),
+       ...(currentSelection === "Company" && {
+         location: yup.string().required("Location is required"),
+         industry: yup.string().required("Industry is required"),
+         description: yup.string().required("Description is required"),
+       }),
+     })
+   );
+ }, [currentSelection]);
+  
   const {
     register,
     handleSubmit,
@@ -52,73 +100,79 @@ const Signup = () => {
   });
 
   const currentSelectionWatch = watch("currentSelection");
-  const [currentSelection, setCurrentSelection] = useState("Company");
+  
   const [showModal, setShowModal] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [redirecting, setRedirecting] = useState(false);
   const navigate = useNavigate();
+  const [loadingText, setLoadingText] = useState(
+    "Your account is being created..."
+  );
 
   const handleToggle = (selection) => {
     setCurrentSelection(selection);
   };
 
-  const [loadingText, setLoadingText] = useState(
-    "Your account is being created..."
-  );
-  const onSubmit = (data) => {
-  if (currentSelection === "Company" && !data.companyName) {
-    setError("companyName", {
-      type: "required",
-      message: "Company Name is required",
-    });
-    return;
-  }
+ const onSubmit = async (data) => {
+   console.log("Form data:", data);
+   if (currentSelection === "Company" && !data.companyName) {
+     setError("companyName", {
+       type: "required",
+       message: "Company Name is required",
+     });
+     return;
+   }
 
-  // Send a POST request to the backend API
-  fetch('https://your-backend-server.com/api/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      // Show the modal and start the loading progress
-      setShowModal(true);
-      let progress = 0;
-      const interval = setInterval(() => {
-        progress += 10;
-        setLoadingProgress(progress);
-        if (progress === 90) {
-          setLoadingText("Your account has been created!");
-        }
-        if (progress === 100) {
-          clearInterval(interval);
-          setRedirecting(true); // Set redirecting to true
-          setTimeout(() => {
-            reset();
-            setRedirecting(false); // Set redirecting back to false after a delay
-            setShowModal(false); // Hide the modal after the redirecting text has been displayed
-            if (currentSelection === "Company") {
-              navigate("/CompanyDashboard");
-            } else {
-              navigate("/TalentDashboard");
-            }
-          }, 2000);
-        }
-      }, 500);
-    } else {
-      // Show an alert with the error message
-      alert('Signup failed: ' + data.message);
-    }
-  })
-  .catch((error) => {
-    // Show an alert with the error message
-    alert('Error: ' + error);
-  });
-};
+   // Prepare the data to be sent to the backend
+   const payload = {
+     name: data.name,
+     email: data.email,
+     password: data.password,
+     is_company: currentSelection === "Company",
+     ...(currentSelection === "Company" && {
+       companyName: data.companyName,
+       location: data.location,
+       industry: data.industry,
+       description: data.description,
+     }),
+     ...(currentSelection !== "Company" && {
+       mobile: data.mobile,
+       category: data.category,
+     }),
+   };
+
+   try {
+     const result = await registerUser(payload);
+     if (result.msg) {
+       setShowModal(true);
+       let progress = 0;
+       const interval = setInterval(() => {
+         progress += 10;
+         setLoadingProgress(progress);
+         if (progress === 90) setLoadingText("Your account has been created!");
+         if (progress === 100) {
+           clearInterval(interval);
+           setRedirecting(true);
+           setTimeout(() => {
+             reset();
+             setRedirecting(false);
+             setShowModal(false);
+             navigate(
+               currentSelection === "Company"
+                 ? "/CompanyDashboard"
+                 : "/TalentDashboard"
+             );
+           }, 2000);
+         }
+       }, 500);
+     } else {
+       console.log("Signup failed: " + result.msg);
+     }
+   } catch (error) {
+     console.log("Error: " + error.message);
+     alert(error.message); // Display error message
+   }
+ };
   useEffect(() => {
     if (currentSelectionWatch === "Company") {
       register("companyName", {
@@ -151,7 +205,7 @@ const Signup = () => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
         <div className="signup-header">
-          <h1>Sign up </h1>
+          <h1>Sign up</h1>
         </div>
         <div className="form-group">
           <label htmlFor="name">Name</label>
@@ -173,94 +227,145 @@ const Signup = () => {
           />
           {errors.mobile && <p className="error">{errors.mobile.message}</p>}
         </div>
+
         {currentSelection === "Company" && (
-          <div className="form-group">
-            <label htmlFor="companyName">Company Name</label>
-            <input
-              id="companyName"
-              type="text"
-              {...register("companyName", {
-                required:
-                  currentSelection === "Company" && "Company Name is required",
-              })}
-              placeholder="Enter your company name"
-            />
-            {errors.companyName && (
-              <p className="error">{errors.companyName.message}</p>
-            )}
-          </div>
-        )}
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            {...register("email")}
-            autoComplete="username"
-            placeholder="Enter your email"
-          />
-          {errors.email && <p className="error">{errors.email.message}</p>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            {...register("password")}
-            autoComplete="new-password"
-            placeholder="Enter your password"
-          />
-          {errors.password && (
-            <p className="error">{errors.password.message}</p>
-          )}
-        </div>
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            id="confirmPassword"
-            type="password"
-            {...register("confirmPassword")}
-            autoComplete="new-password"
-            placeholder="Confirm your password"
-          />
-          {errors.confirmPassword && (
-            <p className="error">{errors.confirmPassword.message}</p>
-          )}
-        </div>
-        <div className="form-group">
-          <label htmlFor="category" className="select-label">
-            Select Category
-          </label>
-          <CustomSelect
-            options={jobCategories.map((category) => ({
-              value: category,
-              label: category,
-            }))}
-            onSelectChange={(option) => setValue("category", option)}
-            value={watch("category")}
-            name="category"
-            placeholder="Select Category"
-          />
-          {errors.category && (
-            <p className="error">{errors.category.message}</p>
-          )}
-        </div>
+  <div className="form-group">
+    <label htmlFor="companyName">Company Name</label>
+    <input
+      id="companyName"
+      type="text"
+      {...register("companyName", {
+        required:
+          currentSelection === "Company" && "Company Name is required",
+      })}
+      placeholder="Enter your company name"
+    />
+    {errors.companyName && (
+      <p className="error">{errors.companyName.message}</p>
+    )}
+  </div>
+)}
+<div className="form-group">
+  <label htmlFor="email">Email</label>
+  <input
+    id="email"
+    type="email"
+    {...register("email")}
+    autoComplete="username"
+    placeholder="Enter your email"
+  />
+  {errors.email && <p className="error">{errors.email.message}</p>}
+</div>
+
+{currentSelection === "Company" && (
+  <>
+    <div className="form-group">
+      <label htmlFor="location">Location</label>
+      <input
+        id="location"
+        type="text"
+        {...register("location", {
+          required:
+            currentSelection === "Company" && "Location is required",
+        })}
+        placeholder="Enter your location"
+      />
+      {errors.location && (
+        <p className="error">{errors.location.message}</p>
+      )}
+    </div>
+    <div className="form-group">
+      <label htmlFor="industry">Industry</label>
+      <input
+        id="industry"
+        type="text"
+        {...register("industry", {
+          required:
+            currentSelection === "Company" && "Industry is required",
+        })}
+        placeholder="Enter your industry"
+      />
+      {errors.industry && (
+        <p className="error">{errors.industry.message}</p>
+      )}
+    </div>
+    <div className="form-group">
+      <label htmlFor="description">Description</label>
+      <input
+        id="description"
+        type="text"
+        {...register("description", {
+          required:
+            currentSelection === "Company" && "Description is required",
+        })}
+        placeholder="Enter your description"
+      />
+      {errors.description && (
+        <p className="error">{errors.description.message}</p>
+      )}
+    </div>
+  </>
+)}
+
+<div className="form-group">
+  <label htmlFor="password">Password</label>
+  <input
+    id="password"
+    type="password"
+    {...register("password")}
+    autoComplete="new-password"
+    placeholder="Enter your password"
+  />
+  {errors.password && (
+    <p className="error">{errors.password.message}</p>
+  )}
+</div>
+<div className="form-group">
+  <label htmlFor="confirmPassword">Confirm Password</label>
+  <input
+    id="confirmPassword"
+    type="password"
+    {...register("confirmPassword")}
+    autoComplete="new-password"
+    placeholder="Confirm your password"
+  />
+  {errors.confirmPassword && (
+    <p className="error">{errors.confirmPassword.message}</p>
+  )}
+</div>
+
+<div className="form-group">
+  <label htmlFor="category" className="select-label">
+    Select Category
+  </label>
+  <CustomSelect
+    options={jobCategories.map((category) => ({
+      value: category,
+      label: category,
+    }))}
+    onSelectChange={(option) => setValue("category", option)}
+    value={watch("category")}
+    name="category"
+    placeholder="Select Category"
+  />
+  {errors.category && (
+    <p className="error">{errors.category.message}</p>
+  )}
+</div>
         <button type="submit" className="submit-button">
           Sign up
         </button>
-
-        <div className="account-exists d-flex  align-center">
+        <div className="account-exists d-flex align-center">
           <p>Already have an account?</p>
           <Link to="/login" className="loginlink">
             Login
           </Link>
         </div>
       </form>
-
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h2> {loadingText}</h2>
+            <h2>{loadingText}</h2>
             <div className="loading-bar">
               <div
                 className="loading-progress"
