@@ -32,6 +32,7 @@ import TOpportunities from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarCom
 import TMessages from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TMessages/TMessages";
 import Talentsettings from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/Talentsettings/Talentsettings";
 import TLogout from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TLogout/TLogout";
+import ForgotPassword from "./Pages/forgot-password/forgot-password";
 
 const CompanyDashboardWithSidebar = withCompanySidebar(CompanyDashboard);
 const ProfileWithSidebar = withCompanySidebar(Profile);
@@ -67,6 +68,7 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Privacypolicy" element={<Privacypolicy />} />
           <Route path="/TermsOfService" element={<TermsOfService />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
           <Route
             path="/CompanyDashboard"
