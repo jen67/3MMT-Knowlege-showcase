@@ -1,13 +1,13 @@
 from flask import Blueprint, request, jsonify
 from models import Message, User
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from utils import generate_uuid, login_required
+from utils import generate_uuid
 
 messages_bp = Blueprint('messages', __name__)
 
 
 @messages_bp.route('/messages', methods=['POST'])
-@login_required()
+@jwt_required()
 def send_message():
     data = request.get_json()
     current_user = get_jwt_identity()
@@ -27,7 +27,7 @@ def send_message():
 
 
 @messages_bp.route('/messages/<string:conversation_id>', methods=['GET'])
-@login_required()
+@jwt_required()
 def get_messages(conversation_id):
     messages = Message.objects(conversation_id=conversation_id).to_json()
 

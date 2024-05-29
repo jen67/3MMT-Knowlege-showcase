@@ -1,12 +1,12 @@
 from flask import Blueprint, request, jsonify
 from models import Application, Job, User
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from utils import role_required, login_required
+from utils import role_required
 
 applications_bp = Blueprint('applications', __name__)
 
 @applications_bp.route('/applications', methods=['POST'])
-@login_required()
+@jwt_required()
 @role_required('user')
 def apply_job():
     data = request.get_json()
@@ -23,7 +23,7 @@ def apply_job():
     return jsonify({"msg": "Application submitted successfully"}), 201
 
 @applications_bp.route('/applications/<string:job_id>', methods=['GET'])
-@login_required()
+@jwt_required()
 @role_required('company')
 def get_applications_for_job(job_id):
     current_user = get_jwt_identity()
@@ -37,7 +37,7 @@ def get_applications_for_job(job_id):
     return jsonify(applications), 200
 
 @applications_bp.route('/applications/user/<string:user_id>', methods=['GET'])
-@login_required()
+@jwt_required()
 @role_required('user')
 def get_user_applications(user_id):
     current_user = get_jwt_identity()

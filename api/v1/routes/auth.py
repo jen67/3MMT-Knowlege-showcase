@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, make_response
 from models import User, Company
-from utils import generate_uuid, login_required
+from utils import generate_uuid
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 auth_bp = Blueprint('auth', __name__)
@@ -43,7 +43,6 @@ def register():
 
         return jsonify({"msg": "User registered successfully"}), 201
 
-
 @auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -71,18 +70,15 @@ def login():
 
     return jsonify({"msg": "Invalid credentials"}), 401
 
-
 @auth_bp.route('/logout', methods=['POST'])
-@login_required
 def logout():
     response = make_response(jsonify({"msg": "Logout successful"}), 200)
     response.set_cookie('auth_token', '', expires=0)
-
     return response
 
 
 @auth_bp.route('/reset-password', methods=['POST'])
-@login_required
+@jwt_required()
 def get_reset():
     data = request.get_json()
     email = data.get('email')
@@ -106,7 +102,7 @@ def get_reset():
 
 
 @auth_bp.route('/update-password', methods=['POST'])
-@login_required
+@jwt_required()
 def update_password():
     data = request.get_json()
     email = data.get('email')
@@ -132,6 +128,6 @@ def update_password():
 
 
 @auth_bp.route('/protected', methods=['GET'])
-@login_required
+@jwt_required()
 def protected():
     return jsonify({"msg": "This is a protected route."}), 200

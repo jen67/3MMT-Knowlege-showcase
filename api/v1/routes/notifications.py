@@ -1,13 +1,13 @@
 from flask import Blueprint, jsonify, request
 from models import Company, Notification, User
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from utils import role_required, login_required
+from utils import role_required
 
 notifications_bp = Blueprint('notifications', __name__)
 
 
 @notifications_bp.route('/notifications', methods=['GET'])
-@login_required()
+@jwt_required()
 def get_notifications():
     current_user = get_jwt_identity()
     user = User.objects(id=current_user['id']).first()
@@ -17,7 +17,7 @@ def get_notifications():
 
 
 @notifications_bp.route('/notifications', methods=['POST'])
-@login_required()
+@jwt_required()
 @role_required('company')
 def send_notification():
     current_user = get_jwt_identity()

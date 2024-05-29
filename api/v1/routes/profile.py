@@ -1,13 +1,12 @@
 from flask import Blueprint, request, jsonify
 from models import User, Company
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from utils import login_required
 
 profile_bp = Blueprint('profile', __name__)
 
 
 @profile_bp.route('/profile/<string:email>', methods=['GET'])
-@login_required()
+@jwt_required()
 def get_profile(email):
     user = User.objects(email=email).first()
 
@@ -23,7 +22,7 @@ def get_profile(email):
 
 
 @profile_bp.route('/profile/<string:email>', methods=['PUT'])
-@login_required()
+@jwt_required()
 def update_profile(email):
     data = request.get_json()
     user = User.objects(email=email).first()
