@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomSelect from "../../Components/Custom/CustomSelect";
+import Modal from "../../Components/Modal/Modal";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 
@@ -24,6 +25,61 @@ const jobCategories = [
   "Cloud Engineer",
   "Machine Learning Engineer",
 ];
+
+//industries categories
+const industries = [
+  "Information Technology",
+  "Healthcare",
+  "Finance",
+  "Education",
+  "Manufacturing",
+  "Retail",
+  "Real Estate",
+  "Remote",
+  "Agriculture",
+  "Automotive",
+  "Aerospace",
+  "Construction",
+  "Energy",
+  "Entertainment",
+  "Fashion",
+  "Food & Beverage",
+  "Government",
+  "Hospitality",
+  "Insurance",
+  "Legal",
+  "Logistics & Transportation",
+  "Media & Communications",
+  "Mining",
+  "Non-Profit",
+  "Pharmaceutical",
+  "Public Relations",
+  "Sports",
+  "Telecommunications",
+  "Travel & Tourism",
+  "Utilities",
+  "Warehousing",
+  "Waste Management",
+  "Water Management",
+  "Wholesale",
+  "Marine & Shipping",
+  "Biotechnology",
+  "Consulting",
+  "Design",
+  "E-commerce",
+  "Engineering",
+  "Event Planning",
+  "Human Resources",
+  "Marketing",
+  "Professional Services",
+  "Research & Development",
+  "Security",
+  "Software Development",
+  "Video Games",
+  "Veterinary",
+  "Wellness & Fitness",
+];
+
 
 // API utility function
 const registerUser = async (payload) => {
@@ -102,6 +158,7 @@ const [schema, setSchema] = useState(
   const currentSelectionWatch = watch("currentSelection");
   
   const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [redirecting, setRedirecting] = useState(false);
   const navigate = useNavigate();
@@ -167,10 +224,11 @@ const [schema, setSchema] = useState(
        }, 500);
      } else {
        console.log("Signup failed: " + result.msg);
+       setErrorMessage("Signup failed: " + result.msg);
      }
    } catch (error) {
      console.log("Error: " + error.message);
-     alert(error.message); // Display error message
+     setErrorMessage(error.message); // Display error message
    }
  };
   useEffect(() => {
@@ -229,129 +287,129 @@ const [schema, setSchema] = useState(
         </div>
 
         {currentSelection === "Company" && (
-  <div className="form-group">
-    <label htmlFor="companyName">Company Name</label>
-    <input
-      id="companyName"
-      type="text"
-      {...register("companyName", {
-        required:
-          currentSelection === "Company" && "Company Name is required",
-      })}
-      placeholder="Enter your company name"
-    />
-    {errors.companyName && (
-      <p className="error">{errors.companyName.message}</p>
-    )}
-  </div>
-)}
-<div className="form-group">
-  <label htmlFor="email">Email</label>
-  <input
-    id="email"
-    type="email"
-    {...register("email")}
-    autoComplete="username"
-    placeholder="Enter your email"
-  />
-  {errors.email && <p className="error">{errors.email.message}</p>}
-</div>
+          <div className="form-group">
+            <label htmlFor="companyName">Company Name</label>
+            <input
+              id="companyName"
+              type="text"
+              {...register("companyName", {
+                required:
+                  currentSelection === "Company" && "Company Name is required",
+              })}
+              placeholder="Enter your company name"
+            />
+            {errors.companyName && (
+              <p className="error">{errors.companyName.message}</p>
+            )}
+          </div>
+        )}
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            {...register("email")}
+            autoComplete="username"
+            placeholder="Enter your email"
+          />
+          {errors.email && <p className="error">{errors.email.message}</p>}
+        </div>
 
-{currentSelection === "Company" && (
-  <>
-    <div className="form-group">
-      <label htmlFor="location">Location</label>
-      <input
-        id="location"
-        type="text"
-        {...register("location", {
-          required:
-            currentSelection === "Company" && "Location is required",
-        })}
-        placeholder="Enter your location"
-      />
-      {errors.location && (
-        <p className="error">{errors.location.message}</p>
-      )}
-    </div>
-    <div className="form-group">
-      <label htmlFor="industry">Industry</label>
-      <input
-        id="industry"
-        type="text"
-        {...register("industry", {
-          required:
-            currentSelection === "Company" && "Industry is required",
-        })}
-        placeholder="Enter your industry"
-      />
-      {errors.industry && (
-        <p className="error">{errors.industry.message}</p>
-      )}
-    </div>
-    <div className="form-group">
-      <label htmlFor="description">Description</label>
-      <input
-        id="description"
-        type="text"
-        {...register("description", {
-          required:
-            currentSelection === "Company" && "Description is required",
-        })}
-        placeholder="Enter your description"
-      />
-      {errors.description && (
-        <p className="error">{errors.description.message}</p>
-      )}
-    </div>
-  </>
-)}
+        {currentSelection === "Company" && (
+          <>
+            <div className="form-group">
+              <label htmlFor="location">Location</label>
+              <input
+                id="location"
+                type="text"
+                {...register("location", {
+                  required:
+                    currentSelection === "Company" && "Location is required",
+                })}
+                placeholder="Enter your location"
+              />
+              {errors.location && (
+                <p className="error">{errors.location.message}</p>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="industry">Industry</label>
+              <input
+                id="industry"
+                type="text"
+                {...register("industry", {
+                  required:
+                    currentSelection === "Company" && "Industry is required",
+                })}
+                placeholder="Enter your industry"
+              />
+              {errors.industry && (
+                <p className="error">{errors.industry.message}</p>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="description">Description</label>
+              <input
+                id="description"
+                type="text"
+                {...register("description", {
+                  required:
+                    currentSelection === "Company" && "Description is required",
+                })}
+                placeholder="Enter your description"
+              />
+              {errors.description && (
+                <p className="error">{errors.description.message}</p>
+              )}
+            </div>
+          </>
+        )}
 
-<div className="form-group">
-  <label htmlFor="password">Password</label>
-  <input
-    id="password"
-    type="password"
-    {...register("password")}
-    autoComplete="new-password"
-    placeholder="Enter your password"
-  />
-  {errors.password && (
-    <p className="error">{errors.password.message}</p>
-  )}
-</div>
-<div className="form-group">
-  <label htmlFor="confirmPassword">Confirm Password</label>
-  <input
-    id="confirmPassword"
-    type="password"
-    {...register("confirmPassword")}
-    autoComplete="new-password"
-    placeholder="Confirm your password"
-  />
-  {errors.confirmPassword && (
-    <p className="error">{errors.confirmPassword.message}</p>
-  )}
-</div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            {...register("password")}
+            autoComplete="new-password"
+            placeholder="Enter your password"
+          />
+          {errors.password && (
+            <p className="error">{errors.password.message}</p>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            type="password"
+            {...register("confirmPassword")}
+            autoComplete="new-password"
+            placeholder="Confirm your password"
+          />
+          {errors.confirmPassword && (
+            <p className="error">{errors.confirmPassword.message}</p>
+          )}
+        </div>
 
-<div className="form-group">
-  <label htmlFor="category" className="select-label">
-    Select Category
-  </label>
-  <CustomSelect
-    options={jobCategories.map((category) => ({
-      value: category,
-      label: category,
-    }))}
-    onSelectChange={(option) => setValue("category", option)}
-    value={watch("category")}
-    name="category"
-    placeholder="Select Category"
-  />
-  {errors.category && (
-    <p className="error">{errors.category.message}</p>
-  )}
-</div>
+        <div className="form-group">
+          <label htmlFor="industry" className="select-label">
+            Select Industry
+          </label>
+          <CustomSelect
+            options={industries.map((industry) => ({
+              value: industry,
+              label: industry,
+            }))}
+            onSelectChange={(option) => setValue("industry", option)}
+            value={watch("industry")}
+            name="industry"
+            placeholder="Select Industry"
+          />
+          {errors.category && (
+            <p className="error">{errors.industry.message}</p>
+          )}
+        </div>
         <button type="submit" className="submit-button">
           Sign up
         </button>
@@ -375,6 +433,10 @@ const [schema, setSchema] = useState(
             {redirecting && <p>Redirecting to dashboard...</p>}
           </div>
         </div>
+      )}
+
+      {errorMessage && (
+        <Modal message={errorMessage} onClose={() => setErrorMessage(null)} />
       )}
     </section>
   );
