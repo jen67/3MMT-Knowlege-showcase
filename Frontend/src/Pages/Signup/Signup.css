@@ -1,8 +1,9 @@
 .signupform,
-.loginform, .contact-us{
+.loginform,
+.contact-us {
   width: 100%;
   min-height: 100vh;
-  background-color: #F2F6FE;
+  background-color: #f2f6fe;
   margin: 0 auto;
   padding: 11rem var(--pad2);
   display: flex;
@@ -11,24 +12,26 @@
   align-items: center;
 }
 
-.form-group input:hover, .textarea:hover{
+.form-group input:hover,
+.textarea:hover {
   border-color: var(--bright);
 }
 
-.form-group input:focus, .textarea:focus {
+.form-group input:focus,
+.textarea:focus {
   border-color: var(--bright);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   background-color: var(--vlight-blue);
 }
 
-.form-group input:active, .textarea:active {
+.form-group input:active,
+.textarea:active {
   border-color: var(--bright);
   background-color: var(--vlight-blue);
 }
 .form-group input:focus ~ label {
   background-color: var(--vlight-blue);
 }
-
 
 .signup-header {
   text-align: left;
@@ -41,13 +44,19 @@
   align-self: center;
 }
 
-.loginlink, .signuplink{
+.loginlink,
+.signuplink,
+.terms-link,
+.forgot-password-link {
   transition: color 0.3s ease-in-out, text-decoration 0.2s ease-in-out;
 }
 
-.loginlink:hover, .signuplink:hover{
-color: var(--bright);
-text-decoration: underline;
+.loginlink:hover,
+.signuplink:hover,
+.terms-link:hover,
+.forgot-password-link:hover {
+  color: var(--bright);
+  text-decoration: underline;
 }
 
 .account-exists p {

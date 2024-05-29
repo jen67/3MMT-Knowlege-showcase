@@ -15,6 +15,8 @@ import {
   FaArrowCircleLeft,
 } from "react-icons/fa";
 import "../../TSidebar.css";
+
+
 const TalentSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(
@@ -89,7 +91,7 @@ const TalentSidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/" className="sidebar-link">
+              <Link to="/TLogout" className="sidebar-link">
                 <FaSignOutAlt /> {!collapsed && "Logout"}
               </Link>
             </li>

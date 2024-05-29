@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate, Link } from "react-router-dom";
@@ -6,6 +6,7 @@ import * as yup from "yup";
 import "../Signup/Signup.css";
 import CustomSelect from "../../Components/Custom/CustomSelect";
 import "../../Components/Custom/CustomSelect.css";
+import Modal from "../../Components/Modal/Modal";
 import "./Login.css";
 
 const schema = yup.object().shape({
@@ -18,6 +19,8 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const {
     register,
     handleSubmit,
@@ -28,41 +31,47 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
-const onSubmit = (data) => {
-  console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
 
-  // Send a POST request to the backend API
-  fetch("http://localhost:5000/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: data.email,
-      password: data.password,
-    }),
-  })
-    .then((response) => response.json())
-    .then((responseData) => {
-      console.log(responseData); // Log the server response
-
-      if (responseData.success) {
-        if (data.accountType === "Company") {
-          navigate("/CompanyDashboard");
-        } else {
-          navigate("/TalentDashboard");
-        }
-      } else {
-        // Show an alert with the error message
-        alert("Login failed: " + responseData.message);
-      }
+    // Send a POST request to the backend API
+    fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
     })
-    .catch((error) => {
-      // Show an alert with the error message
-      alert("Error: " + error);
-    });
-};
-  
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Invalid username or password");
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        console.log(responseData); // Log the server response
+
+        if (responseData.access_token) {
+          // Display a modal dialog to inform the user that the login was successful
+          setModalMessage("Login successful!");
+          setShowModal(true);
+
+          if (data.accountType === "Company") {
+            navigate("/CompanyDashboard");
+          } else {
+            navigate("/TalentDashboard");
+          }
+        }
+      })
+      .catch((error) => {
+        // Display a modal dialog with the error message
+        setModalMessage(error.message);
+        setShowModal(true);
+      });
+  };
   const accountTypes = [
     { value: "Company", label: "Company" },
     { value: "Talent", label: "Talent" },
@@ -117,14 +126,38 @@ const onSubmit = (data) => {
             <p className="error">{errors.accountType.message}</p>
           )}
         </div>
+
+        <div className="forgotten-psw d-flex justify-between align-center">
+          <div className="psscheck d-flex align-center">
+            <input
+              type="checkbox"
+              id="terms-and-services"
+              name="terms-and-services"
+            />
+            <label htmlFor="terms-and-services">
+              <Link to="/TermsOfService" className="terms-link">
+                Terms and Services
+              </Link>
+            </label>
+          </div>
+          <Link to="/forgot-password" className="forgot-password-link">
+            Forgotten Password
+          </Link>
+        </div>
+
         <button type="submit" className="submit-button">
           Login
         </button>
         <div className="account-exists d-flex  align-center">
           <p>Don't have an account?</p>
-          <Link to="/signup" className="signuplink">Create one</Link>
+          <Link to="/signup" className="signuplink">
+            Create one
+          </Link>
         </div>
       </form>
+      {showModal && (
+        <Modal message={modalMessage} onClose={() => setShowModal(false)} />
+      )}
     </section>
   );
 };

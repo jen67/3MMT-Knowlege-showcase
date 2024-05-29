@@ -23,7 +23,7 @@ const Hero = () => {
    useEffect(() => {
      const timer = setInterval(() => {
        setImageIndex((prevIndex) => (prevIndex + 1) % imageArray.length);
-     }, 5000); // Change image every 5 seconds
+     }, 4000); // Change image every 5 seconds
 
      return () => clearInterval(timer); // Clean up on component unmount
    }, []);
