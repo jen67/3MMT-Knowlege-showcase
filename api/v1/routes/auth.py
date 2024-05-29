@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, make_response
 from models import User, Company
-from utils import generate_uuid
+from utils import generate_uuid, login_required
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 auth_bp = Blueprint('auth', __name__)
@@ -126,3 +126,9 @@ def update_password():
         company.save()
 
     return jsonify({"msg": "Password updated successfully"}), 200
+
+
+@auth_bp.route('/protected', methods=['GET'])
+@login_required
+def protected():
+    return jsonify({"msg": "This is a protected route."}), 200
