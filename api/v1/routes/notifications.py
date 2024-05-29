@@ -5,13 +5,14 @@ from utils import role_required
 
 notifications_bp = Blueprint('notifications', __name__)
 
+
 @notifications_bp.route('/notifications', methods=['GET'])
 @jwt_required()
 def get_notifications():
     current_user = get_jwt_identity()
     user = User.objects(id=current_user['id']).first()
     notifications = Notification.objects(user=user)
-    
+
     return jsonify(notifications), 200
 
 
@@ -25,7 +26,7 @@ def send_notification():
         return jsonify({'msg': 'Only companies can send notifications'}), 403
 
     user = User.objects(id=request.json['user_id']).first()
-    
+
     if not user:
         return jsonify({'msg': 'User not found'}), 404
 
