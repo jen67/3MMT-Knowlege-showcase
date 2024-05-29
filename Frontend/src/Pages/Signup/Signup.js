@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
@@ -7,8 +7,6 @@ import CustomSelect from "../../Components/Custom/CustomSelect";
 import Modal from "../../Components/Modal/Modal";
 import { Link } from "react-router-dom";
 import "./Signup.css";
-
-
 
 // Job categories
 const jobCategories = [
@@ -26,7 +24,7 @@ const jobCategories = [
   "Machine Learning Engineer",
 ];
 
-//industries categories
+// Industries categories
 const industries = [
   "Information Technology",
   "Healthcare",
@@ -80,7 +78,6 @@ const industries = [
   "Wellness & Fitness",
 ];
 
-
 // API utility function
 const registerUser = async (payload) => {
   try {
@@ -106,48 +103,48 @@ const registerUser = async (payload) => {
   }
 };
 
+// Schemas
+const companySchema = yup.object().shape({
+
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
+  companyName: yup.string().required("Company Name is required"),
+  location: yup.string().required("Location is required"),
+  industry: yup.string().required("Industry is required"),
+  description: yup.string().required("Description is required"),
+});
+
+const talentSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
+  mobile: yup.string().required("Mobile Number is required"),
+  category: yup.string().required("Category is required"),
+});
 
 const Signup = () => {
-
   const [currentSelection, setCurrentSelection] = useState("Company");
-  // Validation schema
-const [schema, setSchema] = useState(
-  yup.object().shape({
-    // initial schema...
-  })
-);
 
+  const schema = currentSelection === "Company" ? companySchema : talentSchema;
 
- useEffect(() => {
-   setSchema(
-     yup.object().shape({
-       name: yup.string().required("Name is required"),
-       mobile: yup.string().required("Mobile Number is required"),
-       companyName: yup.string(),
-       email: yup.string().email("Invalid email").required("Email is required"),
-       password: yup
-         .string()
-         .min(6, "Password must be at least 6 characters")
-         .required("Password is required"),
-       confirmPassword: yup
-         .string()
-         .oneOf([yup.ref("password"), null], "Passwords must match")
-         .required("Confirm Password is required"),
-       category: yup.string().required("Category is required"),
-       ...(currentSelection === "Company" && {
-         location: yup.string().required("Location is required"),
-         industry: yup.string().required("Industry is required"),
-         description: yup.string().required("Description is required"),
-       }),
-     })
-   );
- }, [currentSelection]);
-  
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
     reset,
     watch,
     setValue,
@@ -155,8 +152,6 @@ const [schema, setSchema] = useState(
     resolver: yupResolver(schema),
   });
 
-  const currentSelectionWatch = watch("currentSelection");
-  
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [loadingProgress, setLoadingProgress] = useState(0);
@@ -168,78 +163,62 @@ const [schema, setSchema] = useState(
 
   const handleToggle = (selection) => {
     setCurrentSelection(selection);
+    reset();
   };
 
- const onSubmit = async (data) => {
-   console.log("Form data:", data);
-   if (currentSelection === "Company" && !data.companyName) {
-     setError("companyName", {
-       type: "required",
-       message: "Company Name is required",
-     });
-     return;
-   }
+  const onSubmit = async (data) => {
+    console.log("Form data:", data);
 
-   // Prepare the data to be sent to the backend
-   const payload = {
-     name: data.name,
-     email: data.email,
-     password: data.password,
-     is_company: currentSelection === "Company",
-     ...(currentSelection === "Company" && {
-       companyName: data.companyName,
-       location: data.location,
-       industry: data.industry,
-       description: data.description,
-     }),
-     ...(currentSelection !== "Company" && {
-       mobile: data.mobile,
-       category: data.category,
-     }),
-   };
+    const payload = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      is_company: currentSelection === "Company",
+      ...(currentSelection === "Company" && {
+        name: data.companyName,
+        location: data.location,
+        industry: data.industry,
+        description: data.description,
+      }),
+      ...(currentSelection === "Talent" && {
+        mobile: data.mobile,
+        category: data.category,
+      }),
+    };
 
-   try {
-     const result = await registerUser(payload);
-     if (result.msg) {
-       setShowModal(true);
-       let progress = 0;
-       const interval = setInterval(() => {
-         progress += 10;
-         setLoadingProgress(progress);
-         if (progress === 90) setLoadingText("Your account has been created!");
-         if (progress === 100) {
-           clearInterval(interval);
-           setRedirecting(true);
-           setTimeout(() => {
-             reset();
-             setRedirecting(false);
-             setShowModal(false);
-             navigate(
-               currentSelection === "Company"
-                 ? "/CompanyDashboard"
-                 : "/TalentDashboard"
-             );
-           }, 2000);
-         }
-       }, 500);
-     } else {
-       console.log("Signup failed: " + result.msg);
-       setErrorMessage("Signup failed: " + result.msg);
-     }
-   } catch (error) {
-     console.log("Error: " + error.message);
-     setErrorMessage(error.message); // Display error message
-   }
- };
-  useEffect(() => {
-    if (currentSelectionWatch === "Company") {
-      register("companyName", {
-        required: "Company Name is required",
-      });
-    } else {
-      setValue("companyName", "");
+    try {
+      const result = await registerUser(payload);
+      if (result.msg) {
+        setShowModal(true);
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 10;
+          setLoadingProgress(progress);
+          if (progress === 90) setLoadingText("Your account has been created!");
+          if (progress === 100) {
+            clearInterval(interval);
+            setRedirecting(true);
+            setTimeout(() => {
+              reset();
+              setRedirecting(false);
+              setShowModal(false);
+              navigate(
+                currentSelection === "Company"
+                  ? "/CompanyDashboard"
+                  : "/TalentDashboard"
+              );
+            }, 2000);
+          }
+        }, 500);
+      } else {
+        console.log("Signup failed: " + result.msg);
+        setErrorMessage("Signup failed: " + result.msg);
+      }
+    } catch (error) {
+      console.log("Error: " + error.message);
+      setErrorMessage(error.message); // Display error message
     }
-  }, [currentSelectionWatch, register, setValue]);
+  };
 
   return (
     <section className="signupform">
@@ -261,30 +240,24 @@ const [schema, setSchema] = useState(
           Talent
         </button>
       </div>
+
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
         <div className="signup-header">
           <h1>Sign up</h1>
         </div>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            type="text"
-            {...register("name")}
-            placeholder="Enter your name"
-          />
-          {errors.name && <p className="error">{errors.name.message}</p>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="mobile">Mobile Number</label>
-          <input
-            id="mobile"
-            type="text"
-            {...register("mobile")}
-            placeholder="Enter your mobile number"
-          />
-          {errors.mobile && <p className="error">{errors.mobile.message}</p>}
-        </div>
+
+        {currentSelection === "Talent" && (
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input
+              id="name"
+              type="text"
+              {...register("name")}
+              placeholder="Enter your name"
+            />
+            {errors.name && <p className="error">{errors.name.message}</p>}
+          </div>
+        )}
 
         {currentSelection === "Company" && (
           <div className="form-group">
@@ -292,10 +265,7 @@ const [schema, setSchema] = useState(
             <input
               id="companyName"
               type="text"
-              {...register("companyName", {
-                required:
-                  currentSelection === "Company" && "Company Name is required",
-              })}
+              {...register("companyName")}
               placeholder="Enter your company name"
             />
             {errors.companyName && (
@@ -303,6 +273,7 @@ const [schema, setSchema] = useState(
             )}
           </div>
         )}
+
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -315,6 +286,17 @@ const [schema, setSchema] = useState(
           {errors.email && <p className="error">{errors.email.message}</p>}
         </div>
 
+        <div className="form-group">
+          <label htmlFor="mobile">Mobile Number</label>
+          <input
+            id="mobile"
+            type="text"
+            {...register("mobile")}
+            placeholder="Enter your mobile number"
+          />
+          {errors.mobile && <p className="error">{errors.mobile.message}</p>}
+        </div>
+
         {currentSelection === "Company" && (
           <>
             <div className="form-group">
@@ -322,10 +304,7 @@ const [schema, setSchema] = useState(
               <input
                 id="location"
                 type="text"
-                {...register("location", {
-                  required:
-                    currentSelection === "Company" && "Location is required",
-                })}
+                {...register("location")}
                 placeholder="Enter your location"
               />
               {errors.location && (
@@ -333,29 +312,11 @@ const [schema, setSchema] = useState(
               )}
             </div>
             <div className="form-group">
-              <label htmlFor="industry">Industry</label>
-              <input
-                id="industry"
-                type="text"
-                {...register("industry", {
-                  required:
-                    currentSelection === "Company" && "Industry is required",
-                })}
-                placeholder="Enter your industry"
-              />
-              {errors.industry && (
-                <p className="error">{errors.industry.message}</p>
-              )}
-            </div>
-            <div className="form-group">
               <label htmlFor="description">Description</label>
               <input
                 id="description"
                 type="text"
-                {...register("description", {
-                  required:
-                    currentSelection === "Company" && "Description is required",
-                })}
+                {...register("description")}
                 placeholder="Enter your description"
               />
               {errors.description && (
@@ -378,6 +339,7 @@ const [schema, setSchema] = useState(
             <p className="error">{errors.password.message}</p>
           )}
         </div>
+
         <div className="form-group">
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
@@ -392,24 +354,48 @@ const [schema, setSchema] = useState(
           )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="industry" className="select-label">
-            Select Industry
-          </label>
-          <CustomSelect
-            options={industries.map((industry) => ({
-              value: industry,
-              label: industry,
-            }))}
-            onSelectChange={(option) => setValue("industry", option)}
-            value={watch("industry")}
-            name="industry"
-            placeholder="Select Industry"
-          />
-          {errors.category && (
-            <p className="error">{errors.industry.message}</p>
-          )}
-        </div>
+        {currentSelection === "Talent" && (
+          <div className="form-group">
+            <label htmlFor="category" className="select-label">
+              Select Category
+            </label>
+            <CustomSelect
+              options={jobCategories.map((category) => ({
+                value: category,
+                label: category,
+              }))}
+              onSelectChange={(option) => setValue("category", option)}
+              value={watch("category")}
+              name="category"
+              placeholder="Select Category"
+            />
+            {errors.category && (
+              <p className="error">{errors.category.message}</p>
+            )}
+          </div>
+        )}
+
+        {currentSelection === "Company" && (
+          <div className="form-group">
+            <label htmlFor="industry" className="select-label">
+              Select Industry
+            </label>
+            <CustomSelect
+              options={industries.map((industry) => ({
+                value: industry,
+                label: industry,
+              }))}
+              onSelectChange={(option) => setValue("industry", option)}
+              value={watch("industry")}
+              name="industry"
+              placeholder="Select Industry"
+            />
+            {errors.industry && (
+              <p className="error">{errors.industry.message}</p>
+            )}
+          </div>
+        )}
+
         <button type="submit" className="submit-button">
           Sign up
         </button>
@@ -420,6 +406,7 @@ const [schema, setSchema] = useState(
           </Link>
         </div>
       </form>
+
       {showModal && (
         <div className="modal">
           <div className="modal-content">
