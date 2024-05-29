@@ -1,0 +1,118 @@
+.Tdashboard {
+  padding: var(--pad4) var(--pad3);
+  background-color: var(--vxblue);
+  height: 100%;
+  width: 100%;
+}
+
+.Tdashboard h1 {
+  font-size: 1.5rem;
+  font-weight: var(--fw5);
+  margin-bottom: var(--mar4);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  padding: var(--pad2) 20px;
+  border-radius: 6px;
+  width: 100%;
+  background-color: var(--white);
+  border: 1px solid #ddd;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; 
+}
+
+.stat:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+  transform: translateY(-5px); 
+}
+
+
+.stat-info h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: var(--fw4);
+}
+
+.stat-info p {
+  color: var(--paragraph);
+  font-size: var(--fs4);
+  font-weight: var(--fs5);
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: var(--pad2);
+}
+
+.opportunities h3 {
+  margin-bottom: 10px;
+}
+
+.opportunities {
+  padding-top: var(--pad8);
+}
+
+.opportunity {
+  background-color: var(--white);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.opportunity h4 {
+  margin: 0 0 5px 0;
+}
+
+.opportunity p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.status.pending {
+  background-color: #ddd;
+  color: #666;
+}
+
+.icon-and-count {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin-top: var(--mar2);
+}
+
+
+
+@media screen and (min-width: 768px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .Tdashboard {
+    padding: var(--pad4);
+  }
+
+  .Tdashboard h1{
+    font-size: var(--fs4);
+  }
+}
+
+@media (min-width: 1280px) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

@@ -104,7 +104,7 @@ This section includes general reset styles for various HTML elements.
 
 ```css
 /* Using color variables 
-===================================*/
+=*/
 body {
   background-color: var(--light-blue);
 }
@@ -119,7 +119,7 @@ button {
 }
 
 /* Using font family variables 
-======================================*/
+====*/
 h1, h2, h3 {
   font-family: var(--ff-salsa);
 }
@@ -129,7 +129,7 @@ p, span {
 }
 
 /* Using font size variables 
-=======================================*/
+=====*/
 h1 {
   font-size: var(--fs10);
 }
@@ -139,7 +139,7 @@ p {
 }
 
 /* Using font weight variables 
-======================================*/
+====*/
 h1 {
   font-weight: var(--fw8);
 }
@@ -149,7 +149,7 @@ p {
 }
 
 /* Using padding and margin variable
-=========================================*/
+=======*/
 .container {
   padding: var(--pad5);
   margin: var(--mar2);
@@ -198,3 +198,29 @@ function MyComponent() {
 
 export default MyComponent;
 ```
+
+<details>
+<summary>📸 Images Module 🖼️ (Click to expand)</summary>
+
+This module, `images.js`, is a centralized place for all the images used in the application. It imports all the images from the `assets/images` directory and exports them as an `images` object. This makes it easy to import and use these images anywhere in the application. 🚀
+
+## 📁 Structure
+
+The `images.js` file is structured as follows:
+
+1. Each image is imported from the `assets/images` directory. The imported image is assigned to a variable with a descriptive name, such as `logo` or `menuIcon`.
+2. These variables are then added as properties to the `images` object.
+3. The `images` object is exported as the default export of the module.
+
+Here's a simplified example:
+
+```javascript
+import logo from '../assets/images/logo.png';
+import menuIcon from '../assets/images/menu.svg';
+
+const images = {
+  logo,
+  menuIcon,
+};
+
+export default images;

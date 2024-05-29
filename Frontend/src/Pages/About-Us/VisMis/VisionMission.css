@@ -1,0 +1,47 @@
+.vision-mission {
+  display: flex;
+  flex-direction: column;
+}
+
+.vision-mission h2 {
+  font-weight: var(--fw5);
+  font-size: 1.7rem;
+  padding-bottom: var(--pad1);
+}
+
+.vision-mission img {
+  width: 60px;
+  padding-bottom: var(--pad3);
+}
+
+.vision {
+  background-color: #ecf2fe;
+}
+
+.mission {
+  background-color: #fdfeff;
+}
+
+.vision,
+.mission {
+  padding: var(--pad9) var(--pad4);
+}
+
+@media screen and (min-width: 768px) {
+  .vision-mission {
+    flex-direction: row;
+  }
+
+  .vision-mission > * {
+    flex: 1;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .vision,
+  .mission {
+    padding: var(--pad9) var(--pad10);
+  }
+}
+
+

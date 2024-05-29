@@ -1,0 +1,39 @@
+.why-choose-us {
+  padding: var(--pad9) var(--pad3);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light-blue);
+}
+
+
+.why-choose-us .header-text h2{
+  font-size: var(--fs5);
+  font-weight: var(--fw6);
+  padding-bottom: var(--pad2);
+  
+}
+.reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.reason {
+  max-width: 200px;
+  text-align: left;
+  background-color: var(--white);
+  padding: var(--pad4);
+  
+}
+
+.reason .number {
+  font-size: 2rem;
+  color: var(--whychoblue);
+  font-weight: var(--fw6)
+}
+
+@media (max-width: 768px) {
+  
+}

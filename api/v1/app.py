@@ -17,7 +17,7 @@ from routes.content import content_bp
 app = Flask(__name__)
 app.config.from_object(Config)
 
-CORS(app)
+CORS(app, supports_credentials=True)  
 jwt = JWTManager(app)
 
 connect(**app.config['MONGODB_SETTINGS'])
@@ -33,4 +33,3 @@ app.register_blueprint(contact_bp, url_prefix='/api')
 
 if __name__ == '__main__':
     app.run(debug=True)
-

@@ -1,0 +1,86 @@
+.loginform .form-container, .contact-us .form-container {
+  border-radius: 10px;
+}
+
+.loginform .custom-select .selected-option.placeholder {
+  padding: 1.8rem 1rem;
+}
+
+.loginform .options-list {
+  top: 65px;
+}
+
+.loginform .login-header h1, .contact-us h1 {
+  margin-bottom: var(--mar4);
+}
+
+.loginform .forgotten-psw{
+  padding: 0 0 var(--pad2) 0;
+}
+
+.forgot-password-link{
+  color: var(--btn-blue);
+  font-size: 0.8rem;
+}
+
+.terms-link{
+  font-size: 0.8rem;
+}
+
+.psscheck{
+gap: 0.2rem;
+}
+
+/* Hide the default checkbox */
+#terms-and-services {
+  display: none;
+}
+
+/* Create a new custom checkbox */
+#terms-and-services + label {
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+}
+
+#terms-and-services + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+  border-radius: 3px;
+}
+
+/* Style the custom checkbox when it's checked */
+#terms-and-services:checked + label:before {
+  background: var(--bright);
+  border-color: var(--bright);
+}
+
+#terms-and-services:checked + label:after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+@media screen and (min-width: 768px){
+  
+.forgot-password-link, .terms-link{
+  font-size: var(--fs2);
+}
+
+
+#terms-and-services + label {
+  padding-left: 35px;
+}
+
+}

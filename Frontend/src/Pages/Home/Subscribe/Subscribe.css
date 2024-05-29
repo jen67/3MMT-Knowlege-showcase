@@ -18,7 +18,7 @@ form input:-webkit-autofill:active {
   text-align: center;
 }
 
-form {
+.subscribe form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,7 +27,7 @@ form {
   margin-top: var(--mar4);
 }
 
-form input {
+.subscribe form input {
   outline: none;
   border: none;
   width: 100%;
@@ -35,15 +35,20 @@ form input {
   border-radius: 5px;
   text-align: center;
   border: 2px solid transparent;
+  text-align: left;
 }
 
-form input:focus {
+.subscribe form input::placeholder{
+  text-align: center;
+}
+
+.subscribe form input:focus {
   outline: none;
   border: 2px solid var(--accent);
   box-shadow: 0 0 4px var(--accent);
 }
 
-form button {
+.subscribe form button  {
   background-color: var(--accent);
   padding: var(--pad2);
   margin-top: var(--mar2);
@@ -57,24 +62,24 @@ form button {
   transition: background-color 0.3s ease, font-weight 0.3s ease, color 0.3s ease;
 }
 
-form button:hover {
+.subscribe form button:hover {
   background-color: var(--bright);
   font-weight: var(--fw5);
   color: var(--white);
 }
 
-form button:active {
+.subscribe form button:active {
   transform: scale(0.95);
 }
 
-form input:focus {
+.subscribe form input:focus {
   outline: none;
   border: 2px solid var(--accent);
   box-shadow: 0 0 10px var(--accent);
 }
 
 @media screen and (min-width: 768px) {
-  form {
+  .subscribe form {
     width: 80vw;
     flex-direction: row;
     align-items: center;
@@ -85,8 +90,12 @@ form input:focus {
     border-radius: 5px;
   }
 
-  form input {
+  .subscribe form input {
     width: 60vw;
+    text-align: left;
+  }
+
+  .subscribe form input::placeholder{
     text-align: left;
   }
 
@@ -95,17 +104,16 @@ form input:focus {
     line-height: 1.2;
   }
 
-  form button{
+.subscribe form button{
     margin-left: var(--mar4);
     margin-top: 0;
     padding: var(--pad1) var(--pad4);
-    width: 200px;
+    width: 300px;
   }
-
 }
 
 @media screen  and (min-width: 1024px){
-    form{
+    .subscribe form{
         width: 50vw; 
     }
     
