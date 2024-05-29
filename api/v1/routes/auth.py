@@ -73,6 +73,7 @@ def login():
 
 
 @auth_bp.route('/logout', methods=['POST'])
+@login_required
 def logout():
     response = make_response(jsonify({"msg": "Logout successful"}), 200)
     response.set_cookie('auth_token', '', expires=0)
@@ -81,6 +82,7 @@ def logout():
 
 
 @auth_bp.route('/reset-password', methods=['POST'])
+@login_required
 def get_reset():
     data = request.get_json()
     email = data.get('email')
@@ -104,6 +106,7 @@ def get_reset():
 
 
 @auth_bp.route('/update-password', methods=['POST'])
+@login_required
 def update_password():
     data = request.get_json()
     email = data.get('email')

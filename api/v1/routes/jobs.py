@@ -1,12 +1,12 @@
 from flask import Blueprint, request, jsonify
 from models import Job, Company
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from utils import role_required
+from utils import role_required, login_required
 
 jobs_bp = Blueprint('jobs', __name__)
 
 @jobs_bp.route('/jobs', methods=['POST'])
-@jwt_required()
+@login_required()
 def post_job():
     current_user = get_jwt_identity()
 
@@ -41,7 +41,7 @@ def get_job(id):
     return jsonify(job), 200
 
 @jobs_bp.route('/jobs/<string:id>', methods=['PUT'])
-@jwt_required()
+@login_required()
 @role_required('company')
 def update_job(id):
     data = request.get_json()
@@ -56,7 +56,7 @@ def update_job(id):
     return jsonify({"msg": "Job updated successfully"}), 200
 
 @jobs_bp.route('/jobs/<string:id>', methods=['DELETE'])
-@jwt_required()
+@login_required()
 @role_required('company')
 def delete_job(id):
     current_user = get_jwt_identity()
