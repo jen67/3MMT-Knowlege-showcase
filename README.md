@@ -54,6 +54,7 @@ Wefind offers a user-friendly interface that allows users to easily navigate and
 
 ### Prerequisites
 
+- Python
 - react.js
 - MongoDB
 
