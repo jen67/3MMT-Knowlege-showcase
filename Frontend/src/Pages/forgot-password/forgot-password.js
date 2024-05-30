@@ -30,7 +30,7 @@ const ForgotPassword = () => {
     console.log(data);
 
     // Get the authentication token from local storage or wherever it's stored
-    const token = Cookies.get("auth_token"); // Example
+    const token = Cookies.get("auth_token"); 
 
     // Check if the token is null or empty
     if (!token) {

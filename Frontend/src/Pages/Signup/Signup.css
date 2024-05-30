@@ -1,6 +1,6 @@
 .signupform,
 .loginform,
-.contact-us, .forgot-password-form {
+.contact-us, .forgot-password-form{
   width: 100%;
   min-height: 100vh;
   background-color: #f2f6fe;
