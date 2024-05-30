@@ -43,8 +43,7 @@ header div.logo {
   width: 30px;
 }
 
-/* Mobile navigation menu (side bar) styles 
-===*/
+/* Mobile navigation menu (side bar) styles */
 .nav-menu {
   visibility: hidden;
   opacity: 0;
@@ -93,8 +92,7 @@ header div.logo {
   width: 100%;
 }
 
-/* Styles for transparent background 
-=========*/
+/* Styles for transparent background */
 .transparent-background {
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(50px);

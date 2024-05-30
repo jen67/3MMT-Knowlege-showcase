@@ -36,6 +36,7 @@ import vision from "../assets/images/vision.png";
 import whoWeAre from "../assets/images/who-we-are.png";
 import Talent1 from "../assets/images/User1.jpg";
 import clogo from "../assets/images/clogo.jpg";
+import Team from "../assets/images/Team.png";
 
 
 
@@ -78,6 +79,7 @@ const images = {
   whoWeAre,
   Talent1,
   clogo,
+  Team,
 };
 
 

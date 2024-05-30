@@ -87,7 +87,7 @@
 @media screen and  (min-width: 1024px) {
   
   .why-choose-us {
-  padding: var(--pad9) var(--pad9);
+  padding: 10rem var(--pad9);
 }
 
 .reason {
@@ -107,6 +107,12 @@
   }
 
   .reason {
+  padding: var(--pad6);
+}
+}
+
+@media screen and (min-width: 1440px){
+   .reason {
   padding: var(--pad7);
 }
 }

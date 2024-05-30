@@ -48,14 +48,12 @@
 @media screen and (min-width: 1280px){
 
   .who-we-are {
-  padding: var(--pad9) 12rem;
+  padding: 8rem var(--pad9);
 }
   .who-we-are .image-content {
      height: 400px;
   }
 
-  .who-we-are .content p{
-   width: 450px;
-  }
+  
 
 }

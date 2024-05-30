@@ -1,6 +1,6 @@
 .vision-mission {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
 
 .vision-mission h2 {
@@ -40,7 +40,7 @@
 @media screen and (min-width: 1024px) {
   .vision,
   .mission {
-    padding: var(--pad9) var(--pad10);
+    padding: 9rem var(--pad10);
   }
 }
 
