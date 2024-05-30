@@ -18,7 +18,7 @@ const reasons = [
     number: "03",
     title: "Results-Driven Solution",
     description:
-      "We’re not just about promises; we’re about results...We're not just about promises; we're about results. From startups to companies of all sizes, We deliver  results that drive growth and success.",
+      "We’re not just about promises; we're about results. From startups to companies of all sizes, We deliver  results that drive growth and success.",
   },
   {
     number: "04",
@@ -37,15 +37,18 @@ const reasons = [
 const WhyChooseUs = () => {
   return (
     <section className="why-choose-us">
-      <div className="header-text">
-        <h2>Why Choose Us?</h2>
-        <p>Whether you're seeking top talent or a rewarding company, we've got you covered. We ensure you receive the very  best at all time.</p>
-      </div>
       <div className="reasons">
+        <div className="header-text">
+          <h2>Why Choose Us?</h2>
+          <p>
+            Whether you're seeking top talent or a rewarding company, we've got
+            you covered. We ensure you receive the very best at all time.
+          </p>
+        </div>
         {reasons.map((reason, index) => (
           <div key={index} className="reason">
             <div className="number">{reason.number}</div>
-            <h3>{reason.title}</h3>
+            <h3 className="Title">{reason.title}</h3>
             <p>{reason.description}</p>
           </div>
         ))}

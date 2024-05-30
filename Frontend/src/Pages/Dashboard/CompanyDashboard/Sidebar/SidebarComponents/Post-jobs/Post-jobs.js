@@ -1,17 +1,28 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
-import "./Post-jobs.css";
+import Modal from "../../../../../../Components/Modal/Modal";
 import CustomSelect from "../../../../../../Components/Custom/CustomSelect";
+import "../../../../../Signup/Signup.css";
 
-const PostJobs = ({ addJob }) => {
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
+
+
+const PostJob = () => {
+  const [title, setTitle] = useState(null);
   const [description, setDescription] = useState("");
   const [requirements, setRequirements] = useState("");
+  const [location, setLocation] = useState("");
 
+  // Error states
+  const [titleError, setTitleError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
+  const [requirementsError, setRequirementsError] = useState(false);
+  const [locationError, setLocationError] = useState(false);
 
+  // Modal states
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
-  const industries = [
+  const jobTitles = [
     "Information Technology",
     "Healthcare",
     "Finance",
@@ -64,102 +75,129 @@ const PostJobs = ({ addJob }) => {
     "Wellness & Fitness",
   ];
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  const [industry, setIndustry] = useState("");
+    // Validate form fields
+    setTitleError(!title);
+    setDescriptionError(!description);
+    setRequirementsError(!requirements);
+    setLocationError(!location);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    // Only proceed with fetch if all fields are filled
+    if (title && description && requirements && location) {
+      const token = Cookies.get("auth_token");
 
-    const token = Cookies.get("auth_token");
+      const postData = {
+        title,
+        description,
+        requirements,
+        location,
+      };
+      console.log("Posting the following data:", postData);
 
-    const jobData = {
-      title,
-      description,
-      requirements,
-      location,
-    };
-
-    try {
-      const response = await fetch("http://localhost:5000/jobs", {
+      fetch("http://localhost:5000/api/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(jobData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      addJob(data);
-
-      setTitle("");
-      setLocation("");
-      setDescription("");
-      setRequirements("");
-    } catch (error) {
-      console.error("Error posting job", error);
+        body: JSON.stringify({
+          title,
+          description,
+          requirements,
+          location,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("HTTP error " + response.status);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setModalMessage("Job posted successfully!");
+          setShowModal(true);
+          setTitle(null);
+          setDescription("");
+          setRequirements("");
+          setLocation("");
+        })
+        .catch((error) => {
+          console.error("Error posting job:", error);
+          setModalMessage("Failed to post job.");
+          setShowModal(true);
+        });
     }
   };
 
   return (
-    <form className="job-form" onSubmit={handleSubmit}>
-      <h2>Post a New Job</h2>
-      <div className="form-group">
-        <label htmlFor="industry" className="select-label">
-          Select Industry
-        </label>
-     <CustomSelect
-  options={industries.map((industry) => ({
-    value: industry,
-    label: industry,
-  }))}
-  onSelectChange={(option) => setIndustry(option.value)}
-  value={industry}
-  name="industry"
-  placeholder="Select Industry"
-/>
-      </div>
-      <div>
-        <label>Location</label>
-        <input
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          required
-        />
-      </div>
+    <section className="Postjobs-form">
+      <form onSubmit={handleSubmit} className="post-job-form">
+        <div className="form-group">
+          <label htmlFor="title" className="select-label">
+            Title:
+          </label>
+          <CustomSelect
+            options={jobTitles.map((jobTitle) => ({
+              value: jobTitle,
+              label: jobTitle,
+            }))}
+            onSelectChange={setTitle}
+            value={title}
+            placeholder="Select a job title"
+          />
+          {titleError && <p className="error">Title is required</p>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter job description"
+            className="textarea"
+            
+          />
+          {descriptionError && <p className="error">Description is required</p>}
+        </div>
 
         <div className="form-group">
-            <label htmlFor="Description">Description</label>
-            <textarea
-              id="Description"
-              placeholder="Enter work description"
-              className="textarea"
-            />
-      </div>
-      
-      <div>
-        <label>Description</label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        ></textarea>
-      </div>
-      <div>
-        <label>Requirements</label>
-        <textarea
-          value={requirements}
-          onChange={(e) => setRequirements(e.target.value)}
-          required
-        ></textarea>
-      </div>
-      <button type="submit" className="submit-btn">Post Job</button>
-    </form>
+          <label htmlFor="requirements">Requirements</label>
+          <textarea
+            id="requirements"
+            value={requirements}
+            onChange={(e) => setRequirements(e.target.value)}
+            placeholder="Enter job requirements"
+            className="textarea"
+          />
+          {requirementsError && (
+            <p className="error">Requirements are required</p>
+          )}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="location" className="select-label">
+            Location:
+          </label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Enter job location"
+          />
+          {locationError && <p className="error">Location is required</p>}
+        </div>
+        <button type="submit" className="submit-button">
+          Post Job
+        </button>
+      </form>
+      {showModal && (
+        <Modal message={modalMessage} onClose={() => setShowModal(false)} />
+      )}
+    </section>
   );
 };
 
-export default PostJobs;
+export default PostJob;
