@@ -12,8 +12,6 @@ Wefind is a cutting-edge tech platform designed to bridge the tech gap between t
 - [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## About the Platform
