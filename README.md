@@ -34,12 +34,10 @@ Wefind offers a user-friendly interface that allows users to easily navigate and
 - React.js
 - Redux
 - Bootstrap
-- Axios
 
 ## Backend Technologies
 
-- Node.js
-- Express.js
+- Python/Flask
 - MongoDB
 - JWT for authentication
 
@@ -58,7 +56,7 @@ Wefind offers a user-friendly interface that allows users to easily navigate and
 
 ### Prerequisites
 
-- Node.js
+- react.js
 - MongoDB
 
 ### Steps
@@ -71,19 +69,19 @@ Wefind offers a user-friendly interface that allows users to easily navigate and
 
 2. Install frontend dependencies:
     ```bash
-    cd client
+    cd Frontend
     npm install
     ```
 
 3. Install backend dependencies:
     ```bash
-    cd ../server
-    npm install
+    cd ..
+    pip install -r requirements.txt
     ```
 
 4. Set up environment variables:
 
-    Create a `.env` file in the `server` directory and add the following:
+    Create a `.env` file in the `api` directory and add the following:
     ```bash
     MONGO_URI=your_mongodb_uri
     JWT_SECRET=your_jwt_secret
@@ -91,13 +89,13 @@ Wefind offers a user-friendly interface that allows users to easily navigate and
 
 5. Start the application:
     ```bash
-    # Start the backend server
-    cd server
+    # Start the Frontend
+    cd Frontend
     npm start
     
-    # Start the frontend
-    cd ../client
-    npm start
+    # Start the backend
+    cd ../api/v1
+    python app.py
     ```
 
 ## Usage
@@ -109,20 +107,10 @@ After installing and starting the application, navigate to `http://localhost:300
 - **Create Job Posts**: For companies to post new job openings.
 - **Upload Resumes**: For users to upload their resumes.
 
-## Contributing
-
-We welcome contributions from the community! Please follow these guidelines:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature-name`).
-3. Commit your changes (`git commit -am 'Add some feature'`).
-4. Push to the branch (`git push origin feature/your-feature-name`).
-5. Create a new Pull Request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
-If you have any questions or feedback, please reach out to [Your Name](mailto:youremail@example.com).
+If you have any questions or feedback, please reach out to :
+    - [Omar Khaled](mailto:omar1752003@gmail.com).
+    - 
+    -
+    -
