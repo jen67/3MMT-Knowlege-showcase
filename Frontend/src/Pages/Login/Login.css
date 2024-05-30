@@ -10,7 +10,7 @@
   top: 65px;
 }
 
-.loginform .login-header h1, .contact-us h1, .forgot-password-header h1 {
+.loginform .login-header h1, .contact-us h1, .forgot-password-header h1, .Postjobs-form h1 {
   margin-bottom: var(--mar4);
 }
 

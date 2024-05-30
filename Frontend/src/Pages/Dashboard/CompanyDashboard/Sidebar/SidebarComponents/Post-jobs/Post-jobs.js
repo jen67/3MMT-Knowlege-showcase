@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
+import { useLocation } from 'react-router-dom';
 import Modal from "../../../../../../Components/Modal/Modal";
 import CustomSelect from "../../../../../../Components/Custom/CustomSelect";
 import "../../../../../Signup/Signup.css";
+import "../../../../../Login/Login.css";
+import "./Post-jobs.css"
 
 
 
 const PostJob = () => {
-  const [title, setTitle] = useState(null);
-  const [description, setDescription] = useState("");
-  const [requirements, setRequirements] = useState("");
-  const [location, setLocation] = useState("");
+  const location = useLocation();
+  const job = location.state ? location.state.job : null;
+
+  const [title, setTitle] = useState(job ? job.title : null);
+  const [description, setDescription] = useState(job ? job.description : "");
+  const [requirements, setRequirements] = useState(job ? job.requirements : "");
+  const [locationState, setLocationState] = useState(job ? job.location : "");
 
   // Error states
   const [titleError, setTitleError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
   const [requirementsError, setRequirementsError] = useState(false);
   const [locationError, setLocationError] = useState(false);
-
   // Modal states
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -84,20 +89,17 @@ const PostJob = () => {
     setRequirementsError(!requirements);
     setLocationError(!location);
 
+  
     // Only proceed with fetch if all fields are filled
-    if (title && description && requirements && location) {
+    if (title && description && requirements && locationState) {
       const token = Cookies.get("auth_token");
+      const url = job
+        ? `http://localhost:5000/api/jobs/${job._id}`
+        : "http://localhost:5000/api/jobs";
+      const method = job ? "PUT" : "POST";
 
-      const postData = {
-        title,
-        description,
-        requirements,
-        location,
-      };
-      console.log("Posting the following data:", postData);
-
-      fetch("http://localhost:5000/api/jobs", {
-        method: "POST",
+      fetch(url, {
+        method,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -106,7 +108,7 @@ const PostJob = () => {
           title,
           description,
           requirements,
-          location,
+          location: locationState,
         }),
       })
         .then((response) => {
@@ -116,13 +118,16 @@ const PostJob = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
-          setModalMessage("Job posted successfully!");
+          setModalMessage(
+            job ? "Job updated successfully!" : "Job posted successfully!"
+          );
           setShowModal(true);
-          setTitle(null);
-          setDescription("");
-          setRequirements("");
-          setLocation("");
+          if (!job) {
+            setTitle(null);
+            setDescription("");
+            setRequirements("");
+            setLocationState("");
+          }
         })
         .catch((error) => {
           console.error("Error posting job:", error);
@@ -134,7 +139,8 @@ const PostJob = () => {
 
   return (
     <section className="Postjobs-form">
-      <form onSubmit={handleSubmit} className="post-job-form">
+      <h1>{job ? "Edit Job" : "Post Jobs"}</h1>
+      <form onSubmit={handleSubmit} className="post-job-form form-container">
         <div className="form-group">
           <label htmlFor="title" className="select-label">
             Title:
@@ -158,7 +164,6 @@ const PostJob = () => {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Enter job description"
             className="textarea"
-            
           />
           {descriptionError && <p className="error">Description is required</p>}
         </div>
@@ -183,14 +188,14 @@ const PostJob = () => {
           </label>
           <input
             type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            value={locationState}
+            onChange={(e) => setLocationState(e.target.value)}
             placeholder="Enter job location"
           />
           {locationError && <p className="error">Location is required</p>}
         </div>
         <button type="submit" className="submit-button">
-          Post Job
+          {job ? "Update Job" : "Post Job"}
         </button>
       </form>
       {showModal && (

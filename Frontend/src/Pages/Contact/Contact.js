@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import Cookies from "js-cookie";
 import Footer from "../../Components/Footer/Footer";
 import "./Contact.css";
 
@@ -13,10 +14,40 @@ const ContactUs = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    setIsModalVisible(true);
-    // Here you can handle the form submission, e.g., send the data to your server
+
+    // Create the payload for the API request
+    const payload = {
+      query: data.message,
+    };
+
+    console.log(payload);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("auth_token")}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+        setIsModalVisible(true);
+        reset();
+      } else {
+        const error = await response.json();
+        console.error("Error:", error);
+        alert(`Error: ${error.msg}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while submitting your query.");
+    }
   };
 
   return (
@@ -64,10 +95,18 @@ const ContactUs = () => {
           <div className="modal">
             <div className="modal-content">
               <p>
-                Your message has been sent to the WeFind support team. We will
-                get back to you soon.
+                Your message has been sent to the support team. We will get back
+                to you soon.
               </p>
-              <button onClick={() => {setIsModalVisible(false); reset();}} className="modal-button">Close</button>
+              <button
+                onClick={() => {
+                  setIsModalVisible(false);
+                  reset();
+                }}
+                className="modal-button"
+              >
+                Close
+              </button>
             </div>
           </div>
         )}

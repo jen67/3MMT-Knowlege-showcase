@@ -1,6 +1,6 @@
 .signupform,
 .loginform,
-.contact-us, .forgot-password-form {
+.contact-us, .forgot-password-form, .Postjobs-form {
   width: 100%;
   min-height: 100vh;
   background-color: #f2f6fe;
@@ -162,6 +162,7 @@
   color: #6c6a6a;
   z-index: 1;
 }
+
 
 .form-group input {
   width: 100%;
