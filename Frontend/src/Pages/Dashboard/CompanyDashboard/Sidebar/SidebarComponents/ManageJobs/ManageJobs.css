@@ -1,0 +1,86 @@
+.ManageJobs {
+  padding: var(--pad4) var(--pad3);
+  background-color: var(--light-blue);
+}
+
+.ManageJobs h1 {
+  color: var(--paragraph);
+  font-size: var(--fs4);
+  padding: var(--pad2) 0;
+  font-weight: var(--fw5);
+}
+
+.job-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.job-item {
+  background-color: #fff;
+  border: 1px solid #edecec;
+  padding: 20px ;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  position: relative;
+  transition: all ease-in-out;
+}
+
+.job-item:hover {
+  transform: scale(1.001);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.job-item h3 {
+  font-size: var(--fs3);
+  font-weight: var(--fs5);
+}
+
+.job-requirement, .job-description{
+  padding: var(--pad1) 0;
+  color: #666;
+}
+
+.job-requirement{
+  color:var(--paragraph);
+  font-size: 1.15rem;
+}
+
+.job-description{
+  color: rgb(69, 70, 75);; 
+}
+
+.job-location{
+  padding-bottom: var(--pad1);
+  color: #636262; 
+}
+
+.date-posted{
+  color: #666;
+}
+
+.edit-icon,
+.delete-icon {
+  position: absolute;
+  top: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.edit-icon {
+  right: 20px;
+}
+
+.edit-icon:hover {
+  color: var(--bright);
+}
+
+.delete-icon {
+  right: 50px;
+}
+
+.delete-icon:hover {
+  color: red;
+}
+
+

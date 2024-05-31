@@ -1,13 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaHome, FaUser, FaBriefcase, FaEnvelopeOpenText, FaRegListAlt, FaRegFileAlt, FaRegEnvelope, FaCog, FaSignOutAlt, FaArrowCircleRight, FaArrowCircleLeft } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import {
+  FaHome,
+  FaUser,
+  FaBriefcase,
+  FaEnvelopeOpenText,
+  FaRegListAlt,
+  FaRegFileAlt,
+  FaRegEnvelope,
+  FaCog,
+  FaSignOutAlt,
+  FaArrowCircleRight,
+  FaArrowCircleLeft,
+  FaTasks,
+} from "react-icons/fa";
 import images from "../../../../Components/images";
 import "../../TSidebar.css";
 
-
 const CompanySidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [logoUrl, setLogoUrl] = useState(localStorage.getItem("logoUrl") || images.clogo);
+  const [logoUrl, setLogoUrl] = useState(
+    localStorage.getItem("logoUrl") || images.clogo
+  );
 
   useEffect(() => {
     const logoUrl = localStorage.getItem("logoUrl");
@@ -47,6 +61,11 @@ const CompanySidebar = () => {
             <li>
               <Link to="/Post-jobs" className="sidebar-link">
                 <FaBriefcase /> {!collapsed && "Post Jobs"}
+              </Link>
+            </li>
+            <li>
+              <Link to="/ManageJobs" className="sidebar-link">
+                <FaTasks /> {!collapsed && "Manage Jobs"}
               </Link>
             </li>
             <li>

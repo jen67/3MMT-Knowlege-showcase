@@ -1,22 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import Modal from "../../../../../../Components/Modal/Modal";
 import CustomSelect from "../../../../../../Components/Custom/CustomSelect";
 import "../../../../../Signup/Signup.css";
 import "../../../../../Login/Login.css";
-import "./Post-jobs.css"
+import "./Post-jobs.css";
+
 
 
 
 const PostJob = () => {
   const location = useLocation();
-  const job = location.state ? location.state.job : null;
+const job = location.state ? location.state.job : null;
 
-  const [title, setTitle] = useState(job ? job.title : null);
-  const [description, setDescription] = useState(job ? job.description : "");
-  const [requirements, setRequirements] = useState(job ? job.requirements : "");
-  const [locationState, setLocationState] = useState(job ? job.location : "");
+ const [title, setTitle] = useState(job ? job.title : "");
+const [locationState, setLocationState] = useState(job ? job.location : "");
+const [description, setDescription] = useState(job ? job.description : "");
+const [requirements, setRequirements] = useState(job ? job.requirements : "");
+
+useEffect(() => {
+    if (!location.state) {
+      setTitle("");
+      setLocationState("");
+      setDescription("");
+      setRequirements("");
+    }
+  }, [location.state]);
+
 
   // Error states
   const [titleError, setTitleError] = useState(false);
@@ -28,56 +39,96 @@ const PostJob = () => {
   const [modalMessage, setModalMessage] = useState("");
 
   const jobTitles = [
-    "Information Technology",
-    "Healthcare",
-    "Finance",
-    "Education",
-    "Manufacturing",
-    "Retail",
-    "Real Estate",
-    "Remote",
-    "Agriculture",
-    "Automotive",
-    "Aerospace",
-    "Construction",
-    "Energy",
-    "Entertainment",
-    "Fashion",
-    "Food & Beverage",
-    "Government",
-    "Hospitality",
-    "Insurance",
-    "Legal",
-    "Logistics & Transportation",
-    "Media & Communications",
-    "Mining",
-    "Non-Profit",
-    "Pharmaceutical",
-    "Public Relations",
-    "Sports",
-    "Telecommunications",
-    "Travel & Tourism",
-    "Utilities",
-    "Warehousing",
-    "Waste Management",
-    "Water Management",
-    "Wholesale",
-    "Marine & Shipping",
-    "Biotechnology",
-    "Consulting",
-    "Design",
-    "E-commerce",
-    "Engineering",
-    "Event Planning",
-    "Human Resources",
-    "Marketing",
-    "Professional Services",
-    "Research & Development",
-    "Security",
-    "Software Development",
-    "Video Games",
-    "Veterinary",
-    "Wellness & Fitness",
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer",
+    "Cybersecurity Specialist",
+    "Data Scientist",
+    "DevOps Engineer",
+    "UI/UX Designer",
+    "Mobile App Developer",
+    "Project Manager",
+    "QA Engineer",
+    "Cloud Engineer",
+    "Machine Learning Engineer",
+    "AI Engineer",
+    "Algorithm Engineer",
+    "Android Developer",
+    "API Developer",
+    "Application Support Analyst",
+    "Automation Engineer",
+    "Big Data Analyst",
+    "Big Data Engineer",
+    "Bioinformatics Specialist",
+    "Blockchain Developer",
+    "Business Intelligence Analyst",
+    "C++ Developer",
+    "Cloud Architect",
+    "Cloud Consultant",
+    "Cloud Product and Project Manager",
+    "Cloud Services Developer",
+    "Cloud Software and Network Engineer",
+    "Cloud System Administrator",
+    "Cloud System Engineer",
+    "Computer Vision Engineer",
+    "Cybersecurity Analyst",
+    "Data Architect",
+    "Data Engineer",
+    "Data Protection Officer",
+    "Database Developer",
+    "Deep Learning Engineer",
+    "DevOps Manager",
+    "Digital Marketing Specialist",
+    "Embedded Systems Engineer",
+    "Ethical Hacker",
+    "Firmware Engineer",
+    "Game Designer",
+    "Game Tester",
+    "Hardware Engineer",
+    "Information Security Manager",
+    "IoT Engineer",
+    "iOS Developer",
+    "IT Analyst",
+    "IT Coordinator",
+    "IT Director",
+    "IT Support Specialist",
+    "IT Technician",
+    "Java Developer",
+    "JavaScript Developer",
+    "Junior Software Engineer",
+    "Linux System Administrator",
+    "Mobile Game Developer",
+    "Network Administrator",
+    "Network Architect",
+    "Network Engineer",
+    "Network Systems Administrator",
+    "Penetration Tester",
+    "Product Manager",
+    "Python Developer",
+    "QA Analyst",
+    "Quantum Programmer",
+    "Ruby Developer",
+    "Sales Engineer",
+    "Scrum Master",
+    "Security Architect",
+    "Security Consultant",
+    "Security Engineer",
+    "Security Specialist",
+    "Senior Database Administrator",
+    "Senior Web Developer",
+    "SEO Specialist",
+    "Software QA Tester",
+    "Software Support Engineer",
+    "Solutions Architect",
+    "Systems Designer",
+    "Technical Writer",
+    "Telecommunications Specialist",
+    "User Experience Designer",
+    "User Interface Designer",
+    "Virtual Reality Developer",
+    "Web Designer",
+    "Web Developer",
+    "WordPress Developer",
   ];
 
   const handleSubmit = (event) => {
@@ -87,16 +138,16 @@ const PostJob = () => {
     setTitleError(!title);
     setDescriptionError(!description);
     setRequirementsError(!requirements);
-    setLocationError(!location);
+    setLocationError(!locationState);
 
-  
     // Only proceed with fetch if all fields are filled
     if (title && description && requirements && locationState) {
       const token = Cookies.get("auth_token");
-      const url = job
-        ? `http://localhost:5000/api/jobs/${job._id}`
-        : "http://localhost:5000/api/jobs";
-      const method = job ? "PUT" : "POST";
+      const url =
+        job && job._id && job._id.$oid
+          ? `http://localhost:5000/api/jobs/${job._id.$oid}`
+          : "http://localhost:5000/api/jobs";
+      const method = job && job._id && job._id.$oid ? "PUT" : "POST";
 
       fetch(url, {
         method,
@@ -123,7 +174,7 @@ const PostJob = () => {
           );
           setShowModal(true);
           if (!job) {
-            setTitle(null);
+            setTitle("");
             setDescription("");
             setRequirements("");
             setLocationState("");

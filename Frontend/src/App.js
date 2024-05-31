@@ -25,6 +25,7 @@ import Resumes from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponent
 import MyMessages from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Mymessages/Mymessages";
 import Settings from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Settings/Settings";
 import Logout from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Logout/Logout";
+import ManageJobs from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/ManageJobs/ManageJobs";
 import Talentprofile from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/Talentprofile/Talentprofile";
 import TApplications from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TApplications/TApplications";
 import TShortlisted from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TShortlisted/TShortlisted";
@@ -33,6 +34,7 @@ import TMessages from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponen
 import Talentsettings from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/Talentsettings/Talentsettings";
 import TLogout from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TLogout/TLogout";
 import ForgotPassword from "./Pages/forgot-password/forgot-password";
+
 
 const CompanyDashboardWithSidebar = withCompanySidebar(CompanyDashboard);
 const ProfileWithSidebar = withCompanySidebar(Profile);
@@ -43,6 +45,7 @@ const ResumesWithSidebar = withCompanySidebar(Resumes);
 const MyMessagesWithSidebar = withCompanySidebar(MyMessages);
 const SettingsWithSidebar = withCompanySidebar(Settings);
 const LogoutWithSidebar = withCompanySidebar(Logout);
+const ManageJobsWithSidebar = withCompanySidebar(ManageJobs);
 
 const TalentDashboardWithSidebar = withTalentSidebar(TalentDashboard);
 const TalentProfileWithSidebar = withTalentSidebar(Talentprofile);
@@ -88,6 +91,7 @@ function App() {
           <Route path="/Mymessages" element={<MyMessagesWithSidebar />} />
           <Route path="/Settings" element={<SettingsWithSidebar />} />
           <Route path="/Logout" element={<LogoutWithSidebar />} />
+       <Route path="/ManageJobs" element={<ManageJobsWithSidebar />} />
 
           <Route
             path="/TalentDashboard"
