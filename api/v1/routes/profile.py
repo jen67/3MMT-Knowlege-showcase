@@ -23,17 +23,18 @@ def get_profile():
     return jsonify({"msg": "Profile not found"}), 404
 
 
-@profile_bp.route('/profile/<string:email>', methods=['PUT'])
+@profile_bp.route('/profile', methods=['PUT'])
 @jwt_required()
-def update_profile(email):
+def update_profile():
+    current_user = get_jwt_identity()
     data = request.get_json()
-    user = User.objects(email=email).first()
+    user = User.objects(id=current_user['id']).first()
 
     if user:
         user.update(**data)
         return jsonify({"msg": "User profile updated"}), 200
 
-    company = Company.objects(email=email).first()
+    company = Company.objects(id=current_user['id']).first()
 
     if company:
         company.update(**data)
