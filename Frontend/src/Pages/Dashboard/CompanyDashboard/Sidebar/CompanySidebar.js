@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import NavLink from "../../../../Components/Header/NavLink";
 import {
   FaHome,
   FaUser,
@@ -13,22 +13,13 @@ import {
   FaArrowCircleRight,
   FaArrowCircleLeft,
   FaTasks,
+  FaUserCircle,
 } from "react-icons/fa";
-import images from "../../../../Components/images";
 import "../../TSidebar.css";
 
 const CompanySidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [logoUrl, setLogoUrl] = useState(
-    localStorage.getItem("logoUrl") || images.clogo
-  );
 
-  useEffect(() => {
-    const logoUrl = localStorage.getItem("logoUrl");
-    if (logoUrl) {
-      setLogoUrl(logoUrl);
-    }
-  }, []);
 
   const toggleCollapse = () => {
     setCollapsed(!collapsed);
@@ -43,60 +34,59 @@ const CompanySidebar = () => {
           </span>
         </button>
         <div className="clog-container">
-          <img src={logoUrl} alt="Company Logo" className="clogo" />{" "}
-          {!collapsed && ""}
+          <FaUserCircle size={50} className="clogo" />  {!collapsed && ""}
         </div>
         <nav>
           <ul>
             <li>
-              <Link to="/CompanyDashboard" className="sidebar-link">
+              <NavLink to="/CompanyDashboard" className="sidebar-link">
                 <FaHome /> {!collapsed && "Dashboard"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Profile" className="sidebar-link">
+              <NavLink to="/Profile" className="sidebar-link">
                 <FaUser /> {!collapsed && "Profile"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Post-jobs" className="sidebar-link">
+              <NavLink to="/Post-jobs" className="sidebar-link">
                 <FaBriefcase /> {!collapsed && "Post Jobs"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/ManageJobs" className="sidebar-link">
+              <NavLink to="/ManageJobs" className="sidebar-link">
                 <FaTasks /> {!collapsed && "Manage Jobs"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Applications" className="sidebar-link">
+              <NavLink to="/Applications" className="sidebar-link">
                 <FaEnvelopeOpenText /> {!collapsed && "Applications"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Shortlisted" className="sidebar-link">
+              <NavLink to="/Shortlisted" className="sidebar-link">
                 <FaRegListAlt /> {!collapsed && "Shortlisted"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Resumes" className="sidebar-link">
+              <NavLink to="/Resumes" className="sidebar-link">
                 <FaRegFileAlt /> {!collapsed && "Resumes"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Mymessages" className="sidebar-link">
+              <NavLink to="/Mymessages" className="sidebar-link">
                 <FaRegEnvelope /> {!collapsed && "Messages"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Settings" className="sidebar-link">
+              <NavLink to="/Settings" className="sidebar-link">
                 <FaCog /> {!collapsed && "Settings"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Logout" className="sidebar-link">
+              <NavLink to="/Logout" className="sidebar-link">
                 <FaSignOutAlt /> {!collapsed && "Logout"}
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>

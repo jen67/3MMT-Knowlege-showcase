@@ -79,7 +79,7 @@ const ManageJobs = () => {
             <p className="job-requirement">{job.requirements}</p>
             <p className="job-description">{job.description}</p>
             <p className="job-location">{job.location}</p>
-            <p>
+            <p className="date-posted">
               Posted on{" "}
               <span>
                 {format(new Date(job.posted_date.$date), "MM/dd/yyyy HH:mm:ss")}

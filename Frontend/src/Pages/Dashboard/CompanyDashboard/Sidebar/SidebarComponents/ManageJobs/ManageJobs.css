@@ -1,6 +1,6 @@
 .ManageJobs {
   padding: var(--pad4) var(--pad3);
-  background-color: var(--light-blue);
+  background-color: var(--vxblue);
 }
 
 .ManageJobs h1 {
@@ -37,7 +37,6 @@
 
 .job-requirement, .job-description{
   padding: var(--pad1) 0;
-  color: #666;
 }
 
 .job-requirement{

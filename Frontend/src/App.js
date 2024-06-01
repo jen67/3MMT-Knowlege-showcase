@@ -73,18 +73,10 @@ function App() {
           <Route path="/TermsOfService" element={<TermsOfService />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          <Route
-            path="/CompanyDashboard"
-            element={<CompanyDashboardWithSidebar />}
-          />
+          <Route path="/CompanyDashboard" element={<CompanyDashboardWithSidebar />}/>
           <Route path="/Profile" element={<ProfileWithSidebar />} />
-          <Route
-            path="/Applications"
-            element={<ApplicationsReceivedWithSidebar />}
-          />
-          <Route
-            path="/Shortlisted"
-            element={<ShortlistedVolunteersWithSidebar />}
+          <Route path="/Applications" element={<ApplicationsReceivedWithSidebar />} />
+          <Route path="/Shortlisted" element={<ShortlistedVolunteersWithSidebar />}
           />
           <Route path="/Post-jobs" element={<PostJobsWithSidebar />} />
           <Route path="/Resumes" element={<ResumesWithSidebar />} />
