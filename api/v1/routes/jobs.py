@@ -5,6 +5,8 @@ from utils import role_required
 
 jobs_bp = Blueprint('jobs', __name__)
 
+
+# for companies to post a job
 @jobs_bp.route('/jobs', methods=['POST'])
 @jwt_required()
 def post_job():
@@ -25,11 +27,29 @@ def post_job():
 
     return jsonify(job.to_json()), 201
 
+
+# for users to view all jobs
+@jobs_bp.route('/company_jobs', methods=['GET'])
+@jwt_required()
+def get_company_jobs():
+    company_identity = get_jwt_identity()
+    company = Company.objects(id=company_identity['id']).first()
+
+    if not company:
+        return jsonify({"msg": "Profile not found"}), 404
+
+    jobs = Job.objects(company=company_identity['id']).to_json()
+
+    return jsonify(jobs), 200
+
+
+# for users to view all jobs
 @jobs_bp.route('/jobs', methods=['GET'])
 def get_jobs():
     jobs = Job.objects().to_json()
 
     return jsonify(jobs), 200
+
 
 @jobs_bp.route('/jobs/<string:id>', methods=['GET'])
 def get_job(id):
@@ -37,8 +57,9 @@ def get_job(id):
 
     if not job:
         return jsonify({"msg": "Job not found"}), 404
-    
+
     return jsonify(job), 200
+
 
 @jobs_bp.route('/jobs/<string:id>', methods=['PUT'])
 @jwt_required()
@@ -50,10 +71,11 @@ def update_job(id):
 
     if not job:
         return jsonify({"msg": "Job not found"}), 404
-    
+
     job.update(**data)
 
     return jsonify({"msg": "Job updated successfully"}), 200
+
 
 @jobs_bp.route('/jobs/<string:id>', methods=['DELETE'])
 @jwt_required()
@@ -64,8 +86,7 @@ def delete_job(id):
 
     if not job:
         return jsonify({"msg": "Job not found"}), 404
-    
-    job.delete()
-    
-    return jsonify({"msg": "Job deleted successfully"}), 200
 
+    job.delete()
+
+    return jsonify({"msg": "Job deleted successfully"}), 200
