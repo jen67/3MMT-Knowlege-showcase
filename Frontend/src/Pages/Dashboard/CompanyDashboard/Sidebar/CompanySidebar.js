@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavLink from "../../../../Components/Header/NavLink";
+import NavLink from "../../DNavlink";
 import {
   FaHome,
   FaUser,
@@ -34,57 +34,97 @@ const CompanySidebar = () => {
           </span>
         </button>
         <div className="clog-container">
-          <FaUserCircle size={50} className="clogo" />  {!collapsed && ""}
+          <FaUserCircle size={50} className="clogo" /> {!collapsed && ""}
         </div>
         <nav>
           <ul>
             <li>
-              <NavLink to="/CompanyDashboard" className="sidebar-link">
+              <NavLink
+                to="/CompanyDashboard"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaHome /> {!collapsed && "Dashboard"}
               </NavLink>
             </li>
             <li>
-              <NavLink to="/Profile" className="sidebar-link">
+              <NavLink
+                to="/Profile"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaUser /> {!collapsed && "Profile"}
               </NavLink>
             </li>
             <li>
-              <NavLink to="/Post-jobs" className="sidebar-link">
+              <NavLink
+                to="/Post-jobs"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaBriefcase /> {!collapsed && "Post Jobs"}
               </NavLink>
             </li>
             <li>
-              <NavLink to="/ManageJobs" className="sidebar-link">
+              <NavLink
+                to="/ManageJobs"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaTasks /> {!collapsed && "Manage Jobs"}
               </NavLink>
             </li>
             <li>
-              <NavLink to="/Applications" className="sidebar-link">
+              <NavLink
+                to="/Applications"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaEnvelopeOpenText /> {!collapsed && "Applications"}
               </NavLink>
             </li>
             <li>
-              <NavLink to="/Shortlisted" className="sidebar-link">
+              <NavLink
+                to="/Shortlisted"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaRegListAlt /> {!collapsed && "Shortlisted"}
               </NavLink>
             </li>
             <li>
-              <NavLink to="/Resumes" className="sidebar-link">
+              <NavLink
+                to="/Resumes"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaRegFileAlt /> {!collapsed && "Resumes"}
               </NavLink>
             </li>
             <li>
-              <NavLink to="/Mymessages" className="sidebar-link">
+              <NavLink
+                to="/Mymessages"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaRegEnvelope /> {!collapsed && "Messages"}
               </NavLink>
             </li>
             <li>
-              <NavLink to="/Settings" className="sidebar-link">
+              <NavLink
+                to="/Settings"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaCog /> {!collapsed && "Settings"}
               </NavLink>
             </li>
             <li>
-              <NavLink to="/Logout" className="sidebar-link">
+              <NavLink
+                to="/Logout"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaSignOutAlt /> {!collapsed && "Logout"}
               </NavLink>
             </li>

@@ -136,10 +136,10 @@ const Profile = () => {
       <h1>Update your Profile</h1>
       <div className="logo-upload">
         <div className="input-logo">
-          <FaUserCircle size={50} />
+          <FaUserCircle size={70} />
         </div>
         <div className="logo-pdetails">
-          <h2> {companyName}</h2>
+          <h2>CompanyName {companyName}</h2>
           <p>company Email </p>
         </div>
       </div>

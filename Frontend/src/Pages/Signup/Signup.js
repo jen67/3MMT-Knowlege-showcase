@@ -6,6 +6,7 @@ import * as yup from "yup";
 import CustomSelect from "../../Components/Custom/CustomSelect";
 import Modal from "../../Components/Modal/Modal";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 import "./Signup.css";
 
 // Job categories
@@ -96,6 +97,12 @@ const registerUser = async (payload) => {
     }
 
     const result = await response.json();
+    
+    // Save auth token in a cookie
+    if (result.auth_token) {
+      Cookies.set("auth_token", result.auth_token);
+    }
+
     return result;
   } catch (error) {
     console.error("Error:", error.message);
@@ -105,7 +112,6 @@ const registerUser = async (payload) => {
 
 // Schemas
 const companySchema = yup.object().shape({
-
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
     .string()

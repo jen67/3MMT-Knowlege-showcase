@@ -1,0 +1,17 @@
+/* Add styles for ApplicationsReceived component */
+
+.ApplicationsReceived ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ApplicationsReceived li {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+}
+
+.ApplicationsReceived h1 {
+  text-align: center;
+}

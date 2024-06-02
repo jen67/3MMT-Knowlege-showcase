@@ -34,11 +34,11 @@
 .sidebar li {
   margin-bottom: 20px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .sidebar li svg {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-right: 10px;
 }
 
@@ -53,6 +53,20 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.dactive{
+  color: #8fb7e1;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background:transparent; 
+}
+
+
 
 @media (min-width: 768px) {
   .sidebar {
