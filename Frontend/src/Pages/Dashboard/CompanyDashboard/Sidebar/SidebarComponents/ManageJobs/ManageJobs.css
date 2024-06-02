@@ -1,6 +1,7 @@
 .ManageJobs {
   padding: var(--pad4) var(--pad3);
   background-color: var(--vxblue);
+  height: 100vh;
 }
 
 .ManageJobs h1 {
@@ -16,7 +17,7 @@
   padding: 0;
 }
 
-.job-item {
+.job-item, .empty-job-list {
   background-color: #fff;
   border: 1px solid #edecec;
   padding: 20px ;
@@ -24,6 +25,41 @@
   border-radius: 5px;
   position: relative;
   transition: all ease-in-out;
+}
+
+.empty-job-list{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--pad8) var(--pad4);
+}
+
+.empty-job-list p{
+  font-size: 1.2rem;
+  padding-bottom: var(--pad1)
+}
+
+.empty-job-list a{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #666;
+  max-width: 200px;
+  padding: var(--pad1) var(--pad4);
+  border-radius: 5px;
+}
+
+
+.empty-job-list a:hover {
+  background-color: var(--whychoblue);
+  color: #fff;
+  border-color: var(--whychoblue);
+  transition: all 0.3s ease;
+}
+
+.empty-job-list a svg{
+  font-size: 1.6rem;
 }
 
 .job-item:hover {
@@ -86,6 +122,46 @@
 
 .delete-icon:hover {
   color: red;
+}
+
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; 
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.loading-spinner:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #3934db;
+  border-color: #3934db transparent #3934db transparent;
+  animation: loading-spinner 1.2s linear infinite;
+}
+
+@keyframes loading-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.empty-job-list {
+  text-align: center;
+  margin-top: 20px;
 }
 
 @media screen and (min-width: 768px){
