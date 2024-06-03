@@ -46,9 +46,19 @@ def get_company_jobs():
 # for users to view all jobs
 @jobs_bp.route('/jobs', methods=['GET'])
 def get_jobs():
-    jobs = Job.objects().to_json()
+    jobs_with_companies = []
 
-    return jsonify(jobs), 200
+    jobs = Job.objects()
+
+    for job in jobs:
+        print(job['company']['id'])
+    for job in jobs:
+        company = Company.objects(id=job['company']['id']).first()
+        company_name = {'name': company['name']}
+        job_with_company_name = {**company_name, 'job': job.to_json()}
+        jobs_with_companies.append(job_with_company_name)
+
+    return jsonify(jobs_with_companies), 200
 
 
 @jobs_bp.route('/jobs/<string:id>', methods=['GET'])
