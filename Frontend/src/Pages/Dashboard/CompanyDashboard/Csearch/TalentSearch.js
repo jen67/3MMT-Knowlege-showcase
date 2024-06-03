@@ -8,10 +8,12 @@ const SearchJobs = () => {
   const [jobs, setJobs] = useState([]);
 
   const handleSearch = async () => {
-    const params = new URLSearchParams({ title, location }).toString();
+    const params = new URLSearchParams();
+    if (title) params.append("title", title);
+    if (location) params.append("location", location);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/search/jobs?${params}`
+        `http://localhost:5000/api/search/jobs?${params.toString()}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");

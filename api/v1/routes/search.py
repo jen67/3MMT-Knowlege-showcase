@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from models import Job, User"
+from models import Job, User
 
 search_bp = Blueprint('search_bp', __name__)
 
