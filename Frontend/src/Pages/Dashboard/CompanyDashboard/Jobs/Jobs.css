@@ -1,100 +1,181 @@
-.job-search {
+/* Jobs.css */
+.jobs-manageJobs {
+  padding: var(--pad9) var(--pad3);
   display: flex;
   flex-direction: column;
+  background-color: var(--lignt-blue);
+}
+
+.jobs-jobContainer {
+  width: 100%;
+}
+
+.jobs-jobList {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+}
+
+.jobs-jobItem {
+  background: white;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  padding: var(--pad4);
+  margin-bottom: 15px;
+  cursor: pointer;
+  width: 100%;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.jobs-jobItem:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.jobs-jobHeader {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 6rem 4rem;
 }
 
-.search-bar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.search-bar input {
-  padding: 10px;
-  font-size: 16px;
-}
-
-.search-bar button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.filters button {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #f0f0f0;
-  border: none;
-  cursor: pointer;
-}
-
-.content {
-  display: flex;
-  gap: 20px;
-}
-
-.job-list {
-  flex: 1;
-  border-right: 1px solid #ddd;
-  padding: 10px;
-}
-
-.job-item {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-}
-
-.job-item:hover {
-  background-color: #f9f9f9;
-}
-
-.job-item h3 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.job-item p {
-  margin: 5px 0;
+.jobs-jobCompany {
   color: #555;
+  font-weight: bold;
 }
 
+.jobs-jobLocation {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
 
-.job-detail {
-  flex: 1;
+.jobs-jobRequirement,
+.jobs-jobDescription {
+  margin-top: 10px;
+  color: #777;
+}
+
+.jobs-jobPosted {
+  margin-top: 10px;
+  color: #999;
+  font-size: 0.9em;
+}
+
+.jobs-bookmarkButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.jobs-jobDetails {
+  background: #f9f9f9;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
   padding: 20px;
+  max-width: 600px;
+  width: 100%;
 }
 
-.job-detail h2 {
-  margin-top: 0;
-}
-
-.job-detail h3 {
-  margin-bottom: 10px;
-}
-
-.job-detail p {
-  margin: 5px 0;
-  color: #555;
-}
-
-.job-detail button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4CAF50;
+.jobs-applyButton {
+  background-color: var(--whychoblue);
   color: white;
   border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: var(--mar2);
+}
+
+.jobs-applyButton:hover {
+  background-color: var(--footer-blue);
+}
+
+.jobs-desktopView {
+  display: none;
+}
+
+.jobs-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.jobs-modalContent {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  max-width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.jobs-closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
   cursor: pointer;
 }
 
+.jobs-mobileView {
+  display: block;
+}
+
+
+
+@media (min-width: 768px) {
+  .jobs-desktopView {
+    display: block;
+    overflow-y: auto;
+  }
+
+  .jobs-jobDetails {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    flex: 1;
+  }
+
+  .jobs-mobileView {
+    display: none;
+  }
+
+  .jobs-jobContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .jobs-jobList {
+    margin-right: 1rem;
+    overflow-y: auto;
+    max-height: calc(100vh - 160px);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .jobs-manageJobs {
+    padding: var(--pad9);
+  }
+
+  
+}

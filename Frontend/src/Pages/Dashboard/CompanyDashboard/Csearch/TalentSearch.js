@@ -1,55 +1,53 @@
+// src/SearchJobs.js
+
 import React, { useState } from "react";
 
-const CompanySearch = () => {
+const SearchJobs = () => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [jobs, setJobs] = useState([]);
-  const [error, setError] = useState(null);
 
   const handleSearch = async () => {
+    const params = new URLSearchParams({ title, location }).toString();
     try {
       const response = await fetch(
-        `http://localhost:5000/api/search/jobs?title=${title}&location=${location}`
+        `http://localhost:5000/api/search/jobs?${params}`
       );
       if (!response.ok) {
-        throw new Error(`Server error: ${response.statusText}`);
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      if (!Array.isArray(data)) {
-        throw new Error("Unexpected response format");
-      }
       setJobs(data);
-      setError(null);
-    } catch (err) {
-      console.error(err);
-      setError(err.message);
+    } catch (error) {
+      console.error("Error searching jobs:", error);
     }
   };
 
   return (
     <div>
+      <h1>Search Jobs</h1>
       <input
         type="text"
+        placeholder="Job Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Job title"
       />
       <input
         type="text"
+        placeholder="Location"
         value={location}
         onChange={(e) => setLocation(e.target.value)}
-        placeholder="Location"
       />
       <button onClick={handleSearch}>Search</button>
-      {error && <p>Error: {error}</p>}
-      {jobs.map((job) => (
-        <div key={job.id}>
-          <h2>{job.title}</h2>
-          <p>{job.location}</p>
-        </div>
-      ))}
+      <ul>
+        {jobs.map((job) => (
+          <li key={job.id}>
+            {job.title} - {job.location}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default CompanySearch;
+export default SearchJobs;

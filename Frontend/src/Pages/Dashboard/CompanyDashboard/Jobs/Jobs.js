@@ -3,28 +3,28 @@ import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import CompanySearch from "../Csearch/TalentSearch";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { AiOutlineSend, AiFillStar, AiOutlineClose } from "react-icons/ai"; // Import the close icon
+import { AiOutlineSend, AiOutlineClose } from "react-icons/ai";
+import { FaBookmark } from "react-icons/fa";
 
-import "../Sidebar/SidebarComponents/ManageJobs/ManageJobs.css";
+import "./Jobs.css";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
-  const [selectedJob, setSelectedJob] = useState(null); // State to track selected job
-  const [bookmarkedJobs, setBookmarkedJobs] = useState([]); // State to store bookmarked jobs
-  const [showModal, setShowModal] = useState(false); // State to control mobile modal
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [bookmarkedJobs, setBookmarkedJobs] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchJobs();
     const handleResize = () => {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth >= 768) {
         setShowModal(false);
       }
     };
 
     window.addEventListener("resize", handleResize);
 
-    // Clean up event listener on component unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -39,8 +39,11 @@ const Jobs = () => {
         throw new Error("Failed to fetch jobs");
       }
       const data = await response.json();
-      console.log("Fetched jobs:", data); // Debug: Check the structure of data
-      setJobs(JSON.parse(data)); // Ensure data is parsed correctly
+      const parsedJobs = data.map((item) => ({
+        ...JSON.parse(item.job),
+        name: item.name,
+      }));
+      setJobs(parsedJobs);
     } catch (error) {
       console.error("Error fetching jobs:", error);
     }
@@ -48,8 +51,8 @@ const Jobs = () => {
 
   const handleJobClick = (job) => {
     setSelectedJob(job);
-    if (window.innerWidth <= 768) {
-      setShowModal(true); // Show modal on mobile
+    if (window.innerWidth < 768) {
+      setShowModal(true);
     }
   };
 
@@ -62,90 +65,91 @@ const Jobs = () => {
   };
 
   return (
-    <>
-      <section className="ManageJobs">
-        <h1>Find Jobs</h1>
-        <CompanySearch />
+    <section className="jobs-manageJobs">
+      <h1>Find Jobs</h1>
+      <CompanySearch />
 
-        <div className="job-container">
-          {/* Job List Section */}
-          <ul className="job-list">
-            {jobs.map((job) => (
-              <li
-                key={job._id.$oid}
-                className="job-item"
-                onClick={() => handleJobClick(job)} // Add onClick handler
-              >
+      <div className="jobs-jobContainer">
+        <ul className="jobs-jobList">
+          {jobs.map((job) => (
+            <li
+              key={job._id.$oid}
+              className="jobs-jobItem"
+              onClick={() => handleJobClick(job)}
+            >
+              <div className="jobs-jobHeader">
                 <h3>{job.title}</h3>
-                <p className="job-requirement">{job.requirements}</p>
-                <p className="job-description">{job.description}</p>
-                <p className="job-location">{job.location}</p>
-                <p className="job-company">{job.company.name}</p>
-                <p>
-                  Posted{" "}
-                  {formatDistanceToNow(new Date(job.posted_date.$date), {
-                    addSuffix: true,
-                  })}
-                </p>
                 <button
-                  className="bookmark-button"
+                  className="jobs-bookmarkButton"
                   onClick={(e) => {
-                    e.stopPropagation(); // Prevent job click event from firing
+                    e.stopPropagation();
                     toggleBookmark(job._id.$oid);
                   }}
                 >
                   {bookmarkedJobs.includes(job._id.$oid) ? (
-                    <AiFillStar color="gold" />
+                    <FaBookmark color="gold" size={20} />
                   ) : (
-                    <AiFillStar />
+                    <FaBookmark size={20} />
                   )}
                 </button>
-              </li>
-            ))}
-          </ul>
+              </div>
+              <p className="jobs-jobCompany">{job.name}</p>
+              <p className="jobs-jobLocation">
+                <FaMapMarkerAlt /> {job.location}
+              </p>
+              <p className="jobs-jobRequirement">{job.requirements}</p>
+              <p className="jobs-jobDescription">{job.description}</p>
+              <p className="jobs-jobPosted">
+                Posted{" "}
+                {formatDistanceToNow(new Date(job.posted_date.$date), {
+                  addSuffix: true,
+                })}
+              </p>
+            </li>
+          ))}
+        </ul>
 
-          {/* Job Details Section (Desktop View) */}
-          {selectedJob && !showModal && (
-            <div className="job-details desktop-view">
+        {selectedJob && !showModal && (
+          <div className="jobs-jobDetails jobs-desktopView">
+            <h2>{selectedJob.title}</h2>
+            <p className="jobs-jobCompany">{selectedJob.name}</p>
+            <div className="jobs-jobLocation">
+              <FaMapMarkerAlt /> {selectedJob.location}
+            </div>
+            <p className="jobs-jobRequirement">{selectedJob.requirements}</p>
+            <p className="jobs-jobDescription">{selectedJob.description}</p>
+            <button className="jobs-applyButton">
+              <AiOutlineSend /> Apply
+            </button>
+          </div>
+        )}
+      </div>
+
+      {showModal && (
+        <div className="jobs-modal jobs-mobileView">
+          <div className="jobs-modalContent">
+            <span
+              className="jobs-closeButton"
+              onClick={() => setShowModal(false)}
+            >
+              <AiOutlineClose />
+            </span>
+            <div className="jobs-jobDetails">
               <h2>{selectedJob.title}</h2>
-              <p className="job-requirement">{selectedJob.requirements}</p>
-              <p className="job-description">{selectedJob.description}</p>
-              <div className="job-location">
+              <p className="jobs-jobCompany">{selectedJob.name}</p>
+              <div className="jobs-jobLocation">
                 <FaMapMarkerAlt /> {selectedJob.location}
               </div>
-              <button className="apply-button">
+              <p className="jobs-jobRequirement">{selectedJob.requirements}</p>
+              <p className="jobs-jobDescription">{selectedJob.description}</p>
+              <button className="jobs-applyButton">
                 <AiOutlineSend /> Apply
               </button>
             </div>
-          )}
-        </div>
-
-        {/* Job Details Modal (Mobile View) */}
-        {showModal && (
-          <div className="modal mobile-view">
-            <div className="modal-content">
-              <span
-                className="close-button"
-                onClick={() => setShowModal(false)}
-              >
-                <AiOutlineClose /> {/* Use the close icon */}
-              </span>
-              <div className="job-details">
-                <h2>{selectedJob.title}</h2>
-                <p className="job-requirement">{selectedJob.requirements}</p>
-                <p className="job-description">{selectedJob.description}</p>
-                <div className="job-location">
-                  <FaMapMarkerAlt /> {selectedJob.location}
-                </div>
-                <button className="apply-button">
-                  <AiOutlineSend /> Apply
-                </button>
-              </div>
-            </div>
           </div>
-        )}
-      </section>
-    </>
+        </div>
+      )}
+    </section>
   );
 };
 

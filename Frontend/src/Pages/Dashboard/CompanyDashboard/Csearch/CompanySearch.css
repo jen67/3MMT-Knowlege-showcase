@@ -1,0 +1,53 @@
+/* Styles for the search component */
+.company-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.company-search input {
+  padding: 10px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 200px;
+}
+
+.company-search button {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.company-search button:hover {
+  background-color: #0056b3;
+}
+
+/* Error message styles */
+.company-search .error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Job result styles */
+.company-search .job-result {
+  margin-top: 20px;
+}
+
+.company-search .job-result h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.company-search .job-result p {
+  font-size: 14px;
+  color: #555;
+}
