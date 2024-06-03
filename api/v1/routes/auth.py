@@ -43,28 +43,43 @@ def register():
 
         return jsonify({"msg": "User registered successfully"}), 201
 
-@auth_bp.route('/login', methods=['POST'])
+
+@auth_bp.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
-    user = User.objects(email=data['email']).first()
+    user = User.objects(email=data["email"]).first()
 
-    if user and user.check_password(data['password']):
+    if user and user.check_password(data["password"]):
         access_token = create_access_token(
-            identity={"id": str(user.id), "role": "user"})
-        response = make_response(jsonify(access_token=access_token), 200)
+            identity={"id": str(user.id), "role": "user"}
+        )
+        response = make_response(
+            jsonify(
+                access_token=access_token,
+                is_company=False,  # Indicates that this is a user
+            ),
+            200,
+        )
 
-        response.set_cookie('auth_token', access_token, max_age=86400)
+        response.set_cookie("auth_token", access_token, max_age=86400)
 
         return response
 
-    company = Company.objects(email=data['email']).first()
+    company = Company.objects(email=data["email"]).first()
 
-    if company and company.check_password(data['password']):
+    if company and company.check_password(data["password"]):
         access_token = create_access_token(
-            identity={"id": str(company.id), "role": "company"})
-        response = make_response(jsonify(access_token=access_token), 200)
+            identity={"id": str(company.id), "role": "company"}
+        )
+        response = make_response(
+            jsonify(
+                access_token=access_token,
+                is_company=True,  # Indicates that this is a company
+            ),
+            200,
+        )
 
-        response.set_cookie('auth_token', access_token, max_age=86400)
+        response.set_cookie("auth_token", access_token, max_age=86400)
 
         return response
 

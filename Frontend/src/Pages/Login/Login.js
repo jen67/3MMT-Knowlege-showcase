@@ -34,9 +34,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
-
-    // Send a POST request to the backend API
     fetch("http://localhost:5000/auth/login", {
       method: "POST",
       headers: {
@@ -55,14 +52,22 @@ const Login = () => {
       })
       .then((responseData) => {
         Cookies.set("auth_token", responseData.access_token);
-        console.log(responseData); // Log the server response
 
         if (responseData.access_token) {
-          // Display a modal dialog to inform the user that the login was successful
+          // Check if the account type from the backend matches the user's intended login type
+          if (
+            (data.accountType === "Company" && !responseData.is_company) ||
+            (data.accountType === "Talent" && responseData.is_company)
+          ) {
+            throw new Error(
+              "Account type mismatch. Please select the correct account type."
+            );
+          }
+
           setModalMessage("Login successful!");
           setShowModal(true);
 
-          if (data.accountType === "Company") {
+          if (responseData.is_company) {
             navigate("/CompanyDashboard");
           } else {
             navigate("/TalentDashboard");
@@ -70,11 +75,11 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        // Display a modal dialog with the error message
         setModalMessage(error.message);
         setShowModal(true);
       });
   };
+
 
   const accountTypes = [
     { value: "Company", label: "Company" },
