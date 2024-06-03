@@ -92,6 +92,17 @@ const Header = () => {
                 Contact
               </NavLink>
             </li>
+
+            <li>
+              <NavLink
+                exact
+                to="/Jobs"
+                activeClassName="active-link"
+                onClick={() => setIsOpen(false)}
+              >
+                Jobs
+              </NavLink>
+            </li>
           </ul>
 
           <div className="btn-container">

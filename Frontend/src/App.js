@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Jobs from "./Pages/Dashboard/CompanyDashboard/Jobs/Jobs";
 import Header from "./Components/Header/Header";
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About-Us/About";
@@ -72,6 +73,7 @@ function App() {
           <Route path="/Privacypolicy" element={<Privacypolicy />} />
           <Route path="/TermsOfService" element={<TermsOfService />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/Jobs" element={<Jobs />} />
 
           <Route path="/CompanyDashboard" element={<CompanyDashboardWithSidebar />}/>
           <Route path="/Profile" element={<ProfileWithSidebar />} />

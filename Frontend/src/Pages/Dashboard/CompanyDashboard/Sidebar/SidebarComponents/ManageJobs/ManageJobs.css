@@ -1,7 +1,7 @@
 .ManageJobs {
   padding: var(--pad4) var(--pad3);
   background-color: var(--vxblue);
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .ManageJobs h1 {

@@ -7,19 +7,16 @@ import "../../../../../Signup/Signup.css";
 import "../../../../../Login/Login.css";
 import "./Post-jobs.css";
 
-
-
-
 const PostJob = () => {
   const location = useLocation();
-const job = location.state ? location.state.job : null;
+  const job = location.state ? location.state.job : null;
 
- const [title, setTitle] = useState(job ? job.title : "");
-const [locationState, setLocationState] = useState(job ? job.location : "");
-const [description, setDescription] = useState(job ? job.description : "");
-const [requirements, setRequirements] = useState(job ? job.requirements : "");
+  const [title, setTitle] = useState(job ? job.title : "");
+  const [locationState, setLocationState] = useState(job ? job.location : "");
+  const [description, setDescription] = useState(job ? job.description : "");
+  const [requirements, setRequirements] = useState(job ? job.requirements : "");
 
-useEffect(() => {
+  useEffect(() => {
     if (!location.state) {
       setTitle("");
       setLocationState("");
@@ -27,7 +24,6 @@ useEffect(() => {
       setRequirements("");
     }
   }, [location.state]);
-
 
   // Error states
   const [titleError, setTitleError] = useState(false);

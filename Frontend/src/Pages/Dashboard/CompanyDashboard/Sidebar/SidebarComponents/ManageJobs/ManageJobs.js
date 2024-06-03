@@ -39,7 +39,7 @@ const ManageJobs = () => {
       // Simulate a delay before setting isLoading to false
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000); // 1000ms = 1 seconds delay
+      }, 1000); // 1000ms = 1 second delay
     } catch (error) {
       console.error("Error fetching jobs:", error);
       setIsLoading(false);

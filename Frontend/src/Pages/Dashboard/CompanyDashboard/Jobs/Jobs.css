@@ -1,0 +1,100 @@
+.job-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6rem 4rem;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  gap: 20px;
+}
+
+.job-list {
+  flex: 1;
+  border-right: 1px solid #ddd;
+  padding: 10px;
+}
+
+.job-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.job-item:hover {
+  background-color: #f9f9f9;
+}
+
+.job-item h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.job-item p {
+  margin: 5px 0;
+  color: #555;
+}
+
+
+.job-detail {
+  flex: 1;
+  padding: 20px;
+}
+
+.job-detail h2 {
+  margin-top: 0;
+}
+
+.job-detail h3 {
+  margin-bottom: 10px;
+}
+
+.job-detail p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.job-detail button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+

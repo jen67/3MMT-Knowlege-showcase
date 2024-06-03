@@ -17,12 +17,21 @@ const ContactUs = () => {
   const onSubmit = async (data) => {
     console.log(data);
 
+    const authToken = Cookies.get("auth_token");
+    if (!authToken) {
+      alert("You must be logged in to submit a query.");
+      return;
+    }
+
+
     // Create the payload for the API request
     const payload = {
       query: data.message,
+      user: Cookies.get("auth_token") ? Cookies.get("auth_token") : null,
     };
 
     console.log(payload);
+    
 
     try {
       const response = await fetch("http://localhost:5000/api/contact", {
