@@ -16,12 +16,12 @@ def search_jobs():
         query = query.filter(location__icontains=criteria['location'])
 
     jobs = query.all()
-    jobs_list = [job.to_dict() for job in jobs]
+    jobs_json = jobs.to_json()
 
-    if not jobs_list:
+    if not jobs:
         return jsonify({'message': 'No jobs found'}), 404
 
-    return jsonify(jobs_list), 200
+    return jobs_json, 200
 
 @search_bp.route('/search/talents', methods=['GET'])
 def search_talents():
@@ -33,10 +33,10 @@ def search_talents():
         query = query.filter(skills__in=skills)
 
     users = query.all()
-    users_list = [user.to_dict() for user in users]
+    users_json = users.to_json()
 
-    if not users_list:
+    if not users:
         return jsonify({'message': 'No talents found'}), 404
 
-    return jsonify(users_list), 200
+    return users_json, 200
 
