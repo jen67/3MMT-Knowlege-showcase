@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { FaMapMarkerAlt, FaBookmark } from "react-icons/fa";
 import { AiOutlineSend, AiOutlineClose } from "react-icons/ai";
+import Cookies from "js-cookie";
 import "./Jobs.css";
 
 const Spinner = () => (
@@ -23,7 +24,7 @@ const Jobs = () => {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   // Fetch all jobs once
@@ -45,11 +46,11 @@ const Jobs = () => {
         }));
         setJobs(parsedJobs);
         setFilteredJobs(parsedJobs);
-        setSelectedJob(parsedJobs[0]); // Select the first job by default
+        setSelectedJob(parsedJobs[0]);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       } finally {
-        setTimeout(() => setLoading(false), 2000); // Set loading to false after 2 seconds
+        setTimeout(() => setLoading(false), 2000);
       }
     };
     fetchAllJobs();
@@ -67,8 +68,33 @@ const Jobs = () => {
       return matchesTitle && matchesLocation;
     });
     setFilteredJobs(filtered);
-    setSelectedJob(filtered[0] || null); // Select the first job from the search results
+    setSelectedJob(filtered[0] || null);
   }, [jobs, title, location]);
+
+
+
+  // Apply for a job
+  const applyForJob = async (jobId) => {
+    const token = Cookies.get("auth_token")
+    try {
+      const response = await fetch("http://localhost:5000/api/applications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
+        },
+        body: JSON.stringify({ job_id: jobId }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert("Application submitted successfully");
+      } else {
+        alert(data.msg || "Error submitting application");
+      }
+    } catch (error) {
+      console.error("Error applying for job:", error);
+    }
+  };
 
   // Handle window resize to close modal on larger screens
   useEffect(() => {
@@ -99,7 +125,7 @@ const Jobs = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       handleSearch();
-    }, 400); 
+    }, 400);
 
     return () => clearTimeout(timer);
   }, [title, location, handleSearch]);
@@ -118,7 +144,7 @@ const Jobs = () => {
       ) : (
         <>
           <h1>Find Jobs</h1>
-          <div className="searches">
+          <div>
             <div className="search-inputs">
               <input
                 type="text"
@@ -177,6 +203,15 @@ const Jobs = () => {
                           addSuffix: true,
                         })}
                       </p>
+                      <button
+                        className="jobs-applyButton"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          applyForJob(job._id.$oid);
+                        }}
+                      >
+                        <AiOutlineSend /> Apply
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -205,9 +240,8 @@ const Jobs = () => {
                 No jobs found. Please try a different search.
               </p>
             )}
-          </div>
-
-          {showModal && (
+            </div>
+           {showModal && (
             <div className="jobs-modal jobs-mobileView">
               <div className="jobs-modalContent">
                 <span
@@ -228,7 +262,10 @@ const Jobs = () => {
                   <p className="jobs-jobDescription">
                     {selectedJob.description}
                   </p>
-                  <button className="jobs-applyButton">
+                  <button
+                    className="jobs-applyButton"
+                    onClick={() => applyForJob(selectedJob._id.$oid)}
+                  >
                     <AiOutlineSend /> Apply
                   </button>
                 </div>
