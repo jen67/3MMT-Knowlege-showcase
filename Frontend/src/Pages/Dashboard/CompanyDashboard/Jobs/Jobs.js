@@ -3,8 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { FaMapMarkerAlt, FaBookmark } from "react-icons/fa";
 import { AiOutlineSend, AiOutlineClose } from "react-icons/ai";
-
 import "./Jobs.css";
+
+const Spinner = () => (
+  <div className="spinner">
+    <div className="bounce1"></div>
+    <div className="bounce2"></div>
+    <div className="bounce3"></div>
+    <div className="bounce4"></div>
+    <div className="bounce5"></div>
+  </div>
+);
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -14,44 +23,10 @@ const Jobs = () => {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
+  const [loading, setLoading] = useState(true); // Loading state
   const navigate = useNavigate();
 
-  useEffect(() => {
-
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setShowModal(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const handleSearch = useCallback(async () => {
-    const params = new URLSearchParams();
-    if (title) params.append("title", title);
-    if (location) params.append("location", location);
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/search/jobs?${params.toString()}`
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setFilteredJobs(data);
-      setSelectedJob(data[0]); // Select the first job from the search results
-    } catch (error) {
-      console.error("Error searching jobs:", error);
-    }
-  }, [title, location]);
-
-  useEffect(() => {
-    handleSearch();
-  }, [handleSearch]);
-
+  // Fetch all jobs once
   useEffect(() => {
     const fetchAllJobs = async () => {
       try {
@@ -68,32 +43,43 @@ const Jobs = () => {
           ...JSON.parse(item.job),
           name: item.name,
         }));
-
-        let filteredData = parsedJobs;
-        if (title || location) {
-          const params = new URLSearchParams();
-          if (title) params.append("title", title);
-          if (location) params.append("location", location);
-          const searchResponse = await fetch(
-            `http://localhost:5000/api/search/jobs?${params.toString()}`
-          );
-          if (!searchResponse.ok) {
-            throw new Error("Network response was not ok");
-          }
-          filteredData = await searchResponse.json();
-        }
-
         setJobs(parsedJobs);
-        setFilteredJobs(filteredData);
-        setSelectedJob(filteredData[0]); // Select the first job from the search results or all jobs
+        setFilteredJobs(parsedJobs);
+        setSelectedJob(parsedJobs[0]); // Select the first job by default
       } catch (error) {
         console.error("Error fetching jobs:", error);
+      } finally {
+        setTimeout(() => setLoading(false), 2000); // Set loading to false after 2 seconds
       }
     };
-
     fetchAllJobs();
-  }, [title, location]);
+  }, []);
 
+  // Handle search filtering
+  const handleSearch = useCallback(() => {
+    const filtered = jobs.filter((job) => {
+      const matchesTitle = title
+        ? job.title.toLowerCase().includes(title.toLowerCase())
+        : true;
+      const matchesLocation = location
+        ? job.location.toLowerCase().includes(location.toLowerCase())
+        : true;
+      return matchesTitle && matchesLocation;
+    });
+    setFilteredJobs(filtered);
+    setSelectedJob(filtered[0] || null); // Select the first job from the search results
+  }, [jobs, title, location]);
+
+  // Handle window resize to close modal on larger screens
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setShowModal(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleJobClick = (job) => {
     setSelectedJob(job);
@@ -110,110 +96,146 @@ const Jobs = () => {
     }
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleSearch();
+    }, 400); 
+
+    return () => clearTimeout(timer);
+  }, [title, location, handleSearch]);
+
   const resetSearch = () => {
     setFilteredJobs(jobs);
-    setSelectedJob(jobs[0]); 
+    setSelectedJob(jobs[0]);
+    setTitle("");
+    setLocation("");
   };
 
   return (
     <section className="jobs-manageJobs">
-      <h1>Find Jobs</h1>
-      <div>
-        <input
-          type="text"
-          placeholder="Job Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-        <button onClick={handleSearch}>Search</button>
-        <button onClick={resetSearch}>Show All Jobs</button>
-      </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <h1>Find Jobs</h1>
+          <div className="searches">
+            <div className="search-inputs">
+              <input
+                type="text"
+                placeholder="Job Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </div>
+            <div className="jobs-btn">
+              <button onClick={handleSearch}>Search</button>
+              <button onClick={resetSearch}>Show All Jobs</button>
+            </div>
+          </div>
 
-      <div className="jobs-jobContainer">
-        <ul className="jobs-jobList">
-          {filteredJobs.map((job) => (
-            <li
-              key={job._id.$oid}
-              className="jobs-jobItem"
-              onClick={() => handleJobClick(job)}
-            >
-              <div className="jobs-jobHeader">
-                <h3>{job.title}</h3>
-                <button
-                  className="jobs-bookmarkButton"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleBookmark(job._id.$oid);
-                  }}
+          <div className="jobs-jobContainer">
+            {filteredJobs.length > 0 ? (
+              <>
+                <ul className="jobs-jobList">
+                  {filteredJobs.map((job) => (
+                    <li
+                      key={job._id.$oid}
+                      className="jobs-jobItem"
+                      onClick={() => handleJobClick(job)}
+                    >
+                      <div className="jobs-jobHeader">
+                        <h3>{job.title}</h3>
+                        <button
+                          className="jobs-bookmarkButton"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleBookmark(job._id.$oid);
+                          }}
+                        >
+                          {bookmarkedJobs.includes(job._id.$oid) ? (
+                            <FaBookmark color="gold" size={20} />
+                          ) : (
+                            <FaBookmark size={20} />
+                          )}
+                        </button>
+                      </div>
+                      <p className="jobs-jobCompany">{job.name}</p>
+                      <p className="jobs-jobLocation">
+                        <FaMapMarkerAlt /> {job.location}
+                      </p>
+                      <p className="jobs-jobRequirement">{job.requirements}</p>
+                      <p className="jobs-jobDescription">{job.description}</p>
+                      <p className="jobs-jobPosted">
+                        Posted{" "}
+                        {formatDistanceToNow(new Date(job.posted_date.$date), {
+                          addSuffix: true,
+                        })}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+
+                {selectedJob && (
+                  <div className="jobs-jobDetails jobs-desktopView">
+                    <h2>{selectedJob.title}</h2>
+                    <p className="jobs-jobCompany">{selectedJob.name}</p>
+                    <div className="jobs-jobLocation">
+                      <FaMapMarkerAlt /> {selectedJob.location}
+                    </div>
+                    <p className="jobs-jobRequirement">
+                      {selectedJob.requirements}
+                    </p>
+                    <p className="jobs-jobDescription">
+                      {selectedJob.description}
+                    </p>
+                    <button className="jobs-applyButton">
+                      <AiOutlineSend /> Apply
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <p className="no-jobs-message">
+                No jobs found. Please try a different search.
+              </p>
+            )}
+          </div>
+
+          {showModal && (
+            <div className="jobs-modal jobs-mobileView">
+              <div className="jobs-modalContent">
+                <span
+                  className="jobs-closeButton"
+                  onClick={() => setShowModal(false)}
                 >
-                  {bookmarkedJobs.includes(job._id.$oid) ? (
-                    <FaBookmark color="gold" size={20} />
-                  ) : (
-                    <FaBookmark size={20} />
-                  )}
-                </button>
+                  <AiOutlineClose />
+                </span>
+                <div className="jobs-jobDetails">
+                  <h2>{selectedJob.title}</h2>
+                  <p className="jobs-jobCompany">{selectedJob.name}</p>
+                  <div className="jobs-jobLocation">
+                    <FaMapMarkerAlt /> {selectedJob.location}
+                  </div>
+                  <p className="jobs-jobRequirement">
+                    {selectedJob.requirements}
+                  </p>
+                  <p className="jobs-jobDescription">
+                    {selectedJob.description}
+                  </p>
+                  <button className="jobs-applyButton">
+                    <AiOutlineSend /> Apply
+                  </button>
+                </div>
               </div>
-              <p className="jobs-jobCompany">{job.name}</p>
-              <p className="jobs-jobLocation">
-                <FaMapMarkerAlt /> {job.location}
-              </p>
-              <p className="jobs-jobRequirement">{job.requirements}</p>
-              <p className="jobs-jobDescription">{job.description}</p>
-              <p className="jobs-jobPosted">
-                Posted{" "}
-                {formatDistanceToNow(new Date(job.posted_date.$date), {
-                  addSuffix: true,
-                })}
-              </p>
-            </li>
-          ))}
-        </ul>
-
-        {selectedJob && !showModal && (
-          <div className="jobs-jobDetails jobs-desktopView">
-            <h2>{selectedJob.title}</h2>
-            <p className="jobs-jobCompany">{selectedJob.name}</p>
-            <div className="jobs-jobLocation">
-              <FaMapMarkerAlt /> {selectedJob.location}
             </div>
-            <p className="jobs-jobRequirement">{selectedJob.requirements}</p>
-            <p className="jobs-jobDescription">{selectedJob.description}</p>
-            <button className="jobs-applyButton">
-              <AiOutlineSend /> Apply
-            </button>
-          </div>
-        )}
-      </div>
-
-      {showModal && (
-        <div className="jobs-modal jobs-mobileView">
-          <div className="jobs-modalContent">
-            <span
-              className="jobs-closeButton"
-              onClick={() => setShowModal(false)}
-            >
-              <AiOutlineClose />
-            </span>
-            <div className="jobs-jobDetails">
-              <h2>{selectedJob.title}</h2>
-              <p className="jobs-jobCompany">{selectedJob.name}</p>
-              <div className="jobs-jobLocation">
-                <FaMapMarkerAlt /> {selectedJob.location}
-              </div>
-              <p className="jobs-jobRequirement">{selectedJob.requirements}</p>
-              <p className="jobs-jobDescription">{selectedJob.description}</p>
-              <button className="jobs-applyButton">
-                <AiOutlineSend /> Apply
-              </button>
-            </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
     </section>
   );
