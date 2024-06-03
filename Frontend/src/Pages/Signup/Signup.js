@@ -176,10 +176,10 @@ const Signup = () => {
     console.log("Form data:", data);
 
     const payload = {
-      name: data.name,
       email: data.email,
       password: data.password,
       is_company: currentSelection === "Company",
+      accountType: currentSelection,
       ...(currentSelection === "Company" && {
         name: data.companyName,
         location: data.location,
@@ -187,6 +187,7 @@ const Signup = () => {
         description: data.description,
       }),
       ...(currentSelection === "Talent" && {
+        name: data.name,
         mobile: data.mobile,
         category: data.category,
       }),
