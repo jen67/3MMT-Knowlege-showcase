@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
-import CompanySearch from "../Csearch/TalentSearch";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBookmark } from "react-icons/fa";
 import { AiOutlineSend, AiOutlineClose } from "react-icons/ai";
-import { FaBookmark } from "react-icons/fa";
 
 import "./Jobs.css";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [bookmarkedJobs, setBookmarkedJobs] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [title, setTitle] = useState("");
+  const [location, setLocation] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchJobs();
+
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setShowModal(false);
@@ -28,26 +29,71 @@ const Jobs = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const fetchJobs = async () => {
+  const handleSearch = useCallback(async () => {
+    const params = new URLSearchParams();
+    if (title) params.append("title", title);
+    if (location) params.append("location", location);
     try {
-      const response = await fetch("http://localhost:5000/api/jobs", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/search/jobs?${params.toString()}`
+      );
       if (!response.ok) {
-        throw new Error("Failed to fetch jobs");
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      const parsedJobs = data.map((item) => ({
-        ...JSON.parse(item.job),
-        name: item.name,
-      }));
-      setJobs(parsedJobs);
+      setFilteredJobs(data);
+      setSelectedJob(data[0]); // Select the first job from the search results
     } catch (error) {
-      console.error("Error fetching jobs:", error);
+      console.error("Error searching jobs:", error);
     }
-  };
+  }, [title, location]);
+
+  useEffect(() => {
+    handleSearch();
+  }, [handleSearch]);
+
+  useEffect(() => {
+    const fetchAllJobs = async () => {
+      try {
+        const jobsResponse = await fetch("http://localhost:5000/api/jobs", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!jobsResponse.ok) {
+          throw new Error("Failed to fetch jobs");
+        }
+        const jobsData = await jobsResponse.json();
+        const parsedJobs = jobsData.map((item) => ({
+          ...JSON.parse(item.job),
+          name: item.name,
+        }));
+
+        let filteredData = parsedJobs;
+        if (title || location) {
+          const params = new URLSearchParams();
+          if (title) params.append("title", title);
+          if (location) params.append("location", location);
+          const searchResponse = await fetch(
+            `http://localhost:5000/api/search/jobs?${params.toString()}`
+          );
+          if (!searchResponse.ok) {
+            throw new Error("Network response was not ok");
+          }
+          filteredData = await searchResponse.json();
+        }
+
+        setJobs(parsedJobs);
+        setFilteredJobs(filteredData);
+        setSelectedJob(filteredData[0]); // Select the first job from the search results or all jobs
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+
+    fetchAllJobs();
+  }, [title, location]);
+
 
   const handleJobClick = (job) => {
     setSelectedJob(job);
@@ -64,14 +110,34 @@ const Jobs = () => {
     }
   };
 
+  const resetSearch = () => {
+    setFilteredJobs(jobs);
+    setSelectedJob(jobs[0]); 
+  };
+
   return (
     <section className="jobs-manageJobs">
       <h1>Find Jobs</h1>
-      <CompanySearch />
+      <div>
+        <input
+          type="text"
+          placeholder="Job Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+        <button onClick={resetSearch}>Show All Jobs</button>
+      </div>
 
       <div className="jobs-jobContainer">
         <ul className="jobs-jobList">
-          {jobs.map((job) => (
+          {filteredJobs.map((job) => (
             <li
               key={job._id.$oid}
               className="jobs-jobItem"
