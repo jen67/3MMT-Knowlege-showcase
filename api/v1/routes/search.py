@@ -1,7 +1,7 @@
-from flask import Blueprint, request, jsonify
-from models import Job, User
+from flask import request, jsonify, Blueprint
+from models import Job, User"
 
-search_bp = Blueprint('search', __name__)
+search_bp = Blueprint('search_bp', __name__)
 
 @search_bp.route('/search/jobs', methods=['GET'])
 def search_jobs():
@@ -15,8 +15,9 @@ def search_jobs():
         query = query.filter(location__icontains=criteria['location'])
 
     jobs = query.all()
+    jobs_list = [job.to_dict() for job in jobs]
 
-    return jsonify(jobs), 200
+    return jsonify(jobs_list), 200
 
 @search_bp.route('/search/talents', methods=['GET'])
 def search_talents():
@@ -28,6 +29,7 @@ def search_talents():
         query = query.filter(skills__in=skills)
 
     users = query.all()
-    
-    return jsonify(users), 200
+    users_list = [user.to_dict() for user in users]
+
+    return jsonify(users_list), 200
 
