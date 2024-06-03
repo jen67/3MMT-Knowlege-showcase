@@ -17,6 +17,9 @@ def search_jobs():
     jobs = query.all()
     jobs_list = [job for job in jobs]
 
+    if not jobs_list:
+        return jsonify({'message': 'No jobs found'}), 404
+
     return jsonify(jobs_list), 200
 
 @search_bp.route('/search/talents', methods=['GET'])
@@ -30,6 +33,9 @@ def search_talents():
 
     users = query.all()
     users_list = [user for user in users]
+
+    if not users_list:
+        return jsonify({'message': 'No talents found'}), 404
 
     return jsonify(users_list), 200
 
