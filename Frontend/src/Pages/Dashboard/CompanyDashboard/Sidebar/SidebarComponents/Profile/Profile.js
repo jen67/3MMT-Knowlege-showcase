@@ -66,6 +66,7 @@ const Profile = () => {
   };
   // const [logo, setLogo] = useState(null);
   const [companyName, setCompanyName] = useState("");
+  const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
   const [industry, setIndustry] = useState("");
   const [description, setDescription] = useState("");
@@ -73,27 +74,36 @@ const Profile = () => {
   const token = Cookies.get("auth_token");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/profile", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        let data = await response.json();
+        if (typeof data === "string") {
+          data = JSON.parse(data);
+        }
+
+        console.log("Received data:", data);
+        console.log("Your email:", data.email);
         if (data.name) setCompanyName(data.name);
+        if (data.email) setEmail(data.email);
         if (data.location) setLocation(data.location);
         if (data.industry) setIndustry(data.industry);
         if (data.description) setDescription(data.description);
 
         setIsLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching profile:", error);
         setIsLoading(false);
-      });
-  }, [token]);
+      }
+    };
 
+    fetchData();
+  }, [token]);
   const handleCompanyNameChange = (event) => setCompanyName(event.target.value);
   const handleLocationChange = (event) => setLocation(event.target.value);
   const handleIndustryChange = (value) => setIndustry(value);
@@ -139,8 +149,8 @@ const Profile = () => {
           <FaUserCircle size={70} />
         </div>
         <div className="logo-pdetails">
-          <h2>CompanyName {companyName}</h2>
-          <p>company Email </p>
+          <h2>{companyName}</h2>
+          <p>{email} </p>
         </div>
       </div>
       {isLoading ? (
@@ -165,21 +175,21 @@ const Profile = () => {
           </div>
 
           {activeTab === "profile" ? (
-            <div className="details">      
-                <div className="">
-                  <label htmlFor="location">Location:</label>
-                  <p>{location}</p>
-                </div>
-                <div className="">
-                  <label htmlFor="industry" className="">
-                     Industry: 
-                  </label>
-                  <p>industry {industry}</p>
-                </div>
-                <div className="">
-                  <label htmlFor="description">Description:</label>
-                  <p>{description}</p>
-                </div>
+            <div className="details">
+              <div className="">
+                <label htmlFor="location">Location:</label>
+                <p>{location || "No location provided"}</p>
+              </div>
+              <div className="">
+                <label htmlFor="industry" className="">
+                  Industry:
+                </label>
+                <p>{industry || "No industry provided"}</p>
+              </div>
+              <div className="">
+                <label htmlFor="description">Description:</label>
+                <p>{description || "No description provided"}</p>
+              </div>
             </div>
           ) : (
             <form className="form-fields">

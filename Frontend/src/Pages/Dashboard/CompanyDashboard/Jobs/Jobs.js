@@ -67,9 +67,10 @@ const Jobs = () => {
     // Fetch user's applied jobs
     const fetchUserAppliedJobs = async () => {
       const token = Cookies.get("auth_token");
+      const user_id = Cookies.get("user_id");
       try {
         const response = await fetch(
-          "http://localhost:5000/api/application/user/<user_id>",
+          `http://localhost:5000/api/application/user/${user_id}`,
           {
             method: "GET",
             headers: {
@@ -206,17 +207,19 @@ const Jobs = () => {
           <h1>Find Jobs</h1>
           <div className="inputs-container">
             <div className="search-inputs">
-              <CustomSelect
-                options={[
-                  { value: "all", label: "Search All" },
-                  { value: "title", label: "Job Title" },
-                  { value: "location", label: "Location" },
-                ]}
-                onSelectChange={setSearchType}
-                value={searchType}
-                name="searchType"
-                placeholder="Select search type"
-              />
+              <div className="search-select">
+                <CustomSelect
+                  options={[
+                    { value: "all", label: "Search All" },
+                    { value: "title", label: "Job Title" },
+                    { value: "location", label: "Location" },
+                  ]}
+                  onSelectChange={setSearchType}
+                  value={searchType}
+                  name="searchType"
+                  placeholder="Select search type"
+                />
+              </div>
               <input
                 type="text"
                 placeholder={
@@ -306,30 +309,30 @@ const Jobs = () => {
                       <p>{selectedJob.location}</p>
                     </div>
 
-                    <div className="jobs-jobSection">
-                      <h3>
-                        <FaClipboardList /> Requirements
-                      </h3>
-                      <p>{selectedJob.requirements}</p>
+                    <div className="jobs-scrollableContent">
+                      <div className="jobs-jobSection">
+                        <h3>
+                          <FaClipboardList /> Requirements
+                        </h3>
+                        <p>{selectedJob.requirements}</p>
+                      </div>
+                      <div className="jobs-jobSection">
+                        <h3>
+                          <FaRegFileAlt /> Description
+                        </h3>
+                        <p>{selectedJob.description}</p>
+                      </div>
+                      <button
+                        className="jobs-applyButton"
+                        onClick={() => applyForJob(selectedJob._id.$oid)}
+                        disabled={appliedJobs.includes(selectedJob._id.$oid)}
+                      >
+                        <AiOutlineSend />{" "}
+                        {appliedJobs.includes(selectedJob._id.$oid)
+                          ? "Applied"
+                          : "Apply"}
+                      </button>
                     </div>
-
-                    <div className="jobs-jobSection">
-                      <h3>
-                        <FaRegFileAlt /> Description
-                      </h3>
-                      <p>{selectedJob.description}</p>
-                    </div>
-
-                    <button
-                      className="jobs-applyButton"
-                      onClick={() => applyForJob(selectedJob._id.$oid)}
-                      disabled={appliedJobs.includes(selectedJob._id.$oid)}
-                    >
-                      <AiOutlineSend />{" "}
-                      {appliedJobs.includes(selectedJob._id.$oid)
-                        ? "Applied"
-                        : "Apply"}
-                    </button>
                   </div>
                 )}
               </>

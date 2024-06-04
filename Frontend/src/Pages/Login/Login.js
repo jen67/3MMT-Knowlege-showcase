@@ -53,11 +53,11 @@ const Login = () => {
       .then((responseData) => {
         Cookies.set("auth_token", responseData.access_token);
         // Decode the payload of the JWT
-        const base64Url = responseData.access_token.split(".")[1];
-        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-        const payload = JSON.parse(window.atob(base64));
+        // const base64Url = responseData.access_token.split(".")[1];
+        // const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        // const payload = JSON.parse(window.atob(base64));
 
-        Cookies.set("user_id", payload.sub.id);
+        // Cookies.set("user_id", payload.sub.id);
 
         if (responseData.access_token) {
           // Check if the account type from the backend matches the user's intended login type

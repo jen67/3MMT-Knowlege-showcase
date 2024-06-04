@@ -96,6 +96,7 @@ p,
 figure,
 picture {
   margin: 0;
+
 }
 
 h1,
@@ -113,6 +114,13 @@ button,
 textarea,
 select {
   font: inherit;
+  
+}
+
+textarea{
+  overflow-wrap: break-word; 
+  word-wrap: break-word; 
+  word-break: break-word
 }
 
 ul {

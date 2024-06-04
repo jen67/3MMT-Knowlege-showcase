@@ -211,6 +211,7 @@ const PostJob = () => {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Enter job description"
             className="textarea"
+            maxLength={600}
           />
           {descriptionError && <p className="error">Description is required</p>}
         </div>
@@ -223,6 +224,7 @@ const PostJob = () => {
             onChange={(e) => setRequirements(e.target.value)}
             placeholder="Enter job requirements"
             className="textarea"
+            maxLength={600}
           />
           {requirementsError && (
             <p className="error">Requirements are required</p>
