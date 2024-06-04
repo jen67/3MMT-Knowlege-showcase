@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
-import { FaMapMarkerAlt, FaBookmark } from "react-icons/fa";
+import CustomSelect from '../../../../Components/Custom/CustomSelect';
+import {
+  FaMapMarkerAlt,
+  FaBookmark,
+  FaCheck,
+  FaBuilding,
+  FaClipboardList,
+  FaRegFileAlt,
+} from "react-icons/fa";
 import { AiOutlineSend, AiOutlineClose } from "react-icons/ai";
 import Cookies from "js-cookie";
 import "./Jobs.css";
@@ -25,6 +33,7 @@ const Jobs = () => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(true);
+  const [appliedJobs, setAppliedJobs] = useState([]); // New state to keep track of applied jobs
   const navigate = useNavigate();
 
   // Fetch all jobs once
@@ -54,40 +63,91 @@ const Jobs = () => {
       }
     };
     fetchAllJobs();
+
+    // Fetch user's applied jobs
+    const fetchUserAppliedJobs = async () => {
+      const token = Cookies.get("auth_token");
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/application/user/<user_id>",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          const appliedJobIds = data.map((application) => application.job._id);
+          setAppliedJobs(appliedJobIds);
+        } else {
+          throw new Error("Failed to fetch user's applied jobs");
+        }
+      } catch (error) {
+        console.error("Error fetching user's applied jobs:", error);
+      }
+    };
+    fetchUserAppliedJobs();
   }, []);
 
-  // Handle search filtering
-  const handleSearch = useCallback(() => {
-    const filtered = jobs.filter((job) => {
-      const matchesTitle = title
-        ? job.title.toLowerCase().includes(title.toLowerCase())
-        : true;
-      const matchesLocation = location
-        ? job.location.toLowerCase().includes(location.toLowerCase())
-        : true;
-      return matchesTitle && matchesLocation;
-    });
-    setFilteredJobs(filtered);
-    setSelectedJob(filtered[0] || null);
-  }, [jobs, title, location]);
 
+
+  // Handle search filtering
+
+ const [searchType, setSearchType] = useState("all");
+
+ const handleSearch = useCallback(() => {
+   const filtered = jobs.filter((job) => {
+     const titleMatches = job.title.toLowerCase().includes(title.toLowerCase());
+     const locationMatches = job.location
+       .toLowerCase()
+       .includes(location.toLowerCase());
+     if (searchType === "all") {
+       return titleMatches || locationMatches;
+     } else if (searchType === "title") {
+       return titleMatches;
+     } else {
+       return locationMatches;
+     }
+   });
+   setFilteredJobs(filtered);
+   setSelectedJob(filtered[0] || null);
+ }, [jobs, title, location, searchType]);
+
+ const handleInputChange = (e) => {
+   if (searchType === "all") {
+     const [titlePart, ...locationPart] = e.target.value.split(" ");
+     setTitle(titlePart);
+     setLocation(locationPart.join(" "));
+   } else if (searchType === "title") {
+     setTitle(e.target.value);
+   } else {
+     setLocation(e.target.value);
+   }
+ };
 
 
   // Apply for a job
   const applyForJob = async (jobId) => {
-    const token = Cookies.get("auth_token")
+    const token = Cookies.get("auth_token");
     try {
       const response = await fetch("http://localhost:5000/api/applications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ job_id: jobId }),
       });
+
+      console.log("response", response);
       const data = await response.json();
       if (response.ok) {
         alert("Application submitted successfully");
+        setAppliedJobs([...appliedJobs, jobId]); // Update applied jobs
       } else {
         alert(data.msg || "Error submitting application");
       }
@@ -144,19 +204,36 @@ const Jobs = () => {
       ) : (
         <>
           <h1>Find Jobs</h1>
-          <div>
+          <div className="inputs-container">
             <div className="search-inputs">
-              <input
-                type="text"
-                placeholder="Job Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+              <CustomSelect
+                options={[
+                  { value: "all", label: "Search All" },
+                  { value: "title", label: "Job Title" },
+                  { value: "location", label: "Location" },
+                ]}
+                onSelectChange={setSearchType}
+                value={searchType}
+                name="searchType"
+                placeholder="Select search type"
               />
               <input
                 type="text"
-                placeholder="Location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                placeholder={
+                  searchType === "all"
+                    ? "Search All"
+                    : searchType === "title"
+                    ? "Job Title"
+                    : "Location"
+                }
+                value={
+                  searchType === "all"
+                    ? `${title} ${location}`.trim()
+                    : searchType === "title"
+                    ? title
+                    : location
+                }
+                onChange={handleInputChange}
               />
             </div>
             <div className="jobs-btn">
@@ -192,9 +269,7 @@ const Jobs = () => {
                         </button>
                       </div>
                       <p className="jobs-jobCompany">{job.name}</p>
-                      <p className="jobs-jobLocation">
-                        <FaMapMarkerAlt /> {job.location}
-                      </p>
+                      <p className="jobs-jobLocation">{job.location}</p>
                       <p className="jobs-jobRequirement">{job.requirements}</p>
                       <p className="jobs-jobDescription">{job.description}</p>
                       <p className="jobs-jobPosted">
@@ -203,34 +278,57 @@ const Jobs = () => {
                           addSuffix: true,
                         })}
                       </p>
-                      <button
-                        className="jobs-applyButton"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          applyForJob(job._id.$oid);
-                        }}
-                      >
-                        <AiOutlineSend /> Apply
-                      </button>
+                      {appliedJobs.includes(job._id.$oid) && (
+                        <div className="jobs-applied">
+                          <FaCheck size={20} />
+                          <span>Applied</span>
+                        </div>
+                      )}
                     </li>
                   ))}
                 </ul>
 
                 {selectedJob && (
-                  <div className="jobs-jobDetails jobs-desktopView">
+                  <div className="jobs-jobDetails">
                     <h2>{selectedJob.title}</h2>
-                    <p className="jobs-jobCompany">{selectedJob.name}</p>
-                    <div className="jobs-jobLocation">
-                      <FaMapMarkerAlt /> {selectedJob.location}
+
+                    <div className="jobs-jobSection">
+                      <h3>
+                        <FaBuilding /> Company
+                      </h3>
+                      <p>{selectedJob.name}</p>
                     </div>
-                    <p className="jobs-jobRequirement">
-                      {selectedJob.requirements}
-                    </p>
-                    <p className="jobs-jobDescription">
-                      {selectedJob.description}
-                    </p>
-                    <button className="jobs-applyButton">
-                      <AiOutlineSend /> Apply
+
+                    <div className="jobs-jobSection">
+                      <h3>
+                        <FaMapMarkerAlt /> Location
+                      </h3>
+                      <p>{selectedJob.location}</p>
+                    </div>
+
+                    <div className="jobs-jobSection">
+                      <h3>
+                        <FaClipboardList /> Requirements
+                      </h3>
+                      <p>{selectedJob.requirements}</p>
+                    </div>
+
+                    <div className="jobs-jobSection">
+                      <h3>
+                        <FaRegFileAlt /> Description
+                      </h3>
+                      <p>{selectedJob.description}</p>
+                    </div>
+
+                    <button
+                      className="jobs-applyButton"
+                      onClick={() => applyForJob(selectedJob._id.$oid)}
+                      disabled={appliedJobs.includes(selectedJob._id.$oid)}
+                    >
+                      <AiOutlineSend />{" "}
+                      {appliedJobs.includes(selectedJob._id.$oid)
+                        ? "Applied"
+                        : "Apply"}
                     </button>
                   </div>
                 )}
@@ -240,8 +338,8 @@ const Jobs = () => {
                 No jobs found. Please try a different search.
               </p>
             )}
-            </div>
-           {showModal && (
+          </div>
+          {showModal && (
             <div className="jobs-modal jobs-mobileView">
               <div className="jobs-modalContent">
                 <span
@@ -265,8 +363,12 @@ const Jobs = () => {
                   <button
                     className="jobs-applyButton"
                     onClick={() => applyForJob(selectedJob._id.$oid)}
+                    disabled={appliedJobs.includes(selectedJob._id.$oid)}
                   >
-                    <AiOutlineSend /> Apply
+                    <AiOutlineSend />{" "}
+                    {appliedJobs.includes(selectedJob._id.$oid)
+                      ? "Applied"
+                      : "Apply"}
                   </button>
                 </div>
               </div>

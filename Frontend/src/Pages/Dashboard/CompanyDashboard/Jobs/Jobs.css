@@ -4,11 +4,19 @@
   display: flex;
   flex-direction: column;
   background-color: var(--light-blue);
-  min-height: 100vh;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.jobs-manageJobs h1{
+  font-weight: var(--fw5);
+  font-size: var(--fs4);
+  margin: var(--mar4) 0;
 }
 
 .jobs-jobContainer {
   width: 100%;
+  
 }
 
 .jobs-jobList {
@@ -25,11 +33,15 @@
   margin-bottom: var(--mar1);
   cursor: pointer;
   width: 100%;
-  transition: box-shadow 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .jobs-jobItem:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.jobs-jobItem:active {
+  transform: scale(0.98);
 }
 
 .jobs-jobHeader {
@@ -38,26 +50,32 @@
   align-items: center;
 }
 
+.jobs-jobHeader h3{
+  font-weight: var(--fw5);
+  font-size: 1.4rem;
+}
+
 .jobs-jobCompany {
-  color: #555;
-  font-weight: bold;
+  color: #2b2a2a;
+  font-weight: var(--fw4);
 }
 
 .jobs-jobLocation {
   display: flex;
   align-items: center;
-  margin-top: 5px;
+  margin-top: 8px;
+  gap: 0.5rem;
 }
 
 .jobs-jobRequirement,
 .jobs-jobDescription {
   margin-top: 10px;
-  color: #777;
+  color: #323232;
 }
 
 .jobs-jobPosted {
   margin-top: 10px;
-  color: #999;
+  color: #575555;
   font-size: 0.9em;
 }
 
@@ -71,16 +89,39 @@
   background: #f9f9f9;
   border: 1px solid #e1e1e1;
   border-radius: 8px;
-  padding: 20px;
+  padding: var(--pad3) ;
   max-width: 600px;
   width: 100%;
+}
+
+.jobs-jobDetails h2{
+  font-size: 1.4rem;
+  font-weight: var(--fw4);
+  margin-bottom: var(--mar2);
+}
+
+.jobs-jobSection{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--pad2);
+}
+
+
+.jobs-jobSection p{
+  color: #666;
+}
+.jobs-jobSection h3{
+  font-size: var(--fs2);
+  font-weight: var(--fw4);
+  border-right: 1px solid #dfdfe1;
 }
 
 .jobs-applyButton {
   background-color: var(--whychoblue);
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 40px;
+  gap: 1rem;
   border-radius: 5px;
   cursor: pointer;
   display: flex;
@@ -129,8 +170,8 @@
 
 .jobs-closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 19px;
+  right: 28px;
   background: none;
   border: none;
   font-size: 1.5em;
@@ -191,20 +232,97 @@
   }
 }
 
-.searches{
+.inputs-container{
+margin-bottom: var(--mar4);
+}
+
+
+.search-inputs {
   display: flex;
-  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-inputs input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.jobs-btn {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.jobs-btn button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.jobs-btn button:first-child {
+  border:2px groove  #007bff;
+  color: var(--paragraph);
+  background-color: var(--white);
+  padding: var(--pad1) var(--pad6);
+  transition: all 0.3s ease-in-out;
+}
+
+.jobs-btn button:first-child:hover {
+  background-color: #0056b3;
+  color: var(--white);
+}
+
+.jobs-btn button:last-child {
+  background-color: transparent;
+  color: var(--paragraph);
+}
+
+.jobs-btn button:last-child:hover {
+  background-color: var(--white);
+  color: var(--paragraph);
 }
 
 
-.search-inputs{
-  padding: 1rem 0;
-
+.jobs-btn button:last-child:active, .jobs-btn button:first-child:active {
+transform: scale(0.9);
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.jobs-btn{
-
+.jobs-applied {
+  padding-top: var(--pad3);
+  color:var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
+
+/* For Chrome, Safari and Opera */
+
+.jobs-jobList::-webkit-scrollbar-track {
+  background: #f1f1f1; /* color of the tracking area */
+}
+
+.jobs-jobList::-webkit-scrollbar-thumb {
+  background: #e4e4ec; /* color of the scroll thumb */
+}
+
+.jobs-jobList::-webkit-scrollbar-thumb:hover {
+  background: #cbcdd4; 
+}
+
+
+.jobs-jobList {
+  scrollbar-face-color: rgb(232, 236, 246);
+  scrollbar-track-color: #f1f1f1;
+}
+
 
 @media (min-width: 768px) {
   .jobs-desktopView {
@@ -232,9 +350,11 @@
   .jobs-jobList {
     margin-right: 1rem;
     overflow-y: auto;
-    max-height: calc(100vh - 160px);
+    max-height: calc(100vh - 350px);
   }
 }
+
+
 
 @media screen and (min-width: 1024px) {
   .jobs-manageJobs {
