@@ -51,8 +51,6 @@ def get_jobs():
     jobs = Job.objects()
 
     for job in jobs:
-        print(job['company']['id'])
-    for job in jobs:
         company = Company.objects(id=job['company']['id']).first()
         company_name = {'name': company['name']}
         job_with_company_name = {**company_name, 'job': job.to_json()}
