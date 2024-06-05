@@ -13,32 +13,32 @@ const ContactUs = () => {
   } = useForm();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const onSubmit = async (data) => {
     console.log(data);
 
     const authToken = Cookies.get("auth_token");
     if (!authToken) {
-      alert("You must be logged in to submit a query.");
+      setModalMessage(
+        "You must have an account before sending a message or use your registered name and email."
+      );
+      setIsModalVisible(true);
       return;
     }
-
 
     // Create the payload for the API request
     const payload = {
       query: data.message,
-      user: Cookies.get("auth_token") ? Cookies.get("auth_token") : null,
+      user: authToken,
     };
-
-    console.log(payload);
-    
 
     try {
       const response = await fetch("http://localhost:5000/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("auth_token")}`,
+          Authorization: `Bearer ${authToken}`,
         },
         body: JSON.stringify(payload),
       });
@@ -46,16 +46,23 @@ const ContactUs = () => {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
+        setModalMessage(
+          "Your message has been sent to the support team. We will get back to you soon."
+        );
         setIsModalVisible(true);
         reset();
       } else {
         const error = await response.json();
         console.error("Error:", error);
-        alert(`Error: ${error.msg}`);
+        setModalMessage(`Error: ${error.msg}`);
+        setIsModalVisible(true);
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred while submitting your query.");
+      setModalMessage(
+        "Message sending failed. Please use your logged-in email and username, or try again later."
+      );
+      setIsModalVisible(true);
     }
   };
 
@@ -103,10 +110,7 @@ const ContactUs = () => {
         {isModalVisible && (
           <div className="modal">
             <div className="modal-content">
-              <p>
-                Your message has been sent to the support team. We will get back
-                to you soon.
-              </p>
+              <p>{modalMessage}</p>
               <button
                 onClick={() => {
                   setIsModalVisible(false);

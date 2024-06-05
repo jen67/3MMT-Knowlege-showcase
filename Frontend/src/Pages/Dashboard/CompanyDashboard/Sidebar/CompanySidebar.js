@@ -120,11 +120,7 @@ const CompanySidebar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/Logout"
-                className="sidebar-link"
-                activeClassName="dactive"
-              >
+              <NavLink to="/Logout" className="sidebar-link" activeClassName="dactive">
                 <FaSignOutAlt /> {!collapsed && "Logout"}
               </NavLink>
             </li>

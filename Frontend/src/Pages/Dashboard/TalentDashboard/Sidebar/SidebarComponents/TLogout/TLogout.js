@@ -9,15 +9,15 @@ const TLogout = () => {
     // Call the logout API
     fetch('http://localhost:5000/auth/logout', {
       method: 'POST',
-      credentials: 'include', // This is required to include the cookie in the request
+      credentials: 'include', 
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error('Logout failed');
         }
 
-        // Redirect the user to the home page
-        navigate('/');
+        // Redirect the user to the login  page
+        navigate('/login');
       })
       .catch((error) => {
         console.error('Logout error', error);

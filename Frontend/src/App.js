@@ -27,6 +27,8 @@ import MyMessages from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarCompon
 import Settings from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Settings/Settings";
 import Logout from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Logout/Logout";
 import ManageJobs from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/ManageJobs/ManageJobs";
+
+
 import Talentprofile from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/Talentprofile/Talentprofile";
 import TApplications from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TApplications/TApplications";
 import TShortlisted from "./Pages/Dashboard/TalentDashboard/Sidebar/SidebarComponents/TShortlisted/TShortlisted";

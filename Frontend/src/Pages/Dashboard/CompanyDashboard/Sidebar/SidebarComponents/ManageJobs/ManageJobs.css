@@ -2,19 +2,35 @@
   padding: var(--pad4) var(--pad3);
   background-color: var(--vxblue);
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .ManageJobs h1 {
+  align-self: flex-start;
   color: var(--paragraph);
-  font-size: var(--fs4);
+  font-size: var(--fs3);
   padding: var(--pad2) 0;
   font-weight: var(--fw5);
-  margin-bottom: var(--mar3);
+  
+
 }
 
 .job-list {
   list-style-type: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; 
+}
+
+.ManageJobs-wrapper{
+  width: 100%;
+  max-width: 1200px;
 }
 
 .job-item, .empty-job-list {
@@ -27,6 +43,11 @@
   transition: all ease-in-out;
 }
 
+.job-item{
+ width: 100%;
+  
+}
+
 .empty-job-list{
   display: flex;
   flex-direction: column;
@@ -36,7 +57,7 @@
 }
 
 .empty-job-list p{
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   padding-bottom: var(--pad1)
 }
 
@@ -44,7 +65,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   border: 1px solid #666;
+  width: 100%;
   max-width: 200px;
   padding: var(--pad1) var(--pad4);
   border-radius: 5px;
@@ -68,35 +91,41 @@
 }
 
 .job-item h3 {
-  font-size: var(--fs3);
-  font-weight: var(--fs5);
-  width: 100%;
-  max-width: 500px;
+  padding-top: var(--pad2);
+  font-size: 22px;
+  font-weight: var(--fw5);
 }
 
 .job-requirement, .job-description{
   padding: var(--pad1) 0;
-  width: 100%;
 }
 
 .job-requirement{
   color:var(--paragraph);
-  font-size: 1.15rem;
-  max-width: 800px;
+  font-size: 1.02rem;
+   color: rgb(69, 70, 75);
+   font-weight: var(--fw4);
 }
 
 .job-description{
   color: rgb(69, 70, 75);
-  max-width: 900px;
+  overflow-wrap: break-word; 
+  word-wrap: break-word; 
+  word-break: break-word;
+ font-size: var(--fs2);
 }
 
 .job-location{
   padding-bottom: var(--pad1);
   color: #636262; 
+  font-weight: var(--fw4);
+
 }
 
 .date-posted{
   color: #666;
+  font-size: 0.9rem;
+  margin-top: 1rem;
 }
 
 .edit-icon,
@@ -164,10 +193,15 @@
   margin-top: 20px;
 }
 
+
+
 @media screen and (min-width: 768px){
   .job-item {
   padding: var(--pad5);
 }
-}
 
+.ManageJobs h1{
+  font-size: var(--fs4);
+}
+}
 

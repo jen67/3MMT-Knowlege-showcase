@@ -80,52 +80,54 @@ const ManageJobs = () => {
 
   return (
     <section className="ManageJobs">
-      <h1>Manage Jobs</h1>
-      {isLoading ? (
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-        </div>
-      ) : (
-        <ul className="job-list">
-          {jobs.length === 0 ? (
-            <li className="empty-job-list">
-              <p>You have not posted any job yet</p>
-              <Link to="/Post-jobs">
-                <RiAddLine /> Post jobs
-              </Link>
-            </li>
-          ) : (
-            jobs.map((job) => (
-              <li key={job._id.$oid} className="job-item">
-                <h3>{job.title}</h3>
-                <p className="job-requirement">{job.requirements}</p>
-                <p className="job-description">{job.description}</p>
-                <p className="job-location">{job.location}</p>
-                <p className="date-posted">
-                  Posted on{" "}
-                  <span>
-                    {format(
-                      new Date(job.posted_date.$date),
-                      "MM/dd/yyyy HH:mm:ss"
-                    )}
-                  </span>{" "}
-                </p>
-                <RiEditLine
-                  onClick={() => handleEdit(job)}
-                  className="edit-icon"
-                />
-                <RiDeleteBinLine
-                  onClick={() => handleDelete(job._id.$oid)}
-                  className="delete-icon"
-                />
+      <div className="ManageJobs-wrapper">
+        <h1>Manage Jobs</h1>
+        {isLoading ? (
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+          </div>
+        ) : (
+          <ul className="job-list">
+            {jobs.length === 0 ? (
+              <li className="empty-job-list">
+                <p>You have not posted any job yet</p>
+                <Link to="/Post-jobs">
+                  <RiAddLine /> Post jobs
+                </Link>
               </li>
-            ))
-          )}
-        </ul>
-      )}
-      {showModal && (
-        <Modal message={modalMessage} onClose={() => setShowModal(false)} />
-      )}
+            ) : (
+              jobs.map((job) => (
+                <li key={job._id.$oid} className="job-item">
+                  <h3>{job.title}</h3>
+                  <p className="job-requirement">{job.requirements}</p>
+                  <p className="job-description">{job.description}</p>
+                  <p className="job-location">{job.location}</p>
+                  <p className="date-posted">
+                    Posted on{" "}
+                    <span>
+                      {format(
+                        new Date(job.posted_date.$date),
+                        "MM/dd/yyyy HH:mm:ss"
+                      )}
+                    </span>{" "}
+                  </p>
+                  <RiEditLine
+                    onClick={() => handleEdit(job)}
+                    className="edit-icon"
+                  />
+                  <RiDeleteBinLine
+                    onClick={() => handleDelete(job._id.$oid)}
+                    className="delete-icon"
+                  />
+                </li>
+              ))
+            )}
+          </ul>
+        )}
+        {showModal && (
+          <Modal message={modalMessage} onClose={() => setShowModal(false)} />
+        )}
+      </div>
     </section>
   );
 };

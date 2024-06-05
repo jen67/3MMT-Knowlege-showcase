@@ -1,7 +1,8 @@
 .Company-profile {
     margin: 0 var(--mar2);
     background-color: var(--vxblue);
-    padding: var(--pad4) var(--pad2)
+    padding: var(--pad4) var(--pad2);
+    min-height: 100vh;
 }
 
 .Company-profile .submit-button{
@@ -28,7 +29,7 @@
 .logo-upload{
     margin: var(--mar4) 0;
     background-color: var(--white);
-    padding: var(--pad6);
+    padding: var(--pad3);
     border-radius: 10px;
     display: flex;
     flex-direction: row;

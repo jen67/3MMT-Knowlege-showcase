@@ -2,7 +2,8 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import Job, User
 
-search_bp = Blueprint('search', __name__)
+search_bp = Blueprint('search_bp', __name__)
+
 
 @search_bp.route('/search/jobs', methods=['GET'])
 def search_jobs():
@@ -16,8 +17,12 @@ def search_jobs():
         query = query.filter(location__icontains=criteria['location'])
 
     jobs = query.all()
+    jobs_json = jobs.to_json()
 
-    return jsonify(jobs), 200
+    if not jobs:
+        return jsonify({'message': 'No jobs found'}), 404
+
+    return jobs_json, 200
 
 @search_bp.route('/search/talents', methods=['GET'])
 def search_talents():
@@ -29,8 +34,12 @@ def search_talents():
         query = query.filter(skills__in=skills)
 
     users = query.all()
-    
-    return jsonify(users), 200
+    users_json = users.to_json()
+
+    if not users:
+        return jsonify({'message': 'No talents found'}), 404
+
+    return users_json, 200
 
 
 @search_bp.route('/users', methods=['GET'])
