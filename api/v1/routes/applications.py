@@ -53,7 +53,6 @@ def get_users_applied_for_job(job_id):
     users_list = []
     for application in applications:
         user = User.objects(id=application['user']['id'])
-        print(user)
         users_list.append(user.to_json())
 
     return jsonify(users_list), 200
@@ -68,6 +67,28 @@ def get_user_applications(user_id):
     if str(current_user['id']) != user_id:
         return jsonify({"msg": "Unauthorized access"}), 403
 
-    applications = Application.objects(user=current_user['id'])
+    applications = Application.objects(user=current_user['id']).to_json()
 
     return jsonify(applications), 200
+
+
+# get all jobs that a user applied for
+@applications_bp.route('/applications/my-jobs', methods=['GET'])
+@jwt_required()
+@role_required('user')
+def get_user_jobs():
+    current_user = get_jwt_identity()
+    user = User.objects(id=current_user['id'])
+
+    if not user:
+        return jsonify({"msg": "User not found!"}), 403
+
+    applications = Application.objects(user=current_user['id'])
+    jobs_list = []
+
+    for application in applications:
+        # print(application)
+        job = Job.objects(id=application['job']['id'])
+        jobs_list.append(job.to_json())
+
+    return jsonify(jobs_list), 200
