@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import Job, User
 
 search_bp = Blueprint('search', __name__)
@@ -31,3 +32,14 @@ def search_talents():
     
     return jsonify(users), 200
 
+
+@search_bp.route('/users', methods=['GET'])
+@jwt_required()
+def get_all_users():
+    current_user = get_jwt_identity()
+
+    if current_user['role'] != 'company':
+        return jsonify({"msg": "Permission denied"}), 403
+    users = User.objects().to_json()
+
+    return jsonify(users), 200
