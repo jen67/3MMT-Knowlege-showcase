@@ -75,6 +75,7 @@ const CompanySidebar = () => {
               </NavLink>
             </li>
             <li>
+              
               <NavLink
                 to="/Applications"
                 className="sidebar-link"
@@ -103,7 +104,7 @@ const CompanySidebar = () => {
             </li>
             <li>
               <NavLink
-                to="/Mymessages"
+                to="/ChatPage"
                 className="sidebar-link"
                 activeClassName="dactive"
               >
@@ -120,7 +121,11 @@ const CompanySidebar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/Logout" className="sidebar-link" activeClassName="dactive">
+              <NavLink
+                to="/Logout"
+                className="sidebar-link"
+                activeClassName="dactive"
+              >
                 <FaSignOutAlt /> {!collapsed && "Logout"}
               </NavLink>
             </li>

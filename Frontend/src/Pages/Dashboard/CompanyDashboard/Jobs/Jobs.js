@@ -80,9 +80,13 @@ const Jobs = () => {
           }
         );
         if (response.ok) {
-          const data = await response.json();
+          let data = await response.json();
+          if (typeof data === "string") {
+            data = JSON.parse(data);
+          }
+
           console.log(data);
-          const appliedJobIds = data.map((application) => application.job._id);
+          const appliedJobIds = data.map((application) => application.job._id.$oid);
           setAppliedJobs(appliedJobIds);
         } else {
           throw new Error("Failed to fetch user's applied jobs");

@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { useParams } from "react-router-dom";
 import "./Applications.css";
 
 const ApplicationsReceived = () => {
+  const { jobId } = useParams(); // Extract job ID from URL parameters
   const [applications, setApplications] = useState([]);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await fetch("/applications", {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("auth_token")}`,
-          },
-        });
+        const response = await fetch(
+          `http://localhost:5000/api/applications/${jobId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("auth_token")}`,
+            },
+          }
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch applications");
         }
@@ -25,11 +30,11 @@ const ApplicationsReceived = () => {
     };
 
     fetchApplications();
-  }, []);
+  }, [jobId]); // Ensure useEffect runs when jobId changes
 
   return (
     <div>
-      <h1>Applications Received</h1>
+      <h1>Applications Received for Job {jobId}</h1>
       {message && <p>{message}</p>}
       <ul>
         {applications.map((application) => (

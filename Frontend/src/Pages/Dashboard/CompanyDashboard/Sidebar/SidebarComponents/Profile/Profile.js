@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CustomSelect from "../../../../../../Components/Custom/CustomSelect";
 import Cookies from "js-cookie";
 import { FaUserCircle } from "react-icons/fa";
+import Spinner from "../../../../../../Components/Spinner/Spinner";
 import "./Profile.css";
 
 const industries = [
@@ -57,14 +58,20 @@ const industries = [
   "Wellness & Fitness",
 ];
 
+const Tooltip = ({ message, show }) => {
+  return <div className={`tooltip ${show ? "show" : ""}`}>{message}</div>;
+};
+
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("profile");
   const [isLoading, setIsLoading] = useState(true);
+  const [toolTipMessage, setToolTipMessage] = useState("");
+  const [showToolTip, setShowToolTip] = useState(false);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-  // const [logo, setLogo] = useState(null);
+
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
@@ -95,7 +102,9 @@ const Profile = () => {
         if (data.industry) setIndustry(data.industry);
         if (data.description) setDescription(data.description);
 
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
       } catch (error) {
         console.error("Error fetching profile:", error);
         setIsLoading(false);
@@ -104,6 +113,7 @@ const Profile = () => {
 
     fetchData();
   }, [token]);
+
   const handleCompanyNameChange = (event) => setCompanyName(event.target.value);
   const handleLocationChange = (event) => setLocation(event.target.value);
   const handleIndustryChange = (value) => setIndustry(value);
@@ -133,30 +143,44 @@ const Profile = () => {
           data.msg === "User profile updated" ||
           data.msg === "Company profile updated"
         ) {
-          alert("Profile updated successfully");
+          setToolTipMessage("Profile updated successfully");
+          setShowToolTip(true);
+          setTimeout(() => {
+            setShowToolTip(false);
+            setActiveTab("profile");
+          }, 3000);
         } else {
-          alert("Error updating profile");
+          setToolTipMessage("Error updating profile");
+          setShowToolTip(true);
+          setTimeout(() => setShowToolTip(false), 3000);
         }
       })
-      .catch((error) => console.error("Error updating profile:", error));
+      .catch((error) => {
+        console.error("Error updating profile:", error);
+        setToolTipMessage("Error updating profile");
+        setShowToolTip(true);
+        setTimeout(() => setShowToolTip(false), 3000);
+      });
   };
 
   return (
     <section className="Company-profile">
+      <Tooltip message={toolTipMessage} show={showToolTip} />
       <h1>Update your Profile</h1>
-      <div className="logo-upload">
-        <div className="input-logo">
-          <FaUserCircle size={70} />
-        </div>
-        <div className="logo-pdetails">
-          <h2>{companyName}</h2>
-          <p>{email} </p>
-        </div>
-      </div>
       {isLoading ? (
-        <p>Loading...</p>
+        <Spinner />
       ) : (
         <>
+          <div className="logo-upload">
+            <div className="input-logo">
+              <FaUserCircle size={70} />
+            </div>
+            <div className="logo-pdetails">
+              <h2>{companyName}</h2>
+              <p>{email} </p>
+            </div>
+          </div>
+
           <div className="update-container">
             <button
               type="button"
@@ -192,7 +216,7 @@ const Profile = () => {
               </div>
             </div>
           ) : (
-            <form className="form-fields">
+            <form className="form-fields" onSubmit={handleFormSubmit}>
               <div className="form-group">
                 <label htmlFor="companyName">Company Name</label>
                 <input
@@ -241,11 +265,7 @@ const Profile = () => {
                 />
               </div>
 
-              <button
-                type="submit"
-                className="submit-button"
-                onClick={handleFormSubmit}
-              >
+              <button type="submit" className="submit-button">
                 Save Profile
               </button>
             </form>

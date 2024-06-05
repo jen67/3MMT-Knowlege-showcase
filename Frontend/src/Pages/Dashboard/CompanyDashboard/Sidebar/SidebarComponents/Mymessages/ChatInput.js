@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ChatInput.css";
+import "./ChatInput.css"; 
 
 const ChatInput = ({ onSend }) => {
   const [message, setMessage] = useState("");
@@ -11,13 +11,20 @@ const ChatInput = ({ onSend }) => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSend();
+    }
+  };
+
   return (
     <div className="chat-input">
       <input
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder="Type a message..."
+        onKeyPress={handleKeyPress}
+        placeholder="Type your message..."
       />
       <button onClick={handleSend}>Send</button>
     </div>

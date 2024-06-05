@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import ChatInput from "./ChatInput";
-import Message from "./Chat";
-import "./Mymessages.css"; // Import CSS for Mymessages component
+import Message from "./Message";
+import "./Mymessages.css"; 
 
-const Mymessages = ({ conversationId }) => {
+const Mymessages = ({ conversationId, receiverId }) => {
   const [messages, setMessages] = useState([]);
   const userToken = Cookies.get("auth_token");
 
@@ -12,7 +12,7 @@ const Mymessages = ({ conversationId }) => {
     const fetchMessages = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/messages/${conversationId}`,
+          `http://localhost:5000/api/messages/${conversationId}`,
           {
             headers: {
               Authorization: `Bearer ${userToken}`,
@@ -31,19 +31,28 @@ const Mymessages = ({ conversationId }) => {
       }
     };
 
-    fetchMessages();
+    if (conversationId) {
+      fetchMessages();
+    }
   }, [conversationId, userToken]);
 
   const sendMessage = async (content) => {
+    const newMessage = {
+      content,
+      sender: "You",
+      timestamp: new Date().toISOString(),
+    };
+    setMessages([...messages, newMessage]);
+
     try {
-      const response = await fetch("http://localhost:5000/messages", {
+      const response = await fetch("http://localhost:5000/api/messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${userToken}`,
         },
         body: JSON.stringify({
-          receiver_id: "receiver_user_id", // Replace with actual receiver id
+          receiver_id: receiverId,
           content: content,
         }),
       });
@@ -53,7 +62,7 @@ const Mymessages = ({ conversationId }) => {
       }
 
       const data = await response.json();
-      setMessages([...messages, data]);
+      setMessages([...messages, { ...newMessage, ...data }]);
     } catch (error) {
       console.error("Error sending message:", error);
     }

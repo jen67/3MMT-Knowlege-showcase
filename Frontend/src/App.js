@@ -23,7 +23,7 @@ import ApplicationsReceived from "./Pages/Dashboard/CompanyDashboard/Sidebar/Sid
 import PostJobs from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Post-jobs/Post-jobs";
 import ShortlistedVolunteers from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Shortlisted/Shortlisted";
 import Resumes from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Resumes/Resumes";
-import MyMessages from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Mymessages/Mymessages";
+import ChatPage from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Mymessages/ChatPage";
 import Settings from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Settings/Settings";
 import Logout from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/Logout/Logout";
 import ManageJobs from "./Pages/Dashboard/CompanyDashboard/Sidebar/SidebarComponents/ManageJobs/ManageJobs";
@@ -45,7 +45,7 @@ const ApplicationsReceivedWithSidebar = withCompanySidebar(ApplicationsReceived)
 const ShortlistedVolunteersWithSidebar = withCompanySidebar(ShortlistedVolunteers);
 const PostJobsWithSidebar = withCompanySidebar(PostJobs);
 const ResumesWithSidebar = withCompanySidebar(Resumes);
-const MyMessagesWithSidebar = withCompanySidebar(MyMessages);
+const ChatPageWithSidebar = withCompanySidebar(ChatPage);
 const SettingsWithSidebar = withCompanySidebar(Settings);
 const LogoutWithSidebar = withCompanySidebar(Logout);
 const ManageJobsWithSidebar = withCompanySidebar(ManageJobs);
@@ -77,17 +77,25 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/Jobs" element={<Jobs />} />
 
-          <Route path="/CompanyDashboard" element={<CompanyDashboardWithSidebar />}/>
+          <Route
+            path="/CompanyDashboard"
+            element={<CompanyDashboardWithSidebar />}
+          />
           <Route path="/Profile" element={<ProfileWithSidebar />} />
-          <Route path="/Applications" element={<ApplicationsReceivedWithSidebar />} />
-          <Route path="/Shortlisted" element={<ShortlistedVolunteersWithSidebar />}
+          <Route
+            path="/Applications"
+            element={<ApplicationsReceivedWithSidebar />}
+          />
+          <Route
+            path="/Shortlisted"
+            element={<ShortlistedVolunteersWithSidebar />}
           />
           <Route path="/Post-jobs" element={<PostJobsWithSidebar />} />
           <Route path="/Resumes" element={<ResumesWithSidebar />} />
-          <Route path="/Mymessages" element={<MyMessagesWithSidebar />} />
+          <Route path="/ChatPage" element={<ChatPageWithSidebar />} />
           <Route path="/Settings" element={<SettingsWithSidebar />} />
           <Route path="/Logout" element={<LogoutWithSidebar />} />
-       <Route path="/ManageJobs" element={<ManageJobsWithSidebar />} />
+          <Route path="/ManageJobs" element={<ManageJobsWithSidebar />} />
 
           <Route
             path="/TalentDashboard"
