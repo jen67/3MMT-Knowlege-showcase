@@ -38,7 +38,7 @@ def get_applications_for_job(job_id):
 
     return jsonify(applications), 200
 
-
+# get all users that applied for a certain job
 @applications_bp.route('/applications/users-applied/<string:job_id>', methods=['GET'])
 @jwt_required()
 @role_required('company')
