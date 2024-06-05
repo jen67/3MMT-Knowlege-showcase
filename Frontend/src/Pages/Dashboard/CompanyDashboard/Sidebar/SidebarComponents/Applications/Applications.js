@@ -10,9 +10,14 @@ const ApplicationsReceived = () => {
 
   useEffect(() => {
     const fetchApplications = async () => {
+      if (!jobId) {
+        console.error("Job ID is undefined");
+        return;
+      }
+
       try {
         const response = await fetch(
-          `http://localhost:5000/api/applications/${jobId}`,
+          `http://localhost:5000/api/applications/users-applied/${jobId}`,
           {
             headers: {
               Authorization: `Bearer ${Cookies.get("auth_token")}`,
