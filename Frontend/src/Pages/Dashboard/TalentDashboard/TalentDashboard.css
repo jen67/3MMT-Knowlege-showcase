@@ -53,39 +53,80 @@
   padding-left: var(--pad2);
 }
 
-.opportunities h3 {
-  margin-bottom: 10px;
+.opportunities h3{
+  font-size: 1.3rem;
+  font-weight: var(--fw5);
+  margin: 3rem 0 1rem 0;
 }
 
-.opportunities {
-  padding-top: var(--pad8);
+.opportunity-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  transition: transform 0.3s;
 }
 
-.opportunity {
-  background-color: var(--white);
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+.opportunity-card:hover {
+  transform: translateY(-5px);
 }
 
-.opportunity h4 {
-  margin: 0 0 5px 0;
+.opportunity-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.opportunity p {
-  margin: 5px 0;
-  color: #666;
+.opportunity-card-header h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: var(--fw4);
 }
 
-.status {
-  padding: 5px 10px;
-  border-radius: 5px;
+.opportunity-card-body p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+
 }
 
-.status.pending {
-  background-color: #ddd;
-  color: #666;
+.companyN{
+  font-size: 0.9rem;
+  color: #333;
 }
+
+.opportunity-card-body .date:last-of-type{
+font-size: 0.9rem;
+}
+
+.opportunity-card .status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-transform: capitalize;
+  font-size: 0.8rem;
+}
+
+.opportunity-card .status.pending {
+  background-color: #d6853e;
+  color: #fff;
+}
+
+.opportunity-card .status.accepted {
+  background-color: #5cb85c;
+  color: #fff;
+}
+
+.opportunity-card .status.rejected {
+  background-color: #d9534f;
+  color: #fff;
+}
+
 
 .icon-and-count {
   display: flex;

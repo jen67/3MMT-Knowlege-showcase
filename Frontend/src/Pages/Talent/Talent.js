@@ -66,6 +66,11 @@ const Talent = () => {
       console.log("Received data:", data);
       setSelectedUser(data);
       setIsModalOpen(true);
+
+      const viewsCount = Cookies.get(`viewsCount_${userId}`)
+        ? Number(Cookies.get(`viewsCount_${userId}`))
+        : 0;
+      Cookies.set(`viewsCount_${userId}`, viewsCount + 1);
     } catch (error) {
       console.error("Error fetching user profile:", error);
     }
