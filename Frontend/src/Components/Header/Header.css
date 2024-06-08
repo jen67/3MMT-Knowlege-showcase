@@ -104,11 +104,100 @@ header div.logo {
   z-index: 99;
 }
 
+.user-button.user-name.logged-in {
+  color: var(--paragraph);
+  margin-bottom: 0.2rem;
+}
+
 .active-link {
   border: 1px solid var(--vlight-blue);
   padding: 0 var(--pad2);
   color: var(--paragraph);
   background-color: var(--vlight-blue);
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  padding-top: 10px; 
+}
+
+.user-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  white-space: nowrap;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: var(--white);
+  min-width: 160px;
+  
+  z-index: 1;
+}
+
+.user-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+
+.dropdown-menu a,
+.dropdown-menu button {
+  color: var(--paragraph);
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu button:hover {
+  background-color: #f1f1f1;
+}
+
+.logout-button {
+  cursor: pointer;
+}
+.caret {
+  transition: transform 0.3s ease-in-out;
+}
+
+.rotate {
+  transform: rotate(180deg);
 }
 
 /* Styles for screens wider than 768px 
@@ -131,6 +220,7 @@ header div.logo {
     padding: 0;
     z-index: 0;
   }
+
 
   /* Styles for unordered list in navigation menu 
     */
@@ -176,10 +266,14 @@ header div.logo {
   header div.logo {
     width: 110px;
   }
+
+  .dropdown-menu {
+  padding-top: 12px; 
+}
 }
 
 @media screen and (min-width: 1024px) {
-  .nav-menu ul li {
+  .nav-menu ul li, .user-button.user-name.logged-in {
     font-size: var(--fs2);
   }
 

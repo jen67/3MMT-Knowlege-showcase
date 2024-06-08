@@ -32,14 +32,16 @@
   margin-bottom: var(--mar1);
   cursor: pointer;
   width: 100%;
-  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 .jobs-jobItem:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgb(252, 252, 255)
 }
 
 .jobs-jobItem:active {
+  background-color: rgb(252, 252, 255);
   transform: scale(0.98);
 }
 
@@ -288,7 +290,7 @@
 .jobs-btn button {
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 0;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -350,7 +352,11 @@
   scrollbar-track-color: #f1f1f1;
 }
 
-@media (min-width: 768px) {
+.jobs-jobDetail{
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
   .jobs-manageJobs h1 {
     font-weight: var(--fw5);
     font-size: var(--fs3);
@@ -371,9 +377,10 @@
 
   .search-inputs input,
   .search-inputs .selected-option {
-    padding: 0.9rem var(--pad2);
+    padding: 0.6rem var(--pad2);
   }
 
+  
   .jobs-desktopView {
     display: block;
     overflow-y: auto;

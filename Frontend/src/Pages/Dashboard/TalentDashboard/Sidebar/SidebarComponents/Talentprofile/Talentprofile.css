@@ -1,6 +1,9 @@
 /* src/Profile.css */
 
-
+.t-button{
+  margin-top: var(--mar3);
+  padding: 0.8rem;
+}
 .pbutton-group .cancel-button {
     background-color: #f0f4fa;
 }
@@ -13,6 +16,8 @@
     padding: var(--pad2) 0;
     width: 100%;
 }
+
+
 .select-label {
   display: block;
   margin-bottom: 5px;

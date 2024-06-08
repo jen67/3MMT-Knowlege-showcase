@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import images from "../../../../Components/images";
-import "./TalentSidebar.css"
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import "./TalentSidebar.css";
 import {
   FaHome,
   FaUser,
@@ -13,32 +12,16 @@ import {
   FaSignOutAlt,
   FaArrowCircleRight,
   FaArrowCircleLeft,
+  FaUserCircle,
 } from "react-icons/fa";
 import "../../TSidebar.css";
 
-
 const TalentSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState(
-    localStorage.getItem("avatarUrl") || images.Talent1
-  );
-
-  useEffect(() => {
-    const updateAvatar = () => {
-      setAvatarUrl(localStorage.getItem("avatarUrl") || images.Talent1);
-    };
-
-    window.addEventListener("storage", updateAvatar);
-
-    return () => {
-      window.removeEventListener("storage", updateAvatar);
-    };
-  }, []);
 
   const toggleCollapse = () => {
     setCollapsed(!collapsed);
   };
-
 
   return (
     <>
@@ -48,52 +31,83 @@ const TalentSidebar = () => {
             {collapsed ? <FaArrowCircleRight /> : <FaArrowCircleLeft />}
           </span>
         </button>
-        <div className="avatar-container">
-          <img src={avatarUrl} alt="Avatar" className="avatar" />{" "}
-          {!collapsed && ""}
+        <div className="clog-container">
+          <FaUserCircle size={20} className="clogo" /> {!collapsed && ""}
         </div>
         <nav>
           <ul>
             <li>
-              <Link to="/TalentDashboard" className="sidebar-link">
+              <NavLink
+                exact
+                to="/TalentDashboard"
+                className="sidebar-link"
+                activeClassName="active"
+              >
                 <FaHome /> {!collapsed && "Dashboard"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Talentprofile" className="sidebar-link">
+              <NavLink
+                to="/Talentprofile"
+                className="sidebar-link"
+                activeClassName="active"
+              >
                 <FaUser /> {!collapsed && "Profile"}
-              </Link>
+              </NavLink>
             </li>
-
             <li>
-              <Link to="/TApplications" className="sidebar-link">
+              <NavLink
+                to="/TApplications"
+                className="sidebar-link"
+                activeClassName="active"
+              >
                 <FaEnvelopeOpenText /> {!collapsed && "Applications"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/TShortlisted" className="sidebar-link">
+              <NavLink
+                to="/TShortlisted"
+                className="sidebar-link"
+                activeClassName="active"
+              >
                 <FaRegListAlt /> {!collapsed && "Shortlisted "}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/TOpportunities" className="sidebar-link">
+              <NavLink
+                to="/TOpportunities"
+                className="sidebar-link"
+                activeClassName="active"
+              >
                 <FaRegFileAlt /> {!collapsed && "Opportunities"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/TMessages" className="sidebar-link">
+              <NavLink
+                to="/TMessages"
+                className="sidebar-link"
+                activeClassName="active"
+              >
                 <FaRegEnvelope /> {!collapsed && "Messages"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Talentsettings" className="sidebar-link">
+              <NavLink
+                to="/Talentsettings"
+                className="sidebar-link"
+                activeClassName="active"
+              >
                 <FaCog /> {!collapsed && "Settings"}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/TLogout" className="sidebar-link">
+              <NavLink
+                to="/TLogout"
+                className="sidebar-link"
+                activeClassName="active"
+              >
                 <FaSignOutAlt /> {!collapsed && "Logout"}
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>

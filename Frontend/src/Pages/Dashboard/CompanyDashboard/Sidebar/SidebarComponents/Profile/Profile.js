@@ -3,6 +3,7 @@ import CustomSelect from "../../../../../../Components/Custom/CustomSelect";
 import Cookies from "js-cookie";
 import { FaUserCircle } from "react-icons/fa";
 import Spinner from "../../../../../../Components/Spinner/Spinner";
+import { useAuth } from "../../../../../../Context/Authcontext";
 import "./Profile.css";
 
 const industries = [
@@ -63,6 +64,7 @@ const Tooltip = ({ message, show }) => {
 };
 
 const Profile = () => {
+  const { userName, updateUserName } = useAuth();
   const [activeTab, setActiveTab] = useState("profile");
   const [isLoading, setIsLoading] = useState(true);
   const [toolTipMessage, setToolTipMessage] = useState("");
@@ -93,7 +95,7 @@ const Profile = () => {
         if (typeof data === "string") {
           data = JSON.parse(data);
         }
-
+        updateUserName(data.name);
         console.log("Received data:", data);
         console.log("Your email:", data.email);
         if (data.name) setCompanyName(data.name);
@@ -112,7 +114,7 @@ const Profile = () => {
     };
 
     fetchData();
-  }, [token]);
+  }, [token, updateUserName]);
 
   const handleCompanyNameChange = (event) => setCompanyName(event.target.value);
   const handleLocationChange = (event) => setLocation(event.target.value);
@@ -149,6 +151,9 @@ const Profile = () => {
             setShowToolTip(false);
             setActiveTab("profile");
           }, 3000);
+
+          Cookies.set("userName", companyName);
+          console.log(userName);
         } else {
           setToolTipMessage("Error updating profile");
           setShowToolTip(true);

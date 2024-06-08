@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { FaUserCircle } from "react-icons/fa";
 import CustomSelect from "../../../../../../Components/Custom/CustomSelect";
 import Spinner from "../../../../../../Components/Spinner/Spinner";
 import "../../../../CompanyDashboard/Sidebar/SidebarComponents/Profile/Profile.css";
+import { useAuth } from "../../../../../../Context/Authcontext";
 import "./Talentprofile.css";
 
 const jobCategories = [
@@ -55,22 +56,26 @@ const Tooltip = ({ message, show }) => {
 };
 
 const TalentProfile = () => {
-  const [profile, setProfile] = useState(null);
+  const { talentName, updateTalentName } = useAuth();
   const [activeTab, setActiveTab] = useState("profile");
   const [isLoading, setIsLoading] = useState(true);
-  const [formData, setFormData] = useState({
-    name: "",
-    mobile: "",
-    category: "",
-    skills: [],
-  });
   const [toolTipMessage, setToolTipMessage] = useState("");
   const [showToolTip, setShowToolTip] = useState(false);
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [category, setCategory] = useState("");
+  const [skills, setSkills] = useState([]);
 
   const token = Cookies.get("auth_token");
 
   useEffect(() => {
-    const fetchTProfile = async () => {
+    const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/profile", {
           headers: {
@@ -82,99 +87,82 @@ const TalentProfile = () => {
         if (typeof data === "string") {
           data = JSON.parse(data);
         }
-        console.log("Fetched profile data:", data);
 
-        setProfile(data);
-        setFormData({
-          name: data.name,
-          mobile: data.mobile,
-          category: data.category,
-          skills: data.skills || [],
-        });
+        updateTalentName(data.name); // Update talentName in context
+        console.log("Received data:", data);
+        if (data.name) setName(data.name);
+        if (data.email) setEmail(data.email);
+        if (data.mobile) setMobile(data.mobile);
+        if (data.category) setCategory(data.category);
+        if (data.skills) setSkills(data.skills);
 
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
       } catch (error) {
-        console.error("Failed to fetch profile:", error);
+        console.error("Error fetching profile:", error);
         setIsLoading(false);
       }
     };
 
-    fetchTProfile();
-  }, [token]);
+    fetchData();
+  }, [token, updateTalentName]);
 
-  const handleChange = (e) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [e.target.name]: e.target.value,
-    }));
+  const handleNameChange = (event) => setName(event.target.value);
+  const handleMobileChange = (event) => setMobile(event.target.value);
+  const handleCategoryChange = (value) => setCategory(value);
+  const handleSkillsChange = (skill) => {
+    setSkills((prevSkills) =>
+      prevSkills.includes(skill)
+        ? prevSkills.filter((s) => s !== skill)
+        : [...prevSkills, skill]
+    );
   };
 
-  const handleCategoryChange = (value) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      category: value,
-    }));
-  };
-
-  const handleSkillChange = (skill) => {
-    setFormData((prevFormData) => {
-      const skills = prevFormData.skills.includes(skill)
-        ? prevFormData.skills.filter((s) => s !== skill)
-        : [...prevFormData.skills, skill];
-      return { ...prevFormData, skills };
-    });
-  };
-
-  const handleUpdate = async (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch("http://localhost:5000/api/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
+
+    const profileData = {
+      name,
+      mobile,
+      category,
+      skills,
+    };
+
+    fetch("http://localhost:5000/api/profile", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(profileData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (
+          data.msg === "User profile updated" ||
+          data.msg === "Profile updated"
+        ) {
+          setToolTipMessage("Profile updated successfully");
+          setShowToolTip(true);
+          setTimeout(() => {
+            setShowToolTip(false);
+            setActiveTab("profile");
+          }, 3000);
+          Cookies.set("tuserName", talentName);
+          console.log(talentName);
+        } else {
+          setToolTipMessage("Error updating profile");
+          setShowToolTip(true);
+          setTimeout(() => setShowToolTip(false), 3000);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating profile:", error);
+        setToolTipMessage("Error updating profile");
+        setShowToolTip(true);
+        setTimeout(() => setShowToolTip(false), 3000);
       });
-
-      let updatedProfile = await response.json();
-      if (typeof updatedProfile === "string") {
-        updatedProfile = JSON.parse(updatedProfile);
-      }
-      console.log("Updated profile data:", updatedProfile);
-
-      setProfile(updatedProfile);
-      // Ensure formData is updated with the new profile data
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        name: updatedProfile.name,
-        mobile: updatedProfile.mobile,
-        category: updatedProfile.category,
-        skills: updatedProfile.skills || [],
-      }));
-
-      setToolTipMessage("Profile updated successfully");
-      setShowToolTip(true);
-      setTimeout(() => {
-        setShowToolTip(false);
-        setActiveTab("profile");
-      }, 3000);
-    } catch (error) {
-      console.error("Failed to update profile:", error);
-      setToolTipMessage("Error updating profile");
-      setShowToolTip(true);
-      setTimeout(() => setShowToolTip(false), 3000);
-    }
-  };
-
-  const handleCancel = () => {
-    setFormData({
-      name: profile?.name || "",
-      mobile: profile?.mobile || "",
-      category: profile?.category || "",
-      skills: profile?.skills || [],
-    });
-    setActiveTab("profile");
   };
 
   return (
@@ -190,70 +178,63 @@ const TalentProfile = () => {
               <FaUserCircle size={70} />
             </div>
             <div className="logo-pdetails">
-              <h2>{profile?.name || ""}'s Profile</h2>
-              <p>{profile?.email || ""}</p>
+              <h2>{name}</h2>
+              <p>{email} </p>
             </div>
           </div>
+
           <div className="update-container">
             <button
               type="button"
               className={`details ${activeTab === "profile" ? "active" : ""}`}
-              onClick={() => setActiveTab("profile")}
+              onClick={() => handleTabChange("profile")}
             >
               Profile Details
             </button>
             <button
               type="button"
               className={`update-d ${activeTab === "update" ? "active" : ""}`}
-              onClick={() => setActiveTab("update")}
+              onClick={() => handleTabChange("update")}
             >
               Update Profile
             </button>
           </div>
+
           {activeTab === "profile" ? (
             <div className="details">
               <div className="">
-                <label htmlFor="name">Name:</label>
-                <p>{profile?.name || "No name provided"}</p>
-              </div>
-              <div className="">
-                <label htmlFor="email">Email:</label>
-                <p>{profile?.email || "No email provided"}</p>
-              </div>
-              <div className="">
                 <label htmlFor="mobile">Mobile:</label>
-                <p>{profile?.mobile || "No mobile provided"}</p>
+                <p>{mobile || "No mobile provided"}</p>
               </div>
               <div className="">
                 <label htmlFor="category">Category:</label>
-                <p>{profile?.category || "No category provided"}</p>
+                <p>{category || "No category provided"}</p>
               </div>
               <div className="">
                 <label htmlFor="skills">Skills:</label>
-                <p>{profile?.skills?.join(", ") || "No skills provided"}</p>
+                <p>{skills.join(", ") || "No skills provided"}</p>
               </div>
             </div>
           ) : (
-            <form className="form-fields" onSubmit={handleUpdate}>
+            <form className="form-fields" onSubmit={handleFormSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Name</label>
                 <input
                   id="name"
                   type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
+                  value={name}
+                  onChange={handleNameChange}
                   placeholder="Enter your name"
                 />
               </div>
+
               <div className="form-group">
                 <label htmlFor="mobile">Mobile</label>
                 <input
                   id="mobile"
                   type="text"
-                  name="mobile"
-                  value={formData.mobile}
-                  onChange={handleChange}
+                  value={mobile}
+                  onChange={handleMobileChange}
                   placeholder="Enter your mobile number"
                 />
               </div>
@@ -261,19 +242,19 @@ const TalentProfile = () => {
                 <label htmlFor="category" className="select-label">
                   Select Category
                 </label>
+
                 <CustomSelect
                   options={jobCategories.map((cat) => ({
                     value: cat,
                     label: cat,
                   }))}
                   onSelectChange={handleCategoryChange}
-                  value={formData.category}
+                  value={jobCategories.find((cat) => cat === category)}
                   name="category"
                   placeholder="Select Category"
                 />
               </div>
-
-              <div className="select-group">
+              <div className="">
                 <label htmlFor="skills" className="select-label">
                   Select Skills
                 </label>
@@ -285,26 +266,18 @@ const TalentProfile = () => {
                         id={skill}
                         name="skills"
                         value={skill}
-                        checked={formData.skills.includes(skill)}
-                        onChange={() => handleSkillChange(skill)}
+                        checked={skills.includes(skill)}
+                        onChange={() => handleSkillsChange(skill)}
                       />
                       <label htmlFor={skill}>{skill}</label>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="pbutton-group">
-                <button type="submit" className="submit-button">
-                  Save Profile
-                </button>
-                <button
-                  type="button"
-                  className="cancel-button"
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </button>
-              </div>
+
+              <button type="submit" className="submit-button t-button">
+                Save Profile
+              </button>
             </form>
           )}
         </>

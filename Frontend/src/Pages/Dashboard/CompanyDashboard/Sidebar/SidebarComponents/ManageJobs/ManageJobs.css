@@ -1,9 +1,8 @@
 .ManageJobs {
-  padding: var(--pad4) var(--pad3);
+  padding: var(--pad2) var(--pad3);
   background-color: var(--vxblue);
   min-height: 100vh;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
 }
@@ -51,7 +50,7 @@
 .empty-job-list{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   padding: var(--pad8) var(--pad4);
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./Context/Authcontext";
 import "./App.css";
+import ProtectedRoute from "./ProtectedRoute";
 import Jobs from "./Pages/Dashboard/CompanyDashboard/Jobs/Jobs";
 import Header from "./Components/Header/Header";
 import Home from "./Pages/Home/Home";
@@ -59,66 +61,87 @@ const MessagesWithSidebar = withTalentSidebar(TMessages);
 const TalentSettingsWithSidebar = withTalentSidebar(Talentsettings);
 const TLogoutWithSidebar = withTalentSidebar(TLogout);
 
+// Wrap the protected routes with the sidebar HOCs
+const ProtectedCompanyDashboard = withCompanySidebar(ProtectedRoute);
+const ProtectedTalentDashboard = withTalentSidebar(ProtectedRoute);
+
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Company" element={<Company />} />
-          <Route path="/Talent" element={<Talent />} />
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/Signup" element={<Signup />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Privacypolicy" element={<Privacypolicy />} />
-          <Route path="/TermsOfService" element={<TermsOfService />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/Jobs" element={<Jobs />} />
+      <AuthProvider>
+        <div className="App">
+          <Header />
 
-          <Route
-            path="/CompanyDashboard"
-            element={<CompanyDashboardWithSidebar />}
-          />
-          <Route path="/Profile" element={<ProfileWithSidebar />} />
-          <Route
-            path="/Applications"
-            element={<ApplicationsReceivedWithSidebar />}
-          />
-          <Route
-            path="/Shortlisted"
-            element={<ShortlistedVolunteersWithSidebar />}
-          />
-          <Route path="/Post-jobs" element={<PostJobsWithSidebar />} />
-          <Route path="/Resumes" element={<ResumesWithSidebar />} />
-          <Route path="/ChatPage" element={<ChatPageWithSidebar />} />
-          <Route path="/Settings" element={<SettingsWithSidebar />} />
-          <Route path="/Logout" element={<LogoutWithSidebar />} />
-          <Route path="/ManageJobs" element={<ManageJobsWithSidebar />} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/Company" element={<Company />} />
+            <Route path="/Talent" element={<Talent />} />
+            <Route path="/Contact" element={<Contact />} />
+            <Route path="/Signup" element={<Signup />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Privacypolicy" element={<Privacypolicy />} />
+            <Route path="/TermsOfService" element={<TermsOfService />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/Jobs" element={<Jobs />} />
 
-          <Route
-            path="/TalentDashboard"
-            element={<TalentDashboardWithSidebar />}
-          />
-          <Route path="/Talentprofile" element={<TalentProfileWithSidebar />} />
-          <Route path="/TApplications" element={<ApplicationsWithSidebar />} />
-          <Route
-            path="/TShortlisted"
-            element={<ShortlistedCompaniesWithSidebar />}
-          />
-          <Route
-            path="/TOpportunities"
-            element={<OpportunitiesWithSidebar />}
-          />
-          <Route path="/TMessages" element={<MessagesWithSidebar />} />
-          <Route
-            path="/Talentsettings"
-            element={<TalentSettingsWithSidebar />}
-          />
-          <Route path="/TLogout" element={<TLogoutWithSidebar />} />
-        </Routes>
-      </div>
+            <Route
+              path="/CompanyDashboard"
+              element={
+                <ProtectedCompanyDashboard>
+                  <CompanyDashboard />
+                </ProtectedCompanyDashboard>
+              }
+            />
+            <Route path="/Profile" element={<ProfileWithSidebar />} />
+            <Route
+              path="/Applications"
+              element={<ApplicationsReceivedWithSidebar />}
+            />
+            <Route
+              path="/Shortlisted"
+              element={<ShortlistedVolunteersWithSidebar />}
+            />
+            <Route path="/Post-jobs" element={<PostJobsWithSidebar />} />
+            <Route path="/Resumes" element={<ResumesWithSidebar />} />
+            <Route path="/ChatPage" element={<ChatPageWithSidebar />} />
+            <Route path="/Settings" element={<SettingsWithSidebar />} />
+            <Route path="/Logout" element={<LogoutWithSidebar />} />
+            <Route path="/ManageJobs" element={<ManageJobsWithSidebar />} />
+
+            <Route
+              path="/TalentDashboard"
+              element={
+                <ProtectedTalentDashboard>
+                  <TalentDashboard />
+                </ProtectedTalentDashboard>
+              }
+            />
+            <Route
+              path="/Talentprofile"
+              element={<TalentProfileWithSidebar />}
+            />
+            <Route
+              path="/TApplications"
+              element={<ApplicationsWithSidebar />}
+            />
+            <Route
+              path="/TShortlisted"
+              element={<ShortlistedCompaniesWithSidebar />}
+            />
+            <Route
+              path="/TOpportunities"
+              element={<OpportunitiesWithSidebar />}
+            />
+            <Route path="/TMessages" element={<MessagesWithSidebar />} />
+            <Route
+              path="/Talentsettings"
+              element={<TalentSettingsWithSidebar />}
+            />
+            <Route path="/TLogout" element={<TLogoutWithSidebar />} />
+          </Routes>
+        </div>
+      </AuthProvider>
     </Router>
   );
 }

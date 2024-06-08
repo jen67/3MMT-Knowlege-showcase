@@ -1,9 +1,9 @@
 .sidebar {
   width: 60%;
-  height: 100vh; /* Change this */
-  position: fixed; /* Change this to fixed to make sure it covers the entire screen */
+  height: 100vh; 
+  position: fixed; 
   top: 0;
-  left: 0; /* Add this to position the sidebar at the left edge of the screen */
+  left: 0; 
   background-color: var(--footer-blue);
   color: #fff;
   padding: 11rem var(--pad3) var(--pad3) var(--pad3);
@@ -67,13 +67,14 @@
 .sidebar-link{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 0.7rem;
   align-items: center;
+  transition: all 0.2s ease-in-out;
 }
 
-.dactive{
+/* .active{
   color: #8fb7e1;
-}
+} */
 
 .sidebar::-webkit-scrollbar {
   width: 10px;

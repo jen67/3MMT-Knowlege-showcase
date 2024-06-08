@@ -9,6 +9,7 @@ import CustomSelect from "../../Components/Custom/CustomSelect";
 import "../../Components/Custom/CustomSelect.css";
 import Modal from "../../Components/Modal/Modal";
 import "./Login.css";
+import { useAuth } from "../../Context/Authcontext";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -31,61 +32,67 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const navigate = useNavigate();
 
+const { updateUser } = useAuth();
+
   const onSubmit = (data) => {
-    fetch("http://localhost:5000/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
+  setIsAuthenticating(true);
+
+  fetch("http://localhost:5000/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: data.email,
+      password: data.password,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Invalid username or password");
+      }
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Invalid username or password");
+    .then((responseData) => {
+      console.log(responseData);
+      Cookies.set("auth_token", responseData.access_token);
+      updateUser(responseData); // Update the user data in the context
+
+      if (responseData.access_token) {
+        if (
+          (data.accountType === "Company" && !responseData.is_company) ||
+          (data.accountType === "Talent" && responseData.is_company)
+        ) {
+          throw new Error(
+            "Account type mismatch. Please select the correct account type."
+          );
         }
-        return response.json();
-      })
-      .then((responseData) => {
-        Cookies.set("auth_token", responseData.access_token);
-        // Decode the payload of the JWT
-        // const base64Url = responseData.access_token.split(".")[1];
-        // const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-        // const payload = JSON.parse(window.atob(base64));
 
-        // Cookies.set("user_id", payload.sub.id);
+        setShowModal(false);
 
-        if (responseData.access_token) {
-          // Check if the account type from the backend matches the user's intended login type
-          if (
-            (data.accountType === "Company" && !responseData.is_company) ||
-            (data.accountType === "Talent" && responseData.is_company)
-          ) {
-            throw new Error(
-              "Account type mismatch. Please select the correct account type."
-            );
-          }
-
-          setModalMessage("Login successful!");
-          setShowModal(true);
-
+        setTimeout(() => {
+          setIsAuthenticating(false);
           if (responseData.is_company) {
             navigate("/CompanyDashboard");
           } else {
             navigate("/TalentDashboard");
           }
-        }
-      })
-      .catch((error) => {
-        setModalMessage(error.message);
-        setShowModal(true);
-      });
+        }, 2000); // Delay of 2 seconds before navigating
+      }
+    })
+    .catch((error) => {
+      setModalMessage(error.message);
+      setShowModal(true);
+      setIsAuthenticating(false);
+    });
+};
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setIsAuthenticating(false);
   };
-
 
   const accountTypes = [
     { value: "Company", label: "Company" },
@@ -160,19 +167,27 @@ const Login = () => {
           </Link>
         </div>
 
-        <button type="submit" className="submit-button">
-          Login
+        <button
+          type="submit"
+          className="submit-button"
+          disabled={isAuthenticating}
+        >
+          {isAuthenticating ? (
+            <span className="authenticating-text">
+              Authenticating<span className="dots"></span>
+            </span>
+          ) : (
+            "Login"
+          )}
         </button>
-        <div className="account-exists d-flex  align-center">
+        <div className="account-exists d-flex align-center">
           <p>Don't have an account?</p>
           <Link to="/signup" className="signuplink">
             Create one
           </Link>
         </div>
       </form>
-      {showModal && (
-        <Modal message={modalMessage} onClose={() => setShowModal(false)} />
-      )}
+      {showModal && <Modal message={modalMessage} onClose={handleCloseModal} />}
     </section>
   );
 };

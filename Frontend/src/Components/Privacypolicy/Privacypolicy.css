@@ -1,0 +1,27 @@
+.privacy-policy {
+    padding: 90px;
+    line-height: 1.6;
+}
+
+.title {
+    color: #333;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.section-title, .subsection-title {
+    color: #444;
+    margin-top: 20px;
+}
+
+.section-content {
+    color: #666;
+}
+
+.list {
+    padding-left: 20px;
+}
+
+.list-item {
+    color: #666;
+}

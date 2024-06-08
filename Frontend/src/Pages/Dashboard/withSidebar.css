@@ -14,7 +14,7 @@
 .main-content {
     flex-grow: 1;
     background-color: var(--light-blue);
-    padding: var(--pad10) 0 0 0;
+    padding: var(--pad8) 0 0 0;
     overflow-y: auto;
 }
 

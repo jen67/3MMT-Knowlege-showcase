@@ -4,12 +4,19 @@
 }
 
 .avatar, .clogo {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 }
 
 .sidebar.collapsed .avatar, .sidebar.collapsed .clogo {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
+}
+
+.sidebar-link.active {
+  background-color: var(--light-blue);
+  color: black;
+  padding: var(--pad1);
+  width: 200px;
 }

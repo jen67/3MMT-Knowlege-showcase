@@ -80,8 +80,8 @@ const ManageJobs = () => {
 
   return (
     <section className="ManageJobs">
+      <h1>Manage Jobs</h1>
       <div className="ManageJobs-wrapper">
-        <h1>Manage Jobs</h1>
         {isLoading ? (
           <div className="loading-container">
             <div className="loading-spinner"></div>

@@ -23,11 +23,14 @@
 
 .close {
   position: absolute;
-  top: 3px;
+  top: 6px;
   right: 10px;
   color: var(--paragraph);
-  font-size: 28px;
+  font-size: 25px;
   font-weight: bold;
+  padding: 0.1rem var(--pad2);
+  transition: all 0.2s ease-in-out;
+  border-radius: 3px;
 }
 
 .modal-message{
@@ -37,7 +40,7 @@ font-size: 1rem;
 
 .close:hover,
 .close:focus {
-  color: var(--footer-blue);
   text-decoration: none;
   cursor: pointer;
+   background-color: rgb(238, 238, 238);
 }

@@ -24,6 +24,9 @@ const ApplicationsReceived = () => {
             },
           }
         );
+
+        console.log(response); // Correct placement of console.log
+
         if (!response.ok) {
           throw new Error("Failed to fetch applications");
         }

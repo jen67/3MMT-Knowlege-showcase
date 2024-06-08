@@ -67,10 +67,9 @@ const Jobs = () => {
     // Fetch user's applied jobs
     const fetchUserAppliedJobs = async () => {
       const token = Cookies.get("auth_token");
-      const user_id = Cookies.get("user_id");
       try {
         const response = await fetch(
-          `http://localhost:5000/api/application/user/${user_id}`,
+          `http://localhost:5000/api/applications/my-jobs`,
           {
             method: "GET",
             headers: {
@@ -86,7 +85,7 @@ const Jobs = () => {
           }
 
           console.log(data);
-          const appliedJobIds = data.map((application) => application.job._id.$oid);
+          const appliedJobIds = data.map((application) => application.job._id.$oid.job._id);
           setAppliedJobs(appliedJobIds);
         } else {
           throw new Error("Failed to fetch user's applied jobs");
@@ -168,6 +167,7 @@ const Jobs = () => {
         setShowModal(false);
       }
     };
+    
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

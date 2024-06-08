@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavLink from "../../DNavlink";
+import { NavLink } from "react-router-dom";
 import {
   FaHome,
   FaUser,
@@ -34,7 +34,7 @@ const CompanySidebar = () => {
           </span>
         </button>
         <div className="clog-container">
-          <FaUserCircle size={50} className="clogo" /> {!collapsed && ""}
+          <FaUserCircle size={20} className="clogo" /> {!collapsed && ""}
         </div>
         <nav>
           <ul>
@@ -42,7 +42,7 @@ const CompanySidebar = () => {
               <NavLink
                 to="/CompanyDashboard"
                 className="sidebar-link"
-                activeClassName="dactive"
+                activeClassName="active"
               >
                 <FaHome /> {!collapsed && "Dashboard"}
               </NavLink>
@@ -51,7 +51,7 @@ const CompanySidebar = () => {
               <NavLink
                 to="/Profile"
                 className="sidebar-link"
-                activeClassName="dactive"
+                activeClassName="active"
               >
                 <FaUser /> {!collapsed && "Profile"}
               </NavLink>
@@ -60,7 +60,7 @@ const CompanySidebar = () => {
               <NavLink
                 to="/Post-jobs"
                 className="sidebar-link"
-                activeClassName="dactive"
+                activeClassName="active"
               >
                 <FaBriefcase /> {!collapsed && "Post Jobs"}
               </NavLink>
@@ -69,17 +69,16 @@ const CompanySidebar = () => {
               <NavLink
                 to="/ManageJobs"
                 className="sidebar-link"
-                activeClassName="dactive"
+                activeClassName="active"
               >
                 <FaTasks /> {!collapsed && "Manage Jobs"}
               </NavLink>
             </li>
             <li>
-              
               <NavLink
                 to="/Applications"
                 className="sidebar-link"
-                activeClassName="dactive"
+                activeClassName="active"
               >
                 <FaEnvelopeOpenText /> {!collapsed && "Applications"}
               </NavLink>
@@ -88,7 +87,7 @@ const CompanySidebar = () => {
               <NavLink
                 to="/Shortlisted"
                 className="sidebar-link"
-                activeClassName="dactive"
+                activeClassName="active"
               >
                 <FaRegListAlt /> {!collapsed && "Shortlisted"}
               </NavLink>
@@ -97,7 +96,7 @@ const CompanySidebar = () => {
               <NavLink
                 to="/Resumes"
                 className="sidebar-link"
-                activeClassName="dactive"
+                activeClassName="active"
               >
                 <FaRegFileAlt /> {!collapsed && "Resumes"}
               </NavLink>
@@ -106,7 +105,7 @@ const CompanySidebar = () => {
               <NavLink
                 to="/ChatPage"
                 className="sidebar-link"
-                activeClassName="dactive"
+                activeClassName="active"
               >
                 <FaRegEnvelope /> {!collapsed && "Messages"}
               </NavLink>
@@ -115,7 +114,7 @@ const CompanySidebar = () => {
               <NavLink
                 to="/Settings"
                 className="sidebar-link"
-                activeClassName="dactive"
+                activeClassName="active"
               >
                 <FaCog /> {!collapsed && "Settings"}
               </NavLink>
@@ -124,7 +123,7 @@ const CompanySidebar = () => {
               <NavLink
                 to="/Logout"
                 className="sidebar-link"
-                activeClassName="dactive"
+                activeClassName="active"
               >
                 <FaSignOutAlt /> {!collapsed && "Logout"}
               </NavLink>

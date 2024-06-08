@@ -72,6 +72,31 @@ gap: 0.2rem;
   transform: rotate(45deg);
 }
 
+
+@keyframes blinkDots {
+  0%, 20% {
+    content: ".";
+  }
+  40% {
+    content: "..";
+  }
+  60% {
+    content: "...";
+  }
+  80% {
+    content: "....";
+  }
+  100% {
+    content: ".....";
+  }
+}
+
+.authenticating-text .dots::after {
+  content: "";
+  display: inline-block;
+  animation: blinkDots 1.5s infinite steps(1, end);
+}
+
 @media screen and (min-width: 768px){
   
 .forgot-password-link, .terms-link{
