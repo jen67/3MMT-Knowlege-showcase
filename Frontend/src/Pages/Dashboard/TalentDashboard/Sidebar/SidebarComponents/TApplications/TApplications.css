@@ -1,34 +1,29 @@
 .t-applications-container {
-  width: 100%; 
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
+  padding: 20px;
   background-color: var(--vxblue);
+  min-height: 100vh;
+  border-radius: 10px;
 }
 
 
-.t-applications-container h2{
-  align-self: flex-start;
+.error-message, .message {
+  color: red;
+  text-align: center;
 }
 
 .application-item {
-  background-color: #fcfdff;
-  padding: 10px;
-  margin-bottom: 10px;
+  background-color: white;
+  padding: 15px;
   border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 1rem auto; 
 }
 
-@media only screen and (min-width:768px) {
-  .t-applications-container {
-    padding: 10px;
-  }
+.application-item p {
+  margin: 5px 0;
+}
 
-  .application-item {
-    padding: 3rem;
-    margin-bottom: 15px;
-    max-width: 1200px;
-    
-  }
+.application-item p svg {
+  margin-right: 5px;
 }

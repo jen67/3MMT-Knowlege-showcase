@@ -65,38 +65,51 @@ const Jobs = () => {
     fetchAllJobs();
 
     // Fetch user's applied jobs
-    const fetchUserAppliedJobs = async () => {
-      const token = Cookies.get("auth_token");
-      try {
-        const response = await fetch(
-          `http://localhost:5000/api/applications/my-jobs`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          let data = await response.json();
-          if (typeof data === "string") {
-            data = JSON.parse(data);
-          }
+   const fetchUserAppliedJobs = async () => {
+     const token = Cookies.get("auth_token");
+     try {
+       const response = await fetch(
+         `http://localhost:5000/api/applications/my-jobs`,
+         {
+           method: "GET",
+           headers: {
+             "Content-Type": "application/json",
+             Authorization: `Bearer ${token}`,
+           },
+         }
+       );
+       if (response.ok) {
+         let data = await response.json();
+         if (typeof data === "string") {
+           data = JSON.parse(data);
+         }
 
-          console.log(data);
-          const appliedJobIds = data.map((application) => application.job._id.$oid.job._id);
-          setAppliedJobs(appliedJobIds);
-        } else {
-          throw new Error("Failed to fetch user's applied jobs");
-        }
-      } catch (error) {
-        console.error("Error fetching user's applied jobs:", error);
-      }
-    };
+         const appliedJobIds = data.map((application) => {
+           const parsedApplication = JSON.parse(application);
+           return parsedApplication._id.$oid;
+         });
+
+         setAppliedJobs(appliedJobIds);
+         Cookies.set("appliedJobs", JSON.stringify(appliedJobIds), {
+           expires: 365,
+         });
+       } else {
+         throw new Error("Failed to fetch user's applied jobs");
+       }
+     } catch (error) {
+       console.error("Error fetching user's applied jobs:", error);
+     }
+   };
+
     fetchUserAppliedJobs();
   }, []);
 
+  useEffect(() => {
+    const storedAppliedJobs = Cookies.get("appliedJobs");
+    if (storedAppliedJobs) {
+      setAppliedJobs(JSON.parse(storedAppliedJobs));
+    }
+  }, []);
 
 
   // Handle search filtering
@@ -151,7 +164,11 @@ const Jobs = () => {
       const data = await response.json();
       if (response.ok) {
         alert("Application submitted successfully");
-        setAppliedJobs([...appliedJobs, jobId]); // Update applied jobs
+        const newAppliedJobs = [...appliedJobs, jobId];
+        setAppliedJobs(newAppliedJobs); // Update applied jobs
+        Cookies.set("appliedJobs", JSON.stringify(newAppliedJobs), {
+          expires: 365,
+        }); // Save applied jobs to cookies
       } else {
         alert(data.msg || "Error submitting application");
       }
@@ -346,7 +363,7 @@ const Jobs = () => {
               </p>
             )}
           </div>
-          {showModal && (
+          {showModal && selectedJob && (
             <div className="jobs-modal jobs-mobileView">
               <div className="jobs-modalContent">
                 <span
@@ -357,26 +374,45 @@ const Jobs = () => {
                 </span>
                 <div className="jobs-jobDetails">
                   <h2>{selectedJob.title}</h2>
-                  <p className="jobs-jobCompany">{selectedJob.name}</p>
-                  <div className="jobs-jobLocation">
-                    <FaMapMarkerAlt /> {selectedJob.location}
+
+                  <div className="jobs-jobSection">
+                    <h3>
+                      <FaBuilding /> Company
+                    </h3>
+                    <p>{selectedJob.name}</p>
                   </div>
-                  <p className="jobs-jobRequirement">
-                    {selectedJob.requirements}
-                  </p>
-                  <p className="jobs-jobDescription">
-                    {selectedJob.description}
-                  </p>
-                  <button
-                    className="jobs-applyButton"
-                    onClick={() => applyForJob(selectedJob._id.$oid)}
-                    disabled={appliedJobs.includes(selectedJob._id.$oid)}
-                  >
-                    <AiOutlineSend />{" "}
-                    {appliedJobs.includes(selectedJob._id.$oid)
-                      ? "Applied"
-                      : "Apply"}
-                  </button>
+
+                  <div className="jobs-jobSection">
+                    <h3>
+                      <FaMapMarkerAlt /> Location
+                    </h3>
+                    <p>{selectedJob.location}</p>
+                  </div>
+
+                  <div className="jobs-scrollableContent">
+                    <div className="jobs-jobSection">
+                      <h3>
+                        <FaClipboardList /> Requirements
+                      </h3>
+                      <p>{selectedJob.requirements}</p>
+                    </div>
+                    <div className="jobs-jobSection">
+                      <h3>
+                        <FaRegFileAlt /> Description
+                      </h3>
+                      <p>{selectedJob.description}</p>
+                    </div>
+                    <button
+                      className="jobs-applyButton"
+                      onClick={() => applyForJob(selectedJob._id.$oid)}
+                      disabled={appliedJobs.includes(selectedJob._id.$oid)}
+                    >
+                      <AiOutlineSend />{" "}
+                      {appliedJobs.includes(selectedJob._id.$oid)
+                        ? "Applied"
+                        : "Apply"}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

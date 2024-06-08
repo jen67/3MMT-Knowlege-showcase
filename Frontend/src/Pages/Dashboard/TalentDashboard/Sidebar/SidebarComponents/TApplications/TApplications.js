@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./TApplications.css";
-// import {
-//   FaIdCard,
-//   FaBuilding,
-//   FaCalendarAlt,
-//   FaMapMarkerAlt,
-//   FaRegListAlt,
-//   FaRegNewspaper,
-// } from "react-icons/fa";
+import {
+  FaIdCard,
+  FaBuilding,
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+  FaRegListAlt,
+  FaSpinner,
+} from "react-icons/fa";
 
 const TApplications = () => {
   const [userApplications, setUserApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchUserApplications = async () => {
@@ -73,12 +74,23 @@ const TApplications = () => {
         setError(error.message);
       }
       console.error("Error fetching user applications:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchUserApplications();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loading">
+        <FaSpinner className="spinner" />
+        Loading...
+      </div>
+    );
+  }
 
   if (error) {
     return <div className="error-message">Error: {error}</div>;
@@ -90,25 +102,39 @@ const TApplications = () => {
 
   return (
     <div className="t-applications-container">
-      <h2>User Applications</h2>
-      <ul>
-        {userApplications.map((application, index) => (
-          <li key={`${application.id}-${index}`} className="application-item">
-            <p>ID: {application.id}</p>
-            <p>Company: {application.company}</p>
-            <p>
-              Posted Date:{" "}
-              {application.postedDate
-                ? application.postedDate.toLocaleDateString()
-                : "N/A"}
-            </p>
-            <p>Title: {application.title || "N/A"}</p>
-            <p>Description: {application.description || "N/A"}</p>
-            <p>Requirements: {application.requirements || "N/A"}</p>
-            <p>Location: {application.location || "N/A"}</p>
-          </li>
-        ))}
-      </ul>
+      <div class="tapplication-content">
+        <h2>User Applications</h2>
+        <ul>
+          {userApplications.map((application, index) => (
+            <li key={`${application.id}-${index}`} className="application-item">
+              <p>
+                <FaIdCard /> ID: {application.id}
+              </p>
+              <p>
+                <FaBuilding /> Company: {application.company}
+              </p>
+              <p>
+                <FaCalendarAlt /> Posted Date:{" "}
+                {application.postedDate
+                  ? application.postedDate.toLocaleDateString()
+                  : "N/A"}
+              </p>
+              <p>
+                <FaRegListAlt /> Title: {application.title || "N/A"}
+              </p>
+              <p>
+                <FaRegListAlt /> Description: {application.description || "N/A"}
+              </p>
+              <p>
+                <FaRegListAlt /> Requirements: {application.requirements || "N/A"}
+              </p>
+              <p>
+                <FaMapMarkerAlt /> Location: {application.location || "N/A"}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

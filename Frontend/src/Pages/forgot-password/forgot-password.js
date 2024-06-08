@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import * as yup from "yup";
 import "../Signup/Signup.css";
@@ -17,6 +17,7 @@ const schema = yup.object().shape({
 const ForgotPassword = () => {
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetModalMessage, setResetModalMessage] = useState("");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -29,25 +30,21 @@ const ForgotPassword = () => {
   const onSubmit = (data) => {
     console.log(data);
 
-    // Get the authentication token from local storage or wherever it's stored
-    const token = Cookies.get("auth_token"); 
+    const token = Cookies.get("auth_token");
 
-    // Check if the token is null or empty
     if (!token) {
       console.error("Error: No authentication token found");
       return;
     }
 
-    // Send a POST request to the backend API with the authentication token
     fetch("http://localhost:5000/auth/reset-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         email: data.email,
-        password: data.password, // Include the new password in the request body
       }),
     })
       .then((response) => {
@@ -58,17 +55,52 @@ const ForgotPassword = () => {
       })
       .then((responseData) => {
         console.log(responseData);
-        // Set the reset modal message and show the reset modal
-        setResetModalMessage("Password has been reset successfully.");
-        setShowResetModal(true);
+
+        Cookies.set("reset_token", responseData.reset_token);
+
+        fetch("http://localhost:5000/auth/update-password", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            email: data.email,
+            reset_token: responseData.reset_token,
+            new_password: data.password,
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Failed to update password: " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((updateResponseData) => {
+            console.log(updateResponseData);
+            setResetModalMessage("Password has been updated successfully.");
+            setShowResetModal(true);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            setResetModalMessage("An error occurred: " + error.message);
+            setShowResetModal(true);
+          });
       })
       .catch((error) => {
         console.error("Error:", error);
-        // Set the reset modal message and show the reset modal
         setResetModalMessage("An error occurred: " + error.message);
         setShowResetModal(true);
       });
   };
+
+  const handleModalClose = () => {
+    setShowResetModal(false);
+    navigate("/Login");
+  };
+
   return (
     <section className="forgot-password-form">
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
@@ -107,10 +139,7 @@ const ForgotPassword = () => {
         </button>
       </form>
       {showResetModal && (
-        <Modal
-          message={resetModalMessage}
-          onClose={() => setShowResetModal(false)}
-        />
+        <Modal message={resetModalMessage} onClose={handleModalClose} />
       )}
     </section>
   );

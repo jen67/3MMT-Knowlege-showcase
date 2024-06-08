@@ -84,17 +84,7 @@ const Header = () => {
                 Companies
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                exact
-                to="/Talent"
-                className="header-link"
-                activeClassName="active-link"
-                onClick={() => setIsOpen(false)}
-              >
-                Talents
-              </NavLink>
-            </li>
+            
             <li>
               <NavLink
                 exact
@@ -108,6 +98,19 @@ const Header = () => {
             </li>
 
             {user && (
+              <>
+              <li>
+              <NavLink
+                exact
+                to="/Talent"
+                className="header-link"
+                activeClassName="active-link"
+                onClick={() => setIsOpen(false)}
+              >
+                Talents
+              </NavLink>
+            </li>
+              
               <li>
                 <NavLink
                   exact
@@ -119,6 +122,7 @@ const Header = () => {
                   Jobs
                 </NavLink>
               </li>
+              </>
             )}
           </ul>
 

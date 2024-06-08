@@ -1,0 +1,226 @@
+.talent-list {
+  padding: 20px;
+  background-color: var(--vxblue);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.talent-list h3{
+  padding: var(--pad7) 0;
+}
+
+.talent-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+ justify-content: center;
+}
+
+.talent-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 650px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.card-header h4 {
+  font-weight: var(--fw5);
+  margin: 0;
+  font-size: 18px;
+}
+
+.card-header p {
+  margin: 0;
+  color: #777;
+}
+
+.card-body {
+  margin-bottom: 20px;
+}
+
+.card-body p {
+  margin: 5px 0;
+  color:  #777;
+
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  color: var(--paragraph);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+}
+
+.card-date {
+  text-align: right;
+  color: #777;
+  font-size: 12px;
+}
+
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  padding: 0 1rem;
+}
+
+.custom-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+}
+
+.custom-close-modal {
+  position: absolute;
+  top: 3px;
+  right: 7px;
+  padding: 0.2rem 0.8rem;
+  background: none;
+  border: none;
+  font-size: var(--fs3);
+  cursor: pointer;
+}
+
+.custom-close-modal:hover{
+  background-color: #e8eaed;
+  
+}
+
+.modal-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+
+
+.Profile-loo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+}
+
+.profile-logo svg{
+  display: block;
+  
+}
+
+
+.job-title h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: var(--fw5);
+}
+
+.job-title p {
+  margin: 0;
+  color: #888;
+}
+
+.job-title h2, .job-title p{
+  padding-left: 1rem;
+}
+
+.modal-body {
+  padding: 15px;
+}
+
+.modal-body p {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #f5f5f5;
+  border-top: 1px solid #e0e0e0;
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+}
+
+.tag {
+  background: #e0e0e0;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.date {
+  color: #888;
+  margin-left: auto;
+}
+
+.scrollable-tags {
+  animation: scrollTags 10s linear infinite;
+}
+
+@keyframes scrollTags {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media screen and (min-width: 768px){
+  .talent-card{
+    padding: var(--pad6)
+  }
+}

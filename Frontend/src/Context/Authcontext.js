@@ -35,10 +35,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setUserName("");
     setTalentName("");
-    Cookies.remove("auth_token");
-    Cookies.remove("user");
-    Cookies.remove("userName");
-    Cookies.remove("talentName");
     navigate("/login");
   };
 

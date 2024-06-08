@@ -41,3 +41,17 @@ def update_profile():
         return jsonify({"msg": "Company profile updated"}), 200
 
     return jsonify({"msg": "Profile not found"}), 404
+
+
+# New route to fetch user profiles by ID for companies
+@profile_bp.route("/user_profile/<user_id>", methods=["GET"])
+@jwt_required()
+def get_user_profile(user_id):
+    current_user = get_jwt_identity()
+
+    if current_user["role"] == "company":
+        user = User.objects(id=user_id).first()
+        if user:
+            return jsonify(user.to_json()), 200
+
+    return jsonify({"msg": "User profile not found or unauthorized"}), 404
