@@ -1,51 +1,97 @@
-/* TApplications.css */
-
 .t-applications-container {
+  padding: 20px;
+  background-color: var(--vxblue);
+  min-height: 100vh;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
 }
 
-.tapplication-content {
-  max-width: 800px;
+.tapplication-content{
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  max-width: 1200px;
 }
 
-.tapplication-content h2 {
+.tapplication-content h2{
+  font-size: 1.8rem;
+  font-weight: var(--fw5);
+}
+
+
+.error-message, .message {
+  color: red;
   text-align: center;
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
 }
-
 
 .application-item {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  padding: 20px;
-  transition: transform 0.2s ease-in-out;
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  margin: 1rem auto; 
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
-.application-item:hover {
-  transform: translateY(-5px);
+.application-item:hover{
+  background-color: var(--vlight-blue);
+  transform: translateY(-2px);
 }
 
 .application-item p {
-  margin: 10px 0;
-  font-size: 16px;
-  color: #555;
+  margin: 5px 0;
 }
 
-.application-item p span {
-  font-weight: bold;
+.application-item p svg {
+  margin-right: 5px;
+}
+
+.application-item p:first-child {
+  font-weight: var(--fw6);
+  font-size: 1.2rem;
   color: #333;
 }
 
-.loading, .error-message, .message {
-  text-align: center;
-  font-size: 18px;
-  color: #333;
+.application-item p:nth-of-type(2) {
+  color: #999; 
+  font-size: 0.9rem;
+  border-bottom: 1px solid #d7d7d7;
+  padding-bottom: 1rem;
+}
+
+.application-item p:nth-of-type(3){
+  padding-top: 1rem;
+  font-size: 1.25rem;
+  color: #464646;
+  font-weight: var(--fw4);
+}
+
+.application-item p:nth-of-type(4){
+  font-size: 1.1rem;
+  color: #565151;
+}
+
+
+.application-item p:nth-of-type(5), .application-item p:nth-of-type(6){
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.application-item p:last-child {
+  color: #666;
+  padding-top: 1rem;
+  font-size: 0.86rem;
+}
+
+
+
+@media screen and (min-width: 768px){
+  .application-item{
+    padding: 2rem;
+  }
 }

@@ -108,30 +108,18 @@ const TApplications = () => {
         <ul>
           {userApplications.map((application, index) => (
             <li key={`${application.id}-${index}`} className="application-item">
-              <p>
-                 ID: {application.id}
-              </p>
-              <p>
-               Company: {application.company}
-              </p>
+              <p>Company: {application.company}</p>
+              <p>ID: {application.id}</p>
+              <p>Title: {application.title || "N/A"}</p>
+              <p>Requirements: {application.requirements || "N/A"}</p>
+              <p>Description: {application.description || "N/A"}</p>
+              <p>Location: {application.location || "N/A"}</p>
+
               <p>
                 Posted Date:{" "}
                 {application.postedDate
                   ? application.postedDate.toLocaleDateString()
                   : "N/A"}
-              </p>
-              <p>
-                 Title: {application.title || "N/A"}
-              </p>
-              <p>
-                Description: {application.description || "N/A"}
-              </p>
-              <p>
-                 Requirements:{" "}
-                {application.requirements || "N/A"}
-              </p>
-              <p>
-               Location: {application.location || "N/A"}
               </p>
             </li>
           ))}
