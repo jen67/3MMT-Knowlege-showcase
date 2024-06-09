@@ -1,79 +1,129 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import { useParams } from "react-router-dom";
 import "./Applications.css";
+import Spinner from "../../../../../../Components/Spinner/Spinner";
+import { format } from "date-fns";
 
 const ApplicationsReceived = () => {
-  const { jobId } = useParams(); // Extract job ID from URL parameters
-  const [job, setJob] = useState(null);
-  const [applications, setApplications] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const fetchJobAndApplications = async () => {
-      if (!jobId) {
-        console.error("Job ID is undefined");
-        return;
-      }
-
-      try {
-        // Fetch job details
-        const jobResponse = await fetch(
-          `http://localhost:5000/api/jobs/${jobId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("auth_token")}`,
-            },
-          }
-        );
-        if (!jobResponse.ok) {
-          throw new Error("Failed to fetch job");
-        }
-        const jobData = await jobResponse.json();
-        setJob(jobData);
-
-        // Fetch applications for the job
-        const applicationsResponse = await fetch(
-          `http://localhost:5000/api/applications/users-applied/${jobId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("auth_token")}`,
-            },
-          }
-        );
-        if (!applicationsResponse.ok) {
-          throw new Error("Failed to fetch applications");
-        }
-        const applicationsData = await applicationsResponse.json();
-        setApplications(applicationsData);
-      } catch (error) {
-        setMessage("Error fetching data");
-        console.error(error);
-      }
-    };
-
     fetchJobAndApplications();
-  }, [jobId]); // Ensure useEffect runs when jobId changes
+  }, []);
+
+  const fetchJobAndApplications = async () => {
+    const token = Cookies.get("auth_token");
+    try {
+      const jobResponse = await fetch(
+        `http://localhost:5000/api/company_jobs`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (!jobResponse.ok) {
+        throw new Error("Failed to fetch jobs");
+      }
+      const jobData = await jobResponse.json();
+      console.log("Fetched jobs:", jobData);
+
+      // Check if jobData is an array and has content
+      if (Array.isArray(jobData) && jobData.length > 0) {
+        setJobs(jobData);
+      } else {
+        console.warn(
+          "Fetched jobs data is not in expected format or empty:",
+          jobData
+        );
+        setJobs([]);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+      setIsLoading(false);
+    }
+  };
+
+  const fetchUsersForJob = async (jobId) => {
+    console.log("Fetching users for job ID:", jobId);
+    const token = Cookies.get("auth_token");
+    try {
+      const usersResponse = await fetch(
+        `http://localhost:5000/api/applications/users-applied/${jobId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (usersResponse.ok) {
+        const usersData = await usersResponse.json();
+        setUsers(usersData);
+        alert("Applied users fetched");
+      } else {
+        const errorData = await usersResponse.json();
+        alert(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      alert("Error fetching users:", error);
+      setMessage("Error fetching data");
+      console.error(error);
+    }
+  };
 
   return (
     <div>
-      {job && (
-        <>
-          <h1>Applications Received for Job "{job.title}"</h1>
-          <p>Company: {job.company}</p>
-          <p>Posted Date: {new Date(job.posted_date.$date).toLocaleDateString()}</p>
-          <p>Description: {job.description}</p>
-        </>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div>
+          <ul>
+            {Array.isArray(jobs) && jobs.length > 0 ? (
+              jobs.map((job) => (
+                <li key={job._id.$oid} className="job-item">
+                  <h3>{job.title}</h3>
+                  <p className="job-requirement">{job.requirements}</p>
+                  <p className="job-description">{job.description}</p>
+                  <p className="job-location">{job.location}</p>
+                  <p className="date-posted">
+                    Posted on{" "}
+                    <span>
+                      {format(
+                        new Date(job.posted_date.$date),
+                        "MM/dd/yyyy HH:mm:ss"
+                      )}
+                    </span>
+                  </p>
+                  <button onClick={() => fetchUsersForJob(job._id.$oid)}>
+                    View Applicants
+                  </button>
+                </li>
+              ))
+            ) : (
+              <p>No jobs found.</p>
+            )}
+          </ul>
+          {users.length > 0 && (
+            <div>
+              <h1>Applications Received</h1>
+              <ul>
+                {users.map((user) => (
+                  <li key={user._id}>{user.name}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {message && <p>{message}</p>}
+        </div>
       )}
-      {message && <p>{message}</p>}
-      <ul>
-        {applications.map((application) => (
-          <li key={application._id.$oid}>
-            {application.name} applied on{" "}
-            {new Date(application.posted_date.$date).toLocaleDateString()}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

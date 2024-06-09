@@ -1,0 +1,159 @@
+.Tdashboard {
+  padding: var(--pad4) var(--pad3);
+  background-color: var(--vxblue);
+  height: 100%;
+  width: 100%;
+}
+
+.Tdashboard h1 {
+  font-size: 1.5rem;
+  font-weight: var(--fw5);
+  margin-bottom: var(--mar4);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  padding: var(--pad2) 20px;
+  border-radius: 6px;
+  width: 100%;
+  background-color: var(--white);
+  border: 1px solid #ddd;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; 
+}
+
+.stat:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+  transform: translateY(-5px); 
+}
+
+
+.stat-info h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: var(--fw4);
+}
+
+.stat-info p {
+  color: var(--paragraph);
+  font-size: var(--fs4);
+  font-weight: var(--fs5);
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: var(--pad2);
+}
+
+.opportunities h3{
+  font-size: 1.3rem;
+  font-weight: var(--fw5);
+  margin: 3rem 0 1rem 0;
+}
+
+.opportunity-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  transition: transform 0.3s;
+}
+
+.opportunity-card:hover {
+  transform: translateY(-5px);
+}
+
+.opportunity-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.opportunity-card-header h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: var(--fw4);
+}
+
+.opportunity-card-body p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+
+}
+
+.companyN{
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.opportunity-card-body .date:last-of-type{
+font-size: 0.9rem;
+}
+
+.opportunity-card .status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-transform: capitalize;
+  font-size: 0.8rem;
+}
+
+.opportunity-card .status.pending {
+  background-color: #d6853e;
+  color: #fff;
+}
+
+.opportunity-card .status.accepted {
+  background-color: #5cb85c;
+  color: #fff;
+}
+
+.opportunity-card .status.rejected {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+
+.icon-and-count {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin-top: var(--mar2);
+}
+
+
+
+@media screen and (min-width: 768px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .Tdashboard {
+    padding: var(--pad4);
+  }
+
+  .Tdashboard h1{
+    font-size: var(--fs4);
+  }
+}
+
+@media (min-width: 1280px) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

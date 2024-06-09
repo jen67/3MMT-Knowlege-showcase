@@ -5,8 +5,8 @@ import {
   FaHome,
   FaUser,
   FaEnvelopeOpenText,
-  FaRegListAlt,
-  FaRegFileAlt,
+  // FaRegListAlt,
+  // FaRegFileAlt,
   FaRegEnvelope,
   FaCog,
   FaSignOutAlt,
@@ -64,7 +64,7 @@ const TalentSidebar = () => {
                 <FaEnvelopeOpenText /> {!collapsed && "Applications"}
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/TShortlisted"
                 className="sidebar-link"
@@ -72,8 +72,8 @@ const TalentSidebar = () => {
               >
                 <FaRegListAlt /> {!collapsed && "Shortlisted "}
               </NavLink>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <NavLink
                 to="/TOpportunities"
                 className="sidebar-link"
@@ -81,7 +81,7 @@ const TalentSidebar = () => {
               >
                 <FaRegFileAlt /> {!collapsed && "Opportunities"}
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="/TMessages"

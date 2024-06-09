@@ -5,8 +5,8 @@ import {
   FaUser,
   FaBriefcase,
   FaEnvelopeOpenText,
-  FaRegListAlt,
-  FaRegFileAlt,
+  // FaRegListAlt,
+  // FaRegFileAlt,
   FaRegEnvelope,
   FaCog,
   FaSignOutAlt,
@@ -83,7 +83,7 @@ const CompanySidebar = () => {
                 <FaEnvelopeOpenText /> {!collapsed && "Applications"}
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/Shortlisted"
                 className="sidebar-link"
@@ -91,8 +91,8 @@ const CompanySidebar = () => {
               >
                 <FaRegListAlt /> {!collapsed && "Shortlisted"}
               </NavLink>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <NavLink
                 to="/Resumes"
                 className="sidebar-link"
@@ -100,7 +100,7 @@ const CompanySidebar = () => {
               >
                 <FaRegFileAlt /> {!collapsed && "Resumes"}
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="/ChatPage"

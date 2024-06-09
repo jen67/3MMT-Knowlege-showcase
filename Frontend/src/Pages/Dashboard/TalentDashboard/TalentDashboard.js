@@ -5,10 +5,10 @@ import {
   FaHeart,
   FaEye,
   FaCommentDots,
-  FaSpinner,
 } from "react-icons/fa";
 import { useAuth } from "../../../Context/Authcontext";
 import "./TalentDashboard.css";
+import Spinner from "../../../Components/Spinner/Spinner";
 
 const TalentDashboard = () => {
   const { user, updateUser } = useAuth();
@@ -97,9 +97,12 @@ const TalentDashboard = () => {
         }
         console.error("Error fetching user applications:", error);
       } finally {
-        setLoading(false);
-      }
-    };
+        
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      };
+    }
 
     fetchUserApplications();
   }, [user, updateUser]);
@@ -107,8 +110,7 @@ const TalentDashboard = () => {
   if (loading) {
     return (
       <div className="loading">
-        <FaSpinner className="spinner" />
-        Loading...
+        <Spinner />
       </div>
     );
   }

@@ -149,17 +149,25 @@ const StatCard = ({ title, count, icon: Icon }) => {
 };
 
 const OpportunityCard = ({ opportunity }) => (
-  <div className="opportunity">
-    <h4>{opportunity.title}</h4>
-    <p>
-      {opportunity.company} - Posted {opportunity.posted}
-    </p>
-    <p>Category: {opportunity.category}</p>
-    <span className={`status ${opportunity.status.toLowerCase()}`}>
-      {opportunity.status}
-    </span>
-
-   
+  <div className="opportunity-card">
+    <div className="opportunity-card-header">
+      <h4>{opportunity.title || "N/A"}</h4>
+      <span
+        className={`status ${opportunity.status?.toLowerCase() || "pending"}`}
+      >
+        {opportunity.status || "Pending"}
+      </span>
+    </div>
+    <div className="opportunity-card-body">
+      <p className="companyN">Company: {opportunity.company || "N/A"}</p>
+      <p className="date">
+        Posted Date:{" "}
+        {opportunity.postedDate
+          ? opportunity.postedDate.toLocaleDateString()
+          : "N/A"}
+      </p>
+      <p className="date location">location: {opportunity.location || "N/A"}</p>
+    </div>
   </div>
 );
 
