@@ -7,6 +7,7 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import "./CompanyDashboard.css";
+import { format } from "date-fns"; 
 
 const Dashboard = () => {
   const [jobs, setJobs] = useState([]);
@@ -45,12 +46,12 @@ const Dashboard = () => {
 
     fetchJobs();
   }, []);
-  
+
   const [stats, setStats] = useState([
     { title: "Posted jobs", count: 0, icon: FaBriefcase },
-    { title: "Shortlisted", count: 3, icon: FaBookmark },
+    { title: "Shortlisted", count: 0, icon: FaBookmark },
     { title: "Reviewed", count: 0, icon: FaCheckCircle },
-    { title: "Applicants", count: 57, icon: FaUsers },
+    { title: "Applicants", count: 0, icon: FaUsers },
   ]);
 
   useEffect(() => {
@@ -60,30 +61,6 @@ const Dashboard = () => {
       )
     );
   }, [jobs]);
-
-  const [opportunities /*setOpportunities */] = useState([
-    {
-      title: "Web Developer Volunteer at Coach Tribe (3 positions)",
-      company: "Coach Tribe",
-      posted: "2 weeks ago",
-      category: "Back End Development",
-      status: "Pending",
-    },
-    {
-      title: "Front-end Developer Volunteer",
-      company: "Dropify Technologies",
-      posted: "3 weeks ago",
-      category: "Product Development",
-      status: "Pending",
-    },
-    {
-      title: "Front-end Developer Volunteer",
-      company: "Dropify Technologies",
-      posted: "3 weeks ago",
-      category: "Product Development",
-      status: "Pending",
-    },
-  ]);
 
   return (
     <div className="Tdashboard">
@@ -99,10 +76,36 @@ const Dashboard = () => {
         ))}
       </div>
       <div className="opportunities">
-        <h3>Opportunities Applied Recently</h3>
-        {opportunities.map((opportunity, index) => (
-          <OpportunityCard key={index} opportunity={opportunity} />
-        ))}
+        <h3>Jobs posted</h3>
+        {jobs.length === 0 ? ( // Check if jobs array is empty
+          <p>No jobs posted yet</p>
+        ) : (
+          <ul className="opportunity-card-container">
+            {jobs.slice(-3).map(
+              (
+                job,
+                index // Render jobs
+              ) => (
+                <li key={index} className="opportunity-card">
+                  <h4 className="opportunity-card-header">
+                    {job.title || "N/A"}
+                  </h4>
+                  <p className="job-description">{job.description || "N/A"}</p>
+                  <p className="location">{job.location || "N/A"}</p>
+                  <p className="date location">
+                    Posted on{" "}
+                    <span>
+                      {format(
+                        new Date(job.posted_date.$date),
+                        "MM/dd/yyyy HH:mm:ss"
+                      )}
+                    </span>{" "}
+                  </p>
+                </li>
+              )
+            )}
+          </ul>
+        )}
       </div>
     </div>
   );
@@ -148,25 +151,18 @@ const StatCard = ({ title, count, icon: Icon }) => {
   );
 };
 
-const OpportunityCard = ({ opportunity }) => (
+const OpportunityCard = ({ job }) => (
   <div className="opportunity-card">
     <div className="opportunity-card-header">
-      <h4>{opportunity.title || "N/A"}</h4>
-      <span
-        className={`status ${opportunity.status?.toLowerCase() || "pending"}`}
-      >
-        {opportunity.status || "Pending"}
+      <h4>{job.title || "N/A"}</h4>
+      <span className={`status ${job.status?.toLowerCase() || "pending"}`}>
+        {job.status || "Pending"}
       </span>
     </div>
     <div className="opportunity-card-body">
-      <p className="companyN">Company: {opportunity.company || "N/A"}</p>
-      <p className="date">
-        Posted Date:{" "}
-        {opportunity.postedDate
-          ? opportunity.postedDate.toLocaleDateString()
-          : "N/A"}
-      </p>
-      <p className="date location">location: {opportunity.location || "N/A"}</p>
+      <p className="companyN">Company: {job.company || "N/A"}</p>
+      <p className="date">Posted Date: {job.posted || "N/A"}</p>
+      <p className="date location">Location: {job.location || "N/A"}</p>
     </div>
   </div>
 );

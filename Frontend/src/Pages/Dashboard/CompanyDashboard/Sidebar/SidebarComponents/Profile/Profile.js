@@ -69,6 +69,7 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [toolTipMessage, setToolTipMessage] = useState("");
   const [showToolTip, setShowToolTip] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false); // New state for update button text
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -124,6 +125,8 @@ const Profile = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
+    setIsUpdating(true); // Set updating state to true when updating starts
+
     const profileData = {
       name: companyName,
       location,
@@ -150,6 +153,7 @@ const Profile = () => {
           setTimeout(() => {
             setShowToolTip(false);
             setActiveTab("profile");
+            setIsUpdating(false); // Set updating state back to false after updating finishes
           }, 3000);
 
           Cookies.set("userName", companyName);
@@ -157,6 +161,7 @@ const Profile = () => {
         } else {
           setToolTipMessage("Error updating profile");
           setShowToolTip(true);
+          setIsUpdating(false); // Set updating state back to false if there's an error
           setTimeout(() => setShowToolTip(false), 3000);
         }
       })
@@ -164,6 +169,7 @@ const Profile = () => {
         console.error("Error updating profile:", error);
         setToolTipMessage("Error updating profile");
         setShowToolTip(true);
+        setIsUpdating(false); // Set updating state back to false if there's an error
         setTimeout(() => setShowToolTip(false), 3000);
       });
   };
@@ -199,7 +205,8 @@ const Profile = () => {
               className={`update-d ${activeTab === "update" ? "active" : ""}`}
               onClick={() => handleTabChange("update")}
             >
-              Update Profile
+              {isUpdating ? "Updating..." : "Update Profile"}{" "}
+              {/* Update button text based on isUpdating state */}
             </button>
           </div>
 

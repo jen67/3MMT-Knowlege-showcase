@@ -19,11 +19,11 @@ const TalentDashboard = () => {
 
   useEffect(() => {
     if (user) {
-      const viewsCount = Cookies.get(`viewsCount_${user.id}`);
+      const viewsCount = Cookies.get(`viewsCount_${user.id}`) || 0;
       setStats([
         {
           title: "Applications",
-          count: user.applicationsCount,
+          count: user.applicationsCount || 0,
           icon: FaBriefcase,
         },
         { title: "Shortlisted", count: 0, icon: FaHeart },
@@ -97,12 +97,11 @@ const TalentDashboard = () => {
         }
         console.error("Error fetching user applications:", error);
       } finally {
-        
         setTimeout(() => {
           setLoading(false);
         }, 2000);
-      };
-    }
+      }
+    };
 
     fetchUserApplications();
   }, [user, updateUser]);
@@ -119,27 +118,29 @@ const TalentDashboard = () => {
     return <div className="error-message">Error: {error}</div>;
   }
 
-  return (
-    <div className="Tdashboard">
-      <h1>Dashboard</h1>
-      <div className="stats">
-        {stats.map((stat, index) => (
-          <StatCard
-            key={index}
-            title={stat.title}
-            count={stat.count}
-            icon={stat.icon}
-          />
-        ))}
-      </div>
-      <div className="opportunities">
-        <h3>Opportunities Applied Recently</h3>
-        {opportunities.map((opportunity, index) => (
-          <OpportunityCard key={index} opportunity={opportunity} />
-        ))}
-      </div>
-    </div>
-  );
+ return (
+   <div className="Tdashboard">
+     <h1>Dashboard</h1>
+     <div className="stats">
+       {stats.map((stat, index) => (
+         <StatCard
+           key={index}
+           title={stat.title}
+           count={stat.count}
+           icon={stat.icon}
+         />
+       ))}
+     </div>
+     {opportunities.length > 0 && (
+       <div className="opportunities">
+         <h3>Opportunities Applied Recently</h3>
+         {opportunities.map((opportunity, index) => (
+           <OpportunityCard key={index} opportunity={opportunity} />
+         ))}
+       </div>
+     )}
+   </div>
+ );
 };
 
 const StatCard = ({ title, count, icon: Icon }) => {

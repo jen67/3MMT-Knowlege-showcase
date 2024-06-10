@@ -73,7 +73,7 @@ const Header = () => {
                 About
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 exact
                 to="/Company"
@@ -83,8 +83,8 @@ const Header = () => {
               >
                 Companies
               </NavLink>
-            </li>
-            
+            </li> */}
+
             <li>
               <NavLink
                 exact
@@ -99,29 +99,33 @@ const Header = () => {
 
             {user && (
               <>
-              <li>
-              <NavLink
-                exact
-                to="/Talent"
-                className="header-link"
-                activeClassName="active-link"
-                onClick={() => setIsOpen(false)}
-              >
-                Talents
-              </NavLink>
-            </li>
-              
-              <li>
-                <NavLink
-                  exact
-                  to="/Jobs"
-                  className="header-link"
-                  activeClassName="active-link"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Jobs
-                </NavLink>
-              </li>
+                {user && user.is_company && (
+                  <li>
+                    <NavLink
+                      exact
+                      to="/Talent"
+                      className="header-link"
+                      activeClassName="active-link"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Talents
+                    </NavLink>
+                  </li>
+                )}
+
+                {user && !user.is_company && (
+                  <li>
+                    <NavLink
+                      exact
+                      to="/Jobs"
+                      className="header-link"
+                      activeClassName="active-link"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Jobs
+                    </NavLink>
+                  </li>
+                )}
               </>
             )}
           </ul>

@@ -61,6 +61,7 @@ const TalentProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [toolTipMessage, setToolTipMessage] = useState("");
   const [showToolTip, setShowToolTip] = useState(false);
+   const [isUpdating, setIsUpdating] = useState(false); 
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -121,6 +122,7 @@ const TalentProfile = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+     setIsUpdating(true);
 
     const profileData = {
       name,
@@ -148,12 +150,14 @@ const TalentProfile = () => {
           setTimeout(() => {
             setShowToolTip(false);
             setActiveTab("profile");
+            setIsUpdating(false);
           }, 3000);
           Cookies.set("tuserName", talentName);
           console.log(talentName);
         } else {
           setToolTipMessage("Error updating profile");
           setShowToolTip(true);
+           setIsUpdating(false); 
           setTimeout(() => setShowToolTip(false), 3000);
         }
       })
@@ -161,6 +165,7 @@ const TalentProfile = () => {
         console.error("Error updating profile:", error);
         setToolTipMessage("Error updating profile");
         setShowToolTip(true);
+         setIsUpdating(false);
         setTimeout(() => setShowToolTip(false), 3000);
       });
   };
@@ -196,7 +201,7 @@ const TalentProfile = () => {
               className={`update-d ${activeTab === "update" ? "active" : ""}`}
               onClick={() => handleTabChange("update")}
             >
-              Update Profile
+              {isUpdating ? "Updating..." : "Update Profile"}{" "}
             </button>
           </div>
 

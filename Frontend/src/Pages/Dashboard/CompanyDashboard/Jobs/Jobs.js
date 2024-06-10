@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { AiOutlineSend, AiOutlineClose } from "react-icons/ai";
 import Cookies from "js-cookie";
+import Tooltip from "../../../../Components/Custom/Tooltip";
 import "./Jobs.css";
 
 const Spinner = () => (
@@ -33,7 +34,9 @@ const Jobs = () => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(true);
-  const [appliedJobs, setAppliedJobs] = useState([]); // New state to keep track of applied jobs
+  const [appliedJobs, setAppliedJobs] = useState([]); 
+   const [tooltipMessage, setTooltipMessage] = useState("");
+   const [tooltipVisible, setTooltipVisible] = useState(false);// New state to keep track of applied jobs
   const navigate = useNavigate();
 
   // Fetch all jobs once
@@ -146,6 +149,13 @@ const Jobs = () => {
    }
  };
 
+   const showTooltip = (message) => {
+     setTooltipMessage(message);
+     setTooltipVisible(true);
+     setTimeout(() => {
+       setTooltipVisible(false);
+     }, 3000); // Hide after 3 seconds
+   };
 
   // Apply for a job
   const applyForJob = async (jobId) => {
@@ -163,17 +173,22 @@ const Jobs = () => {
       console.log("response", response);
       const data = await response.json();
       if (response.ok) {
-        alert("Application submitted successfully");
+        showTooltip("Application submitted successfully");
         const newAppliedJobs = [...appliedJobs, jobId];
         setAppliedJobs(newAppliedJobs); // Update applied jobs
         Cookies.set("appliedJobs", JSON.stringify(newAppliedJobs), {
           expires: 365,
         }); // Save applied jobs to cookies
       } else {
-        alert(data.msg || "Error submitting application");
+        if (data.msg === "Permission denied") {
+          showTooltip("You must be a talent to apply");
+        } else {
+          showTooltip(data.msg || "Error submitting application");
+        }
       }
     } catch (error) {
       console.error("Error applying for job:", error);
+      showTooltip("Error applying for job");
     }
   };
 
@@ -221,6 +236,7 @@ const Jobs = () => {
 
   return (
     <section className="jobs-manageJobs">
+      <Tooltip message={tooltipMessage} isVisible={tooltipVisible} />
       {loading ? (
         <Spinner />
       ) : (

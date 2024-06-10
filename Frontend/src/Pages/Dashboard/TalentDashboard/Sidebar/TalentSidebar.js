@@ -7,7 +7,7 @@ import {
   FaEnvelopeOpenText,
   // FaRegListAlt,
   // FaRegFileAlt,
-  FaRegEnvelope,
+  // FaRegEnvelope,
   FaCog,
   FaSignOutAlt,
   FaArrowCircleRight,
@@ -82,7 +82,7 @@ const TalentSidebar = () => {
                 <FaRegFileAlt /> {!collapsed && "Opportunities"}
               </NavLink>
             </li> */}
-            <li>
+            {/* <li>
               <NavLink
                 to="/TMessages"
                 className="sidebar-link"
@@ -90,7 +90,7 @@ const TalentSidebar = () => {
               >
                 <FaRegEnvelope /> {!collapsed && "Messages"}
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="/Talentsettings"

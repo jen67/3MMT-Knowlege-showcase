@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 import Modal from "../../../../../../Components/Modal/Modal";
 import CustomSelect from "../../../../../../Components/Custom/CustomSelect";
+import { useAuth } from "../../../../../../Context/Authcontext"; 
 import "../../../../../Signup/Signup.css";
 import "../../../../../Login/Login.css";
 import "./Post-jobs.css";
@@ -10,6 +11,7 @@ import "./Post-jobs.css";
 const PostJob = () => {
   const location = useLocation();
   const job = location.state ? location.state.job : null;
+  const { updateJobId } = useAuth();
 
   const [title, setTitle] = useState(job ? job.title : "");
   const [locationState, setLocationState] = useState(job ? job.location : "");
@@ -169,6 +171,7 @@ const PostJob = () => {
             job ? "Job updated successfully!" : "Job posted successfully!"
           );
           setShowModal(true);
+          updateJobId(data._id); 
           if (!job) {
             setTitle("");
             setDescription("");

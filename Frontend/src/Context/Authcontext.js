@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [talentName, setTalentName] = useState(
     () => Cookies.get("talentName") || ""
   );
+  const [jobId, setJobId] = useState(() => Cookies.get("jobId") || "");
   const navigate = useNavigate();
 
   const updateUser = (newUserData) => {
@@ -31,10 +32,20 @@ export const AuthProvider = ({ children }) => {
     Cookies.set("talentName", name);
   };
 
+  const updateJobId = (id) => {
+    setJobId(id);
+    Cookies.set("jobId", id);
+  };
+
   const logout = () => {
     setUser(null);
     setUserName("");
     setTalentName("");
+    setJobId("");
+    Cookies.remove("user");
+    Cookies.remove("userName");
+    Cookies.remove("talentName");
+    Cookies.remove("jobId");
     navigate("/login");
   };
 
@@ -44,9 +55,11 @@ export const AuthProvider = ({ children }) => {
         user,
         userName,
         talentName,
+        jobId,
         updateUser,
         updateUserName,
         updateTalentName,
+        updateJobId,
         logout,
       }}
     >

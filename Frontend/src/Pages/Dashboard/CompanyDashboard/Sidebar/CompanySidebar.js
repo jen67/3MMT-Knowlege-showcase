@@ -4,10 +4,10 @@ import {
   FaHome,
   FaUser,
   FaBriefcase,
-  FaEnvelopeOpenText,
+  // FaEnvelopeOpenText,
   // FaRegListAlt,
   // FaRegFileAlt,
-  FaRegEnvelope,
+  // FaRegEnvelope,
   FaCog,
   FaSignOutAlt,
   FaArrowCircleRight,
@@ -74,7 +74,7 @@ const CompanySidebar = () => {
                 <FaTasks /> {!collapsed && "Manage Jobs"}
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/Applications"
                 className="sidebar-link"
@@ -82,7 +82,7 @@ const CompanySidebar = () => {
               >
                 <FaEnvelopeOpenText /> {!collapsed && "Applications"}
               </NavLink>
-            </li>
+            </li> */}
             {/* <li>
               <NavLink
                 to="/Shortlisted"
@@ -101,7 +101,7 @@ const CompanySidebar = () => {
                 <FaRegFileAlt /> {!collapsed && "Resumes"}
               </NavLink>
             </li> */}
-            <li>
+            {/* <li>
               <NavLink
                 to="/ChatPage"
                 className="sidebar-link"
@@ -109,7 +109,7 @@ const CompanySidebar = () => {
               >
                 <FaRegEnvelope /> {!collapsed && "Messages"}
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="/Settings"
